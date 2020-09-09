@@ -19,7 +19,7 @@ public class CoroutineSpawnStars : MonoBehaviour
                 Camera.main.farClipPlane / 2));
 
             Instantiate(Star, position, Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
