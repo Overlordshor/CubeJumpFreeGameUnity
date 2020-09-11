@@ -3,6 +3,7 @@
 public class SpawnCubes : MonoBehaviour
 {
     public GameObject Cube;
+    public GameObject CubesParent;
 
     private void Start()
     {
