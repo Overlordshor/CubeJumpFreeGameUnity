@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GameArrengement : MonoBehaviour
 {
     public Text GameNameText, PlayGameText;
-    public Buttons buttons;
+    public Buttons Buttons;
     public GameObject MainCube;
     public GameObject Scene;
 
@@ -12,8 +12,9 @@ public class GameArrengement : MonoBehaviour
     {
         GameNameText.text = "0";
         PlayGameText.gameObject.SetActive(false);
-        buttons.GoAway();
+        Buttons.GoAway();
         MainCube.GetComponent<Animation>().Play("StartGameCube");
         Scene.GetComponent<SpawnCubes>().enabled = true;
+        Destroy(this);
     }
 }
