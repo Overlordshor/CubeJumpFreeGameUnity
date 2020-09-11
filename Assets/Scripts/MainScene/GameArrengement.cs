@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickDetector : MonoBehaviour
+public class GameArrengement : MonoBehaviour
 {
     public Text GameNameText, PlayGameText;
     public Buttons buttons;
     public GameObject MainCube;
+    public GameObject Scene;
 
     private void OnMouseDown()
     {
@@ -13,5 +14,6 @@ public class ClickDetector : MonoBehaviour
         PlayGameText.gameObject.SetActive(false);
         buttons.GoAway();
         MainCube.GetComponent<Animation>().Play("StartGameCube");
+        Scene.GetComponent<SpawnCubes>().enabled = true;
     }
 }

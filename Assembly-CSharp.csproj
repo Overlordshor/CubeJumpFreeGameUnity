@@ -64,10 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainScene\Buttons.cs" />
-    <Compile Include="Assets\Scripts\MainScene\ClickDetector.cs" />
     <Compile Include="Assets\Scripts\MainScene\CoroutineSpawnStars.cs" />
+    <Compile Include="Assets\Scripts\MainScene\GameArrengement.cs" />
     <Compile Include="Assets\Scripts\MainScene\Star.cs" />
     <Compile Include="Assets\Scripts\MainScene\TextFade.cs" />
+    <Compile Include="Assets\Scripts\SpawnCubes.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
