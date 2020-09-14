@@ -10,7 +10,7 @@ public class JumpClickController : MonoBehaviour
 
     private void Start()
     {
-        gameCube = Cube.GetComponent<CubeJump>();
+        gameCube = Cube.GetComponentInChildren<CubeJump>();
         clickDetected = false;
     }
 
