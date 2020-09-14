@@ -2,57 +2,41 @@
 
 public class CubeJump : MonoBehaviour
 {
-    public GameObject Cube;
+    private float originalScaleCube = 1f;
+    private float compressionScaleCube = 0.3f;
+    private Vector3 forceCompression = new Vector3(0, 0.01f, 0f);
 
-    private bool clickDetected;
-    private float originalScaleCube;
-    private float compressionScaleCube;
-    private Vector3 forceCompression;
-    private float startTime;
-    private float forceJump;
+    private Transform transformCube;
     private Rigidbody rigidbodyCube;
+
+    public void Squeeze(bool clickDetected)
+    {
+        if (clickDetected && transformCube.localScale.y > compressionScaleCube)
+        {
+            transformCube.localScale -= forceCompression;
+        }
+        else if (transformCube.localScale.y < originalScaleCube)
+        {
+            transformCube.localScale += forceCompression * 2;
+        }
+    }
+
+    public void Jump(float pushtime)
+    {
+        var forceJump = GetForces(pushtime);
+
+        rigidbodyCube.AddRelativeForce(transform.right * -forceJump);
+        rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
+    }
 
     private void Start()
     {
-        clickDetected = false;
-        originalScaleCube = 1f;
-        compressionScaleCube = 0.3f;
-        forceCompression = new Vector3(0, 0.01f, 0f);
-        rigidbodyCube = Cube.GetComponent<Rigidbody>();
+        transformCube = gameObject.GetComponent<Transform>();
+        rigidbodyCube = gameObject.GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    private float GetForces(float pushTime)
     {
-        if (clickDetected && Cube.transform.localScale.y > compressionScaleCube)
-        {
-            Cube.transform.localScale -= forceCompression;
-        }
-        else if (Cube.transform.localScale.y < originalScaleCube)
-        {
-            Cube.transform.localScale += forceCompression * 2;
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        clickDetected = true;
-
-        startTime = Time.time;
-    }
-
-    private void OnMouseUp()
-    {
-        clickDetected = false;
-
-        forceJump = GetForces();
-
-        rigidbodyCube.AddRelativeForce(Cube.transform.right * -forceJump);
-        rigidbodyCube.AddRelativeForce(Cube.transform.up * forceJump * 2.5f);
-    }
-
-    private float GetForces()
-    {
-        var pushTime = Time.time - startTime;
         float force;
         if (pushTime < 3f)
         {

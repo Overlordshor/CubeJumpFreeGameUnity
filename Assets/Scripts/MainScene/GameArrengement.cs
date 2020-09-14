@@ -30,7 +30,7 @@ public class GameArrengement : MonoBehaviour
 
     private void SwitchScriptsScene()
     {
-        GetComponent<CubeJump>().enabled = true;
+        GetComponent<JumpClickController>().enabled = true;
         Destroy(this);
     }
 }
