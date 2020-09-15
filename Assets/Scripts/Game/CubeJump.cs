@@ -11,6 +11,7 @@ public class CubeJump : MonoBehaviour
 
     private bool isGrounded = true;
     private int layerGround = 8;
+    private int layerCube = 9;
 
     public void Squeeze(bool clickDetected)
     {
@@ -66,6 +67,9 @@ public class CubeJump : MonoBehaviour
         if (collision.gameObject.layer == layerGround)
         {
             isGrounded = true;
+        }
+        if (collision.gameObject.layer == layerCube)
+        {
         }
     }
 }
