@@ -8,6 +8,7 @@ public class CubeJump : MonoBehaviour
 
     private Transform transformCube;
     private Rigidbody rigidbodyCube;
+    private SpawnCubes spawnCubes;
 
     private bool isGrounded = true;
     private int layerGround = 8;
@@ -42,6 +43,7 @@ public class CubeJump : MonoBehaviour
     {
         transformCube = gameObject.GetComponent<Transform>();
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
+        spawnCubes = GetComponentInParent<SpawnCubes>();
     }
 
     private float GetForces(float pushTime)
@@ -70,6 +72,8 @@ public class CubeJump : MonoBehaviour
         }
         if (collision.gameObject.layer == layerCube)
         {
+            FindObjectOfType<SpawnCubes>().GetNewCube();
+            Destroy(this);
         }
     }
 }

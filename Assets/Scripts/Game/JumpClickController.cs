@@ -8,6 +8,11 @@ public class JumpClickController : MonoBehaviour
     private float startTime;
     private CubeJump gameCube;
 
+    public void GetControl(GameObject cube)
+    {
+        gameCube = cube.GetComponentInChildren<CubeJump>();
+    }
+
     private void Start()
     {
         gameCube = Cube.GetComponentInChildren<CubeJump>();
