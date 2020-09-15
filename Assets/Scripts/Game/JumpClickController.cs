@@ -31,6 +31,6 @@ public class JumpClickController : MonoBehaviour
         clickDetected = false;
 
         var pushTime = Time.time - startTime;
-        gameCube.Jump(pushTime);
+        gameCube?.Jump(pushTime);
     }
 }

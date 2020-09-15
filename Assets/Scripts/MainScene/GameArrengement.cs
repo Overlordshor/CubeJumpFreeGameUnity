@@ -7,13 +7,27 @@ public class GameArrengement : MonoBehaviour
     public Buttons Buttons;
     public GameObject MainCube;
 
+    private SpawnCubes spawnCubes;
+
+    private void Start()
+    {
+        spawnCubes = GetComponentInParent<SpawnCubes>();
+    }
+
+    private void Update()
+    {
+        if (!MainCube.GetComponent<Animation>().isPlaying)
+        {
+            MainCube.AddComponent<Rigidbody>();
+            SwitchScriptsScene();
+        }
+    }
+
     private void OnMouseDown()
     {
         SwtichTextsScene();
 
         AnimateStartGameUI();
-
-        SwitchScriptsScene();
     }
 
     private void SwtichTextsScene()
@@ -30,6 +44,7 @@ public class GameArrengement : MonoBehaviour
 
     private void SwitchScriptsScene()
     {
+        spawnCubes.GetNewCube();
         GetComponent<JumpClickController>().enabled = true;
         Destroy(this);
     }
