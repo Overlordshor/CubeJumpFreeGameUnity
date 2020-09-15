@@ -9,9 +9,12 @@ public class CubeJump : MonoBehaviour
     private Transform transformCube;
     private Rigidbody rigidbodyCube;
 
+    private bool isGrounded = true;
+    private int layerGround = 8;
+
     public void Squeeze(bool clickDetected)
     {
-        if (clickDetected && transformCube.localScale.y > compressionScaleCube)
+        if (clickDetected && transformCube.localScale.y > compressionScaleCube && isGrounded)
         {
             transformCube.localScale -= forceCompression;
         }
@@ -23,10 +26,15 @@ public class CubeJump : MonoBehaviour
 
     public void Jump(float pushtime)
     {
-        var forceJump = GetForces(pushtime);
+        if (isGrounded)
+        {
+            var forceJump = GetForces(pushtime);
 
-        rigidbodyCube.AddRelativeForce(transform.right * -forceJump);
-        rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
+            rigidbodyCube.AddRelativeForce(transform.right * -forceJump);
+            rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
+
+            isGrounded = false;
+        }
     }
 
     private void Start()
@@ -51,5 +59,13 @@ public class CubeJump : MonoBehaviour
             force = 300f;
         }
         return force;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == layerGround)
+        {
+            isGrounded = true;
+        }
     }
 }
