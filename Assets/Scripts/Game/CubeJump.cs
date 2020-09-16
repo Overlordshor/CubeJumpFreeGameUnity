@@ -2,7 +2,7 @@
 
 public class CubeJump : MonoBehaviour
 {
-    private float originalScaleCube = 1f;
+    private float originalScaleCube = 0.6f;
     private float compressionScaleCube = 0.3f;
     private Vector3 forceCompression = new Vector3(0, 0.01f, 0f);
 
@@ -46,18 +46,7 @@ public class CubeJump : MonoBehaviour
     private float GetForces(float pushTime)
     {
         float force;
-        if (pushTime < 3f)
-        {
-            force = 190f * pushTime;
-            if (force < 60f)
-            {
-                force = 60f;
-            }
-        }
-        else
-        {
-            force = 300f;
-        }
+        force = 400f * pushTime;
         return force;
     }
 }
