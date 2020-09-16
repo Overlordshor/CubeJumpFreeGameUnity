@@ -32,7 +32,7 @@ public class CubeJump : MonoBehaviour
             rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
 
             gameChecker.IsGround = false;
-            gameChecker.JumpAttempt--;
+            gameChecker.LoseJumpAttempt();
         }
     }
 
