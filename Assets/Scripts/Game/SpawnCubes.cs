@@ -10,11 +10,13 @@ public class SpawnCubes : MonoBehaviour
     private Score score;
     private JumpClickController jumpClickController;
 
+    private int layerCube = 9;
+
     public void GetNewCube()
     {
         var cube = Instantiate(Cube, new Vector3(-4f, -4.08f, 5f), Quaternion.Euler(new Vector3(0, 60, 0)));
         cube.transform.parent = CubesParent.transform;
-        cube.layer = 9;
+        cube.layer = layerCube;
         jumpClickController.GetControl(cube);
 
         countCube++;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CubeJump : MonoBehaviour
 {
@@ -8,11 +9,12 @@ public class CubeJump : MonoBehaviour
 
     private Transform transformCube;
     private Rigidbody rigidbodyCube;
-    private SpawnCubes spawnCubes;
 
     private bool isGrounded = true;
     private int layerGround = 8;
     private int layerCube = 9;
+
+    private int jumpAttempt = 1;
 
     public void Squeeze(bool clickDetected)
     {
@@ -36,14 +38,15 @@ public class CubeJump : MonoBehaviour
             rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
 
             isGrounded = false;
+            jumpAttempt--;
         }
     }
 
+    // прыгнули, на земле
     private void Start()
     {
         transformCube = gameObject.GetComponent<Transform>();
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
-        spawnCubes = GetComponentInParent<SpawnCubes>();
     }
 
     private float GetForces(float pushTime)
@@ -69,6 +72,10 @@ public class CubeJump : MonoBehaviour
         if (collision.gameObject.layer == layerGround)
         {
             isGrounded = true;
+            if (jumpAttempt == 0)
+            {
+                gameObject.SetActive(false);
+            }
         }
         if (collision.gameObject.layer == layerCube)
         {

@@ -27,7 +27,6 @@ public class JumpClickController : MonoBehaviour
     private void OnMouseDown()
     {
         clickDetected = true;
-
         startTime = Time.time;
     }
 
