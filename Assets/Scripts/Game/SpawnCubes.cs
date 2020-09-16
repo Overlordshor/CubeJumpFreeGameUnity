@@ -14,8 +14,9 @@ public class SpawnCubes : MonoBehaviour
 
     public void GetNewCube()
     {
-        var cube = Instantiate(Cube, new Vector3(-4f, -4.08f, 5f), Quaternion.Euler(new Vector3(0, 60, 0)));
-        cube.transform.parent = CubesParent.transform;
+        var cube = Instantiate(Cube, new Vector3(-4f, -4.08f, 5f),
+            Quaternion.Euler(new Vector3(0, 60, 0)),
+            CubesParent.transform);
         cube.layer = layerCube;
         jumpClickController.GetControl(cube);
 

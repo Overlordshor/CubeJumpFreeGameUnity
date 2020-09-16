@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\CubeJump.cs" />
+    <Compile Include="Assets\Scripts\Game\GameChecker.cs" />
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
     <Compile Include="Assets\Scripts\Game\Score.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />

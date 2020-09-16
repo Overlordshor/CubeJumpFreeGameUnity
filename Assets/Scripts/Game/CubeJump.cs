@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CubeJump : MonoBehaviour
 {
@@ -9,16 +8,11 @@ public class CubeJump : MonoBehaviour
 
     private Transform transformCube;
     private Rigidbody rigidbodyCube;
-
-    private bool isGrounded = true;
-    private int layerGround = 8;
-    private int layerCube = 9;
-
-    private int jumpAttempt = 1;
+    private GameChecker gameChecker;
 
     public void Squeeze(bool clickDetected)
     {
-        if (clickDetected && transformCube.localScale.y > compressionScaleCube && isGrounded)
+        if (clickDetected && transformCube.localScale.y > compressionScaleCube && gameChecker.IsGround)
         {
             transformCube.localScale -= forceCompression;
         }
@@ -30,23 +24,23 @@ public class CubeJump : MonoBehaviour
 
     public void Jump(float pushtime)
     {
-        if (isGrounded)
+        if (gameChecker.IsGround)
         {
             var forceJump = GetForces(pushtime);
 
             rigidbodyCube.AddRelativeForce(transform.right * -forceJump);
             rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
 
-            isGrounded = false;
-            jumpAttempt--;
+            gameChecker.IsGround = false;
+            gameChecker.JumpAttempt--;
         }
     }
 
-    // прыгнули, на земле
     private void Start()
     {
         transformCube = gameObject.GetComponent<Transform>();
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
+        gameChecker = gameObject.GetComponent<GameChecker>();
     }
 
     private float GetForces(float pushTime)
@@ -65,22 +59,5 @@ public class CubeJump : MonoBehaviour
             force = 300f;
         }
         return force;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == layerGround)
-        {
-            isGrounded = true;
-            if (jumpAttempt == 0)
-            {
-                gameObject.SetActive(false);
-            }
-        }
-        if (collision.gameObject.layer == layerCube)
-        {
-            FindObjectOfType<SpawnCubes>().GetNewCube();
-            Destroy(this);
-        }
     }
 }
