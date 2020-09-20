@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class JumpClickController : MonoBehaviour
 {
     public GameObject Cube;
+    public Text RulesText;
 
     private bool clickDetected;
     private float startTime;
@@ -17,6 +19,8 @@ public class JumpClickController : MonoBehaviour
     {
         gameCube = Cube.GetComponentInChildren<CubeJump>();
         clickDetected = false;
+        RulesText.text = "Press and hold to jump. Get points for every cube hit";
+        RulesText.gameObject.SetActive(true);
     }
 
     private void FixedUpdate()
@@ -36,5 +40,10 @@ public class JumpClickController : MonoBehaviour
 
         var pushTime = Time.time - startTime;
         gameCube?.Jump(pushTime);
+
+        if (RulesText.gameObject.activeSelf)
+        {
+            RulesText.gameObject.SetActive(false);
+        }
     }
 }
