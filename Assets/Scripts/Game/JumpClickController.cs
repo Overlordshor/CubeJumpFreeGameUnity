@@ -15,6 +15,12 @@ public class JumpClickController : MonoBehaviour
         gameCube = cube.GetComponentInChildren<CubeJump>();
     }
 
+    public void GetFinalText()
+    {
+        RulesText.text = "Click to RESTART";
+        RulesText.gameObject.SetActive(true);
+    }
+
     private void Start()
     {
         gameCube = Cube.GetComponentInChildren<CubeJump>();

@@ -14,6 +14,7 @@ public class GameChecker : MonoBehaviour
     public void LoseJumpAttempt()
     {
         jumpAttempt--;
+
         if (!gameObject.activeSelf)
         {
             SceneManager.LoadScene("Main");
@@ -27,6 +28,10 @@ public class GameChecker : MonoBehaviour
             IsGround = true;
             if (jumpAttempt == 0 || successJump)
             {
+                if (!gaveNewCube)
+                {
+                    FindObjectOfType<JumpClickController>().GetFinalText();
+                }
                 gameObject.SetActive(false);
             }
         }
