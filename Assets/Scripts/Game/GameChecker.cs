@@ -9,6 +9,8 @@ public class GameChecker : MonoBehaviour
     private int jumpAttempt = 1;
     private int layerGround = 8;
     private int layerCube = 9;
+    private int layerBackGround = 10;
+
     private bool successJump = false;
     private bool gaveNewCube = false;
 

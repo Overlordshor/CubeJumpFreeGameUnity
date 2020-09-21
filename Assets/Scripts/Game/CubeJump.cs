@@ -47,6 +47,10 @@ public class CubeJump : MonoBehaviour
     {
         float force;
         force = 370f * pushTime;
+        if (force > 300f)
+        {
+            force = 300f;
+        }
         return force;
     }
 }
