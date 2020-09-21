@@ -339,6 +339,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9148699203685057885}
+  - component: {fileID: -1285121183750327588}
+  - component: {fileID: -1754878224288769001}
   m_Layer: 0
   m_Name: BrokenCube
   m_TagString: Untagged
@@ -368,6 +370,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1285121183750327588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837467971476825538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42807635686f480468c3ed8fdc6ed04b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &-1754878224288769001
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837467971476825538}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3598603230294520411
 GameObject:
   m_ObjectHideFlags: 0
