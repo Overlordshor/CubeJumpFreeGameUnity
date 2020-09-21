@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameChecker : MonoBehaviour
 {
     public bool IsGround { get; set; } = true;
+    public GameObject BrokenCube;
 
     private int jumpAttempt = 1;
     private int layerGround = 8;
@@ -32,6 +33,7 @@ public class GameChecker : MonoBehaviour
                 {
                     FindObjectOfType<JumpClickController>().GetFinalText();
                 }
+                Instantiate(BrokenCube, gameObject.transform.position, Quaternion.identity, gameObject.transform.parent);
                 gameObject.SetActive(false);
             }
         }

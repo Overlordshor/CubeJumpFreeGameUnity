@@ -153,3 +153,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85bf4a01f3c0ed429f425082ebe226a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BrokenCube: {fileID: 1837467971476825538, guid: 79fe7b31f6bedc443bbc738df14b28b3,
+    type: 3}
