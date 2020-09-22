@@ -13,6 +13,9 @@ public class GameChecker : MonoBehaviour
     private bool successJump = false;
     private bool gaveNewCube = false;
 
+    private GameObject cubesTower;
+    private Score score;
+
     public void LoseJumpAttempt()
     {
         jumpAttempt--;
@@ -21,6 +24,12 @@ public class GameChecker : MonoBehaviour
         {
             SceneManager.LoadScene("Main");
         }
+    }
+
+    private void Start()
+    {
+        cubesTower = GameObject.Find("Cubes");
+        score = FindObjectOfType<Score>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -34,7 +43,10 @@ public class GameChecker : MonoBehaviour
                 {
                     FindObjectOfType<JumpClickController>().GetFinalText();
                 }
-                Instantiate(BrokenCube, gameObject.transform.position, Quaternion.identity, gameObject.transform.parent);
+                Instantiate(BrokenCube,
+                            gameObject.transform.position,
+                            Quaternion.identity,
+                            gameObject.transform.parent);
                 gameObject.SetActive(false);
 
                 if (!GameObject.Find("DeactivatedCubes"))
@@ -55,7 +67,16 @@ public class GameChecker : MonoBehaviour
             {
                 FindObjectOfType<SpawnCubes>().GetNewCube();
                 gaveNewCube = true;
+
+                PassHeightTower();
+                score.Add();
             }
         }
+    }
+
+    private void PassHeightTower()
+    {
+        var heigtTower = cubesTower.transform.childCount;
+        score.RefreshBuff(heigtTower);
     }
 }

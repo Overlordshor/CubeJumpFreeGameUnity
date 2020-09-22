@@ -6,11 +6,17 @@ public class Score : MonoBehaviour
 {
     public Text GameNameText;
 
-    private int score;
+    private int totalScore = 0;
+    private int buffPower;
 
-    public void Add(int countCube)
+    public void Add()
     {
-        score = countCube - 1; // -firstCube;
-        GameNameText.text = Convert.ToString(score);
+        totalScore += 1 * buffPower;
+        GameNameText.text = Convert.ToString(totalScore);
+    }
+
+    public void RefreshBuff(int heightTower)
+    {
+        buffPower = heightTower - 2;
     }
 }

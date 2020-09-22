@@ -6,8 +6,6 @@ public class SpawnCubes : MonoBehaviour
     public GameObject MainCube;
     public GameObject CubesParent;
 
-    private int countCube;
-    private Score score;
     private JumpClickController jumpClickController;
 
     private int layerCube = 9;
@@ -19,14 +17,10 @@ public class SpawnCubes : MonoBehaviour
             CubesParent.transform);
         cube.layer = layerCube;
         jumpClickController.GetControl(cube);
-
-        countCube++;
-        score.Add(countCube);
     }
 
     private void Start()
     {
-        score = gameObject.GetComponent<Score>();
         jumpClickController = gameObject.GetComponentInChildren<JumpClickController>();
     }
 }
