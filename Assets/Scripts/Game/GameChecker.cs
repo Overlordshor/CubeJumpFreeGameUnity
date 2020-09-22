@@ -9,7 +9,6 @@ public class GameChecker : MonoBehaviour
     private int jumpAttempt = 1;
     private int layerGround = 8;
     private int layerCube = 9;
-    private int layerBackGround = 10;
 
     private bool successJump = false;
     private bool gaveNewCube = false;
@@ -37,6 +36,16 @@ public class GameChecker : MonoBehaviour
                 }
                 Instantiate(BrokenCube, gameObject.transform.position, Quaternion.identity, gameObject.transform.parent);
                 gameObject.SetActive(false);
+
+                if (!GameObject.Find("DeactivatedCubes"))
+                {
+                    var deactivatedCubes = new GameObject("DeactivatedCubes");
+                    gameObject.transform.parent = deactivatedCubes.transform;
+                }
+                else
+                {
+                    gameObject.transform.parent = GameObject.Find("DeactivatedCubes").transform;
+                }
             }
         }
         if (collision.gameObject.layer == layerCube)
