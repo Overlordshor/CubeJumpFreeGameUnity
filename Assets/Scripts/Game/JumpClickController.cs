@@ -8,11 +8,12 @@ public class JumpClickController : MonoBehaviour
 
     private bool clickDetected;
     private float startTime;
-    private CubeJump gameCube;
+    private Cube gameCube;
+    private Game game;
 
     public void GetControl(GameObject cube)
     {
-        gameCube = cube.GetComponentInChildren<CubeJump>();
+        gameCube = cube.GetComponentInChildren<Cube>();
     }
 
     public void GetFinalText()
@@ -23,7 +24,8 @@ public class JumpClickController : MonoBehaviour
 
     private void Start()
     {
-        gameCube = Cube.GetComponentInChildren<CubeJump>();
+        gameCube = Cube.GetComponentInChildren<Cube>();
+        game = GetComponentInParent<Game>();
         clickDetected = false;
         RulesText.text = "Press and hold to jump. Get points for every cube hit";
         RulesText.gameObject.SetActive(true);
@@ -38,6 +40,10 @@ public class JumpClickController : MonoBehaviour
     {
         clickDetected = true;
         startTime = Time.time;
+        if (game.JumpAttempt == 0)
+        {
+            game.Restart();
+        }
     }
 
     private void OnMouseUp()
