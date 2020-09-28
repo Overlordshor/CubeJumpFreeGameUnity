@@ -5,6 +5,7 @@ public class JumpClickController : MonoBehaviour
 {
     public GameObject Cube;
     public Text RulesText;
+    public GameObject DeactivatedCubes;
 
     private bool clickDetected;
     private float startTime;
@@ -40,7 +41,7 @@ public class JumpClickController : MonoBehaviour
     {
         clickDetected = true;
         startTime = Time.time;
-        if (game?.JumpAttempt == 0)
+        if (game?.JumpAttempt == 0 && gameCube.transform.parent == DeactivatedCubes.transform)
         {
             game.Restart();
         }
