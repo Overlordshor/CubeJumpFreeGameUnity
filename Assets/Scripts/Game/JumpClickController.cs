@@ -40,7 +40,7 @@ public class JumpClickController : MonoBehaviour
     {
         clickDetected = true;
         startTime = Time.time;
-        if (game.JumpAttempt == 0)
+        if (game?.JumpAttempt == 0)
         {
             game.Restart();
         }
