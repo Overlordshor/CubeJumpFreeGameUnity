@@ -30,8 +30,14 @@ public class Game : MonoBehaviour
             AppearedNewCube = true;
 
             PassHeightTower();
+            score.PrintBuffOnScreen();
             score.Add();
         }
+    }
+
+    public int GetHeightTower()
+    {
+        return CubesTower.transform.childCount;
     }
 
     public void LoseJumpAttempt()
