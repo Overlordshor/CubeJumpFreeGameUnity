@@ -18,6 +18,8 @@ public class Cube : MonoBehaviour
     private Rigidbody rigidbodyCube;
     private Game game;
 
+    private Color color;
+
     private bool isGround { get; set; } = true;
 
     public void Squeeze(bool clickDetected)
@@ -61,12 +63,13 @@ public class Cube : MonoBehaviour
     private void SetRandomColor()
     {
         GetComponent<MeshRenderer>().material.color = new Color(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
+        color = GetComponent<MeshRenderer>().material.color;
     }
 
     private float GetRandomFloat()
     {
-        float v = Random.Range(0f, 1f);
-        return v;
+        float random = Random.Range(0f, 1f);
+        return random;
     }
 
     private float GetForces(float pushTime)
@@ -103,10 +106,11 @@ public class Cube : MonoBehaviour
 
     private void BreakDown()
     {
-        Instantiate(BrokenCube,
+        var brokenCube = Instantiate(BrokenCube,
                             gameObject.transform.position,
                             Quaternion.identity,
                             gameObject.transform.parent);
+        brokenCube.GetComponent<BrokenCubes>().GetColorCube(color);
         gameObject.SetActive(false);
         gameObject.transform.parent = game.DeactivatedCubes.transform;
     }
