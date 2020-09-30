@@ -52,7 +52,21 @@ public class Cube : MonoBehaviour
         transformCube = gameObject.GetComponent<Transform>();
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
         game = FindObjectOfType<Game>();
+
+        SetRandomColor();
+
         game.AppearedNewCube = false;
+    }
+
+    private void SetRandomColor()
+    {
+        GetComponent<MeshRenderer>().material.color = new Color(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
+    }
+
+    private float GetRandomFloat()
+    {
+        float v = Random.Range(0f, 1f);
+        return v;
     }
 
     private float GetForces(float pushTime)

@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Game\Score.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Coin.cs" />
     <Compile Include="Assets\Scripts\MainScene\CoroutineSpawnStars.cs" />
     <Compile Include="Assets\Scripts\MainScene\GameArrengement.cs" />
     <Compile Include="Assets\Scripts\MainScene\Star.cs" />

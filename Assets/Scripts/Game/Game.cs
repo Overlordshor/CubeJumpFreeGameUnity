@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
 
     private SpawnCubes cubeSpawner;
     private Score score;
+    private Coin coin;
 
     public int JumpAttempt { get; set; } = 1;
 
@@ -32,6 +33,7 @@ public class Game : MonoBehaviour
             PassHeightTower();
             score.PrintBuffOnScreen();
             score.Add();
+            coin.Add();
         }
     }
 
@@ -54,6 +56,7 @@ public class Game : MonoBehaviour
     {
         cubeSpawner = GetComponent<SpawnCubes>();
         score = GetComponent<Score>();
+        coin = GetComponent<Coin>();
     }
 
     private void PassHeightTower()
