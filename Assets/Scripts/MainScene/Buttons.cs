@@ -31,15 +31,15 @@ public class Buttons : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        SetLocalScale(pressedScale);
-    }
+    //private void OnMouseDown()
+    //{
+    //    SetLocalScale(pressedScale);
+    //}
 
-    private void OnMouseUp()
-    {
-        SetLocalScale(originalScale);
-    }
+    //private void OnMouseUp()
+    //{
+    //    SetLocalScale(originalScale);
+    //}
 
     private void OnMouseUpAsButton()
     {
