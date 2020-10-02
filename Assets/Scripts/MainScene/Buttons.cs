@@ -3,9 +3,7 @@ using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject ButtonVolume;
-
-    private bool mute;
+    public GameObject ButtonVolume, ButtonPrompt;
 
     //private Vector3 originalScale;
     //private Vector3 pressedScale;
@@ -60,6 +58,10 @@ public class Buttons : MonoBehaviour
 
             case "Volume":
                 ButtonVolume.GetComponent<ButtonVolume>().GetVolume();
+                break;
+
+            case "Prompt":
+                ButtonPrompt.GetComponent<ButtonPrompt>().GetPrompt();
                 break;
         }
     }
