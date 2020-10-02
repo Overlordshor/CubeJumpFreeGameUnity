@@ -33,11 +33,29 @@ public class Buttons : MonoBehaviour
 
     private void OnMouseDown()
     {
-        transform.localScale = pressedScale;
+        SetLocalScale(pressedScale);
     }
 
     private void OnMouseUp()
     {
-        transform.localScale = originalScale;
+        SetLocalScale(originalScale);
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        switch (gameObject.name)
+        {
+            case "SettingButton":
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
+                }
+                break;
+        }
+    }
+
+    private void SetLocalScale(Vector3 scale)
+    {
+        transform.localScale = scale;
     }
 }
