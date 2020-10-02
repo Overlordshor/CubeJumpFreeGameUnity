@@ -3,14 +3,15 @@ using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
-    public Sprite VolumeOn, VolumeOff;
+    public GameObject ButtonVolume;
 
     private bool mute;
 
-    private Vector3 originalScale;
-    private Vector3 pressedScale;
+    //private Vector3 originalScale;
+    //private Vector3 pressedScale;
+
     private float speed;
-    private bool move;
+    private bool move = false;
     private RectTransform button;
 
     public void GoAway()
@@ -22,23 +23,10 @@ public class Buttons : MonoBehaviour
 
     private void Start()
     {
-        originalScale = new Vector3(0.01915709f, 0.01915709f);
-        pressedScale = new Vector3(0.027f, 0.027f);
-        button = GetComponent<RectTransform>();
-        move = false;
-        SetVolume();
-    }
+        //originalScale = new Vector3(0.01915709f, 0.01915709f);
+        //pressedScale = new Vector3(0.027f, 0.027f);
 
-    private void SetVolume()
-    {
-        if (PlayerPrefs.GetString("Mute") == "True")
-        {
-            mute = true;
-        }
-        else
-        {
-            mute = false;
-        }
+        button = GetComponent<RectTransform>();
     }
 
     private void Update()
@@ -71,20 +59,7 @@ public class Buttons : MonoBehaviour
                 break;
 
             case "Volume":
-                if (mute)
-                {
-                    GetComponent<Image>().sprite = VolumeOn;
-                    mute = false;
-                    PlayerPrefs.SetString("Mute", "False");
-                    print("Дай звук"); // тут звук есть
-                }
-                else
-                {
-                    GetComponent<Image>().sprite = VolumeOff;
-                    mute = true;
-                    PlayerPrefs.SetString("Mute", "True");
-                    print("Убери звук"); // тут звука нет
-                }
+                ButtonVolume.GetComponent<ButtonVolume>().GetVolume();
                 break;
         }
     }
