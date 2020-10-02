@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
+    public Sprite VolumeOn, VolumeOff;
+
+    private bool mute;
+
     private Vector3 originalScale;
     private Vector3 pressedScale;
     private float speed;
@@ -21,6 +26,19 @@ public class Buttons : MonoBehaviour
         pressedScale = new Vector3(0.027f, 0.027f);
         button = GetComponent<RectTransform>();
         move = false;
+        SetVolume();
+    }
+
+    private void SetVolume()
+    {
+        if (PlayerPrefs.GetString("Mute") == "True")
+        {
+            mute = true;
+        }
+        else
+        {
+            mute = false;
+        }
     }
 
     private void Update()
@@ -41,7 +59,7 @@ public class Buttons : MonoBehaviour
     //    SetLocalScale(originalScale);
     //}
 
-    private void OnMouseUpAsButton()
+    protected void OnMouseUpAsButton()
     {
         switch (gameObject.name)
         {
@@ -49,6 +67,23 @@ public class Buttons : MonoBehaviour
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
+                }
+                break;
+
+            case "Volume":
+                if (mute)
+                {
+                    GetComponent<Image>().sprite = VolumeOn;
+                    mute = false;
+                    PlayerPrefs.SetString("Mute", "False");
+                    print("Дай звук"); // тут звук есть
+                }
+                else
+                {
+                    GetComponent<Image>().sprite = VolumeOff;
+                    mute = true;
+                    PlayerPrefs.SetString("Mute", "True");
+                    print("Убери звук"); // тут звука нет
                 }
                 break;
         }
