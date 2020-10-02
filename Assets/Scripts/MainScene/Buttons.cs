@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject ButtonVolume, ButtonPrompt;
+    public GameObject ButtonVolume, ButtonPrompt, Shop;
 
     //private Vector3 originalScale;
     //private Vector3 pressedScale;
@@ -63,11 +62,15 @@ public class Buttons : MonoBehaviour
             case "Prompt":
                 ButtonPrompt.GetComponent<ButtonPrompt>().GetPrompt();
                 break;
+
+            case "ShopButton":
+                Shop.SetActive(!Shop.activeSelf);
+                break;
         }
     }
 
-    private void SetLocalScale(Vector3 scale)
-    {
-        transform.localScale = scale;
-    }
+    //private void SetLocalScale(Vector3 scale)
+    //{
+    //    transform.localScale = scale;
+    //}
 }
