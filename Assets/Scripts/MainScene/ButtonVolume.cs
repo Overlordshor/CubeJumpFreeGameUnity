@@ -8,6 +8,24 @@ public class ButtonVolume : MonoBehaviour
     private Image image;
     private bool mute = false;
 
+    public void GetVolume()
+    {
+        if (mute)
+        {
+            image.sprite = VolumeOn;
+            mute = false;
+            PlayerPrefs.SetString("Mute", "False");
+            Camera.main.GetComponent<AudioListener>().enabled = true;
+        }
+        else
+        {
+            image.sprite = VolumeOff;
+            mute = true;
+            PlayerPrefs.SetString("Mute", "True");
+            Camera.main.GetComponent<AudioListener>().enabled = false;
+        }
+    }
+
     /// <summary>
     /// For correct entry into the GetVolume() function, you need to invert the mute variable;
     /// </summary>
@@ -23,24 +41,6 @@ public class ButtonVolume : MonoBehaviour
         }
 
         GetVolume();
-    }
-
-    public void GetVolume()
-    {
-        if (mute)
-        {
-            image.sprite = VolumeOn;
-            mute = false;
-            PlayerPrefs.SetString("Mute", "False");
-            print("Дай звук"); // тут звук есть
-        }
-        else
-        {
-            image.sprite = VolumeOff;
-            mute = true;
-            PlayerPrefs.SetString("Mute", "True");
-            print("Убери звук"); // тут звука нет
-        }
     }
 
     private void Start()
