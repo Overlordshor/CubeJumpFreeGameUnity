@@ -4,14 +4,14 @@ public class Cube : MonoBehaviour
 {
     public GameObject BrokenCube;
 
-    private int layerGround = 8;
-    private int layerCube = 9;
+    private readonly int layerGround = 8;
+    private readonly int layerCube = 9;
 
     private bool jumped = false;
     private bool passedControl = false;
 
-    private float originalScaleCube = 0.6f;
-    private float compressionScaleCube = 0.3f;
+    private readonly float originalScaleCube = 0.6f;
+    private readonly float compressionScaleCube = 0.3f;
     private Vector3 forceCompression = new Vector3(0, 0.01f, 0f);
 
     private Transform transformCube;
@@ -20,7 +20,7 @@ public class Cube : MonoBehaviour
 
     private Color color;
 
-    private bool isGround { get; set; } = true;
+    private bool isGround = true;
 
     public void Squeeze(bool clickDetected)
     {
