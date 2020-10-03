@@ -9,7 +9,7 @@ public class ButtonPrompt : MonoBehaviour
     private bool activePrompt = true;
 
     /// <summary>
-    /// For correct entry into the GetPrompt() function, you need to invert the mute variable;
+    /// For correct entry into the GetPrompt() function, you need to invert the activePrompt variable;
     /// </summary>
     private void SetPrompt()
     {
@@ -32,14 +32,12 @@ public class ButtonPrompt : MonoBehaviour
             image.sprite = PromptOn;
             activePrompt = true;
             PlayerPrefs.SetString("Prompt", "True");
-            print("Добавь подсказки");
         }
         else
         {
             image.sprite = PromptOff;
             activePrompt = false;
             PlayerPrefs.SetString("Prompt", "False");
-            print("Убери подсказки");
         }
     }
 

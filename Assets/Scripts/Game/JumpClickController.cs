@@ -28,8 +28,11 @@ public class JumpClickController : MonoBehaviour
         gameCube = Cube.GetComponentInChildren<Cube>();
         game = GetComponentInParent<Game>();
         clickDetected = false;
-        RulesText.text = "Press and hold to jump. Get points for every cube hit";
-        RulesText.gameObject.SetActive(true);
+        if (PlayerPrefs.GetString("Prompt") == "True")
+        {
+            RulesText.text = "Press and hold to jump. Get points for every cube hit";
+            RulesText.gameObject.SetActive(true);
+        }
     }
 
     private void FixedUpdate()

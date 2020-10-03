@@ -2,7 +2,7 @@
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject ButtonVolume, ButtonPrompt, Shop;
+    public GameObject ButtonVolume, ButtonPrompt, Shop, Language;
 
     //private Vector3 originalScale;
     //private Vector3 pressedScale;
@@ -65,6 +65,10 @@ public class Buttons : MonoBehaviour
 
             case "ShopButton":
                 Shop.SetActive(!Shop.activeSelf);
+                break;
+
+            case "Language":
+                Language.GetComponent<ButtonLanguage>().GetLanguage();
                 break;
         }
     }
