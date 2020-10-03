@@ -31,7 +31,9 @@ public class Score : MonoBehaviour
         }
         else
         {
-            Buff.text = "Your buff score: " + buffPower;
+            Language.PrintAnyLanguage(Buff,
+           "Your buff score: " + buffPower,
+           "Уровень твоего бафа:" + buffPower);
             Buff.gameObject.SetActive(true);
         }
     }
@@ -47,6 +49,8 @@ public class Score : MonoBehaviour
         {
             PlayerPrefs.SetInt("Record", totalScore);
         }
-        Record.text = "TOP: " + PlayerPrefs.GetInt("Record").ToString();
+        Language.PrintAnyLanguage(Record,
+           "TOP: " + PlayerPrefs.GetInt("Record").ToString(),
+           "Рекорд: " + PlayerPrefs.GetInt("Record").ToString());
     }
 }

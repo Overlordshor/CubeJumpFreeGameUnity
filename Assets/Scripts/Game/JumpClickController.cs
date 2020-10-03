@@ -19,7 +19,7 @@ public class JumpClickController : MonoBehaviour
 
     public void GetFinalText()
     {
-        RulesText.text = "Click to RESTART";
+        Language.PrintAnyLanguage(RulesText, "Click to RESTART", "Нажми, чтобы нажать заново");
         RulesText.gameObject.SetActive(true);
     }
 
@@ -30,7 +30,9 @@ public class JumpClickController : MonoBehaviour
         clickDetected = false;
         if (PlayerPrefs.GetString("Prompt") == "True")
         {
-            RulesText.text = "Press and hold to jump. Get points for every cube hit";
+            Language.PrintAnyLanguage(RulesText,
+                "Press and hold to jump. Get points for every cube hit",
+                "Нажми на экран и удерживай, чтобы прыгнуть. Получай очки за каждое попадание по кубу");
             RulesText.gameObject.SetActive(true);
         }
     }

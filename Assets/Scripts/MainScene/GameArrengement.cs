@@ -12,6 +12,10 @@ public class GameArrengement : MonoBehaviour
     private void Start()
     {
         spawnCubes = GetComponentInParent<SpawnCubes>();
+
+        Language.PrintAnyLanguage(PlayGameText,
+           "TAP TO PLAY",
+           "НАЖМИ ДЛЯ ИГРЫ");
     }
 
     private void Update()
