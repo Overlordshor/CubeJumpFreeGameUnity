@@ -67,6 +67,10 @@ public class Buttons : MonoBehaviour
                 Shop.SetActive(!Shop.activeSelf);
                 break;
 
+            case "Cancel":
+                Shop.SetActive(false);
+                break;
+
             case "Language":
                 Language.GetComponent<ButtonLanguage>().GetLanguage();
                 break;
