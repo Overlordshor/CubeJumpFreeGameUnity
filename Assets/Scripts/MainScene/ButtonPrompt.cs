@@ -13,14 +13,7 @@ public class ButtonPrompt : MonoBehaviour
     /// </summary>
     private void SetPrompt()
     {
-        if (PlayerPrefs.GetString("Prompt") == "True")
-        {
-            activePrompt = false;
-        }
-        else
-        {
-            activePrompt = true;
-        }
+        activePrompt = PlayerPrefs.GetString("Prompt") != "True";
 
         GetPrompt();
     }

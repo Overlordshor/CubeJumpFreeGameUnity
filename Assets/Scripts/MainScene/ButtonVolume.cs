@@ -31,14 +31,7 @@ public class ButtonVolume : MonoBehaviour
     /// </summary>
     private void SetVolume()
     {
-        if (PlayerPrefs.GetString("Mute") == "True")
-        {
-            mute = false;
-        }
-        else
-        {
-            mute = true;
-        }
+        mute = PlayerPrefs.GetString("Mute") != "True";
 
         GetVolume();
     }
