@@ -11,6 +11,6 @@ public class Shop : MonoBehaviour
 
     private void OnDisable()
     {
-        ClickDetector.SetActive(true);
+        ClickDetector?.SetActive(true);
     }
 }

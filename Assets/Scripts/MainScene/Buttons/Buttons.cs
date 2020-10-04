@@ -55,6 +55,10 @@ public class Buttons : MonoBehaviour
                 Shop.SetActive(false);
                 break;
 
+            case "Accept":
+                print("buy Cube"); // тут купить
+                break;
+
             case "Language":
                 Language.GetComponent<ButtonLanguage>().GetLanguage();
                 break;

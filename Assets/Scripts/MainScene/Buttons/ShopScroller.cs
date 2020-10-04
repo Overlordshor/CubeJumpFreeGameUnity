@@ -24,7 +24,7 @@ public class ShopScroller : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        newMousePosition = Input.mousePosition;
+        newMousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
     }
 
     private void OnMouseUp()
