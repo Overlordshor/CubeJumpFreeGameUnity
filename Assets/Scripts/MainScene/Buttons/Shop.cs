@@ -4,7 +4,7 @@ public class Shop : MonoBehaviour
 {
     public GameObject ClickDetector;
 
-    private void Start()
+    private void OnEnable()
     {
         ClickDetector.SetActive(false);
     }

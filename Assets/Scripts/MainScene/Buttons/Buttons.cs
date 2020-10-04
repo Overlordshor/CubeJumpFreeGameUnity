@@ -4,9 +4,6 @@ public class Buttons : MonoBehaviour
 {
     public GameObject ButtonVolume, ButtonPrompt, Shop, Language;
 
-    //private Vector3 originalScale;
-    //private Vector3 pressedScale;
-
     private float speed;
     private bool move = false;
     private RectTransform button;
@@ -20,9 +17,6 @@ public class Buttons : MonoBehaviour
 
     private void Start()
     {
-        //originalScale = new Vector3(0.01915709f, 0.01915709f);
-        //pressedScale = new Vector3(0.027f, 0.027f);
-
         button = GetComponent<RectTransform>();
     }
 
@@ -33,16 +27,6 @@ public class Buttons : MonoBehaviour
             button.offsetMin -= new Vector2(0, speed);
         }
     }
-
-    //private void OnMouseDown()
-    //{
-    //    SetLocalScale(pressedScale);
-    //}
-
-    //private void OnMouseUp()
-    //{
-    //    SetLocalScale(originalScale);
-    //}
 
     protected void OnMouseUpAsButton()
     {
@@ -76,9 +60,4 @@ public class Buttons : MonoBehaviour
                 break;
         }
     }
-
-    //private void SetLocalScale(Vector3 scale)
-    //{
-    //    transform.localScale = scale;
-    //}
 }
