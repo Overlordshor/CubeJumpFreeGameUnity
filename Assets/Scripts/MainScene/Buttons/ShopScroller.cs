@@ -9,12 +9,35 @@ public class ShopScroller : MonoBehaviour
     private float lockedZPosition;
     private readonly float distanceToCube = 3.8f;
 
-    private int selectNumberCube = 1;
+    private string[] cubesName;
+    private string keyOpen = "Open";
+    private int selectNumberCube = 0;
+
+    private ButtonAccept buttonAccept;
+
+    public string GetNameCube()
+    {
+        return cubesName[selectNumberCube];
+    }
 
     private void Start()
     {
         lockedYPosition = Cubes.transform.position.y;
         lockedZPosition = Cubes.transform.position.z;
+        cubesName = GetListCubesName();
+        PlayerPrefs.SetString(cubesName[0], keyOpen);
+
+        buttonAccept = FindObjectOfType<ButtonAccept>();
+    }
+
+    private string[] GetListCubesName()
+    {
+        string[] cubesName = new string[Cubes.transform.childCount];
+        for (int i = 0; i < Cubes.transform.childCount; i++)
+        {
+            cubesName[i] = Cubes.transform.GetChild(i).name;
+        }
+        return cubesName;
     }
 
     private void OnMouseDown()
@@ -29,15 +52,16 @@ public class ShopScroller : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (newMousePosition.x > oldMousePosition.x && selectNumberCube > 1) // move right;
+        if (newMousePosition.x > oldMousePosition.x && selectNumberCube > 0) // move mouse right;
         {
             Cubes.transform.position = new Vector3(Cubes.transform.position.x + distanceToCube, lockedYPosition, lockedZPosition);
             selectNumberCube--;
         }
-        else if (newMousePosition.x < oldMousePosition.x && selectNumberCube < Cubes.transform.childCount) // move left;
+        else if (newMousePosition.x < oldMousePosition.x && selectNumberCube < Cubes.transform.childCount - 1) // move mouse left;
         {
             Cubes.transform.position = new Vector3(Cubes.transform.position.x - distanceToCube, lockedYPosition, lockedZPosition);
             selectNumberCube++;
         }
+        buttonAccept.GetImage();
     }
 }

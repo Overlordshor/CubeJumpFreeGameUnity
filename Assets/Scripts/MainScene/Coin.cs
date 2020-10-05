@@ -14,9 +14,14 @@ public class Coin : MonoBehaviour
         CountCoin.text = countCoin.ToString();
     }
 
-    private void Start()
+    public void RefreshCount()
     {
         countCoin = PlayerPrefs.GetInt("Coin");
         CountCoin.text = countCoin.ToString();
+    }
+
+    private void Start()
+    {
+        RefreshCount();
     }
 }

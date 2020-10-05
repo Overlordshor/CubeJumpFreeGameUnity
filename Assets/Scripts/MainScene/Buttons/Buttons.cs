@@ -2,7 +2,7 @@
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject ButtonVolume, ButtonPrompt, Shop, Language;
+    public GameObject ButtonVolume, ButtonPrompt, Shop, Language, Acept;
 
     private float speed;
     private bool move = false;
@@ -56,7 +56,7 @@ public class Buttons : MonoBehaviour
                 break;
 
             case "Accept":
-                print("buy Cube"); // тут купить
+                Acept.GetComponent<ButtonAccept>().SelectCube();
                 break;
 
             case "Language":

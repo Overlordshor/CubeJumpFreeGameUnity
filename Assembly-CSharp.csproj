@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
     <Compile Include="Assets\Scripts\Game\Score.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonAccept.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonLanguage.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonPrompt.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonVolume.cs" />
