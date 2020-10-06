@@ -28,16 +28,6 @@ public class ShopScroller : MonoBehaviour
         PlayerPrefs.SetInt("Skin", selectNumberCube);
     }
 
-    private void Start()
-    {
-        lockedYPosition = Cubes.transform.position.y;
-        lockedZPosition = Cubes.transform.position.z;
-        cubesName = GetListCubesName();
-        PlayerPrefs.SetString(cubesName[0], keyOpen);
-
-        buttonAccept = FindObjectOfType<ButtonAccept>();
-    }
-
     private string[] GetListCubesName()
     {
         string[] cubesName = new string[Cubes.transform.childCount];
@@ -46,6 +36,16 @@ public class ShopScroller : MonoBehaviour
             cubesName[i] = Cubes.transform.GetChild(i).name;
         }
         return cubesName;
+    }
+
+    private void Start()
+    {
+        lockedYPosition = Cubes.transform.position.y;
+        lockedZPosition = Cubes.transform.position.z;
+        cubesName = GetListCubesName();
+        PlayerPrefs.SetString(cubesName[0], keyOpen);
+
+        buttonAccept = FindObjectOfType<ButtonAccept>();
     }
 
     private void OnMouseDown()

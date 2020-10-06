@@ -6,6 +6,7 @@ public class GameArrengement : MonoBehaviour
     public Text GameNameText, PlayGameText;
     public Buttons Buttons;
     public GameObject MainCube;
+    public GameObject ShopListCubes;
 
     private SpawnCubes spawnCubes;
 
@@ -16,6 +17,9 @@ public class GameArrengement : MonoBehaviour
         Language.PrintAnyLanguage(PlayGameText,
            "TAP TO PLAY",
            "НАЖМИ ДЛЯ ИГРЫ");
+
+        Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt("Skin")).GetComponent<MeshRenderer>().material;
+        MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
     }
 
     private void Update()
