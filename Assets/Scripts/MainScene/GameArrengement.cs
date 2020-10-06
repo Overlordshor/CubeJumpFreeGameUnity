@@ -9,6 +9,7 @@ public class GameArrengement : MonoBehaviour
     public GameObject ShopListCubes;
 
     private SpawnCubes spawnCubes;
+    private string keySkin = "Skin";
 
     private void Start()
     {
@@ -17,9 +18,11 @@ public class GameArrengement : MonoBehaviour
         Language.PrintAnyLanguage(PlayGameText,
            "TAP TO PLAY",
            "НАЖМИ ДЛЯ ИГРЫ");
-
-        Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt("Skin")).GetComponent<MeshRenderer>().material;
-        MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
+        if (PlayerPrefs.HasKey(keySkin))
+        {
+            Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt(keySkin)).GetComponent<MeshRenderer>().material;
+            MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
+        }
     }
 
     private void Update()
