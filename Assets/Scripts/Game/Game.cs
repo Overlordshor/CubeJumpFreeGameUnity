@@ -49,6 +49,7 @@ public class Game : MonoBehaviour
 
     public void Restart()
     {
+        PlayerPrefs.Save();
         SceneManager.LoadScene("Main");
     }
 

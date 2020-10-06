@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class ButtonAccept : MonoBehaviour
 {
     public Sprite Accept, Buy;
+    //public GameObject PrefabCube; Недоделано
 
     private ShopScroller shopScroller;
     private Coin coin;
@@ -18,12 +19,14 @@ public class ButtonAccept : MonoBehaviour
     {
         if (openCube)
         {
+            AcceptCube();
         }
         else if (PlayerPrefs.GetInt(keyCoin) >= costCube)
         {
             PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - costCube);
             PlayerPrefs.SetString(shopScroller.GetNameCube(), keyOpen);
             coin.RefreshCount();
+            AcceptCube();
         }
         GetImage();
     }
@@ -51,6 +54,12 @@ public class ButtonAccept : MonoBehaviour
         {
             openCube = false;
         }
+    }
+
+    private void AcceptCube()
+    {
+        shopScroller.GetMaterialCube();
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void Start()

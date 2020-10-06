@@ -16,6 +16,7 @@ public class SpawnCubes : MonoBehaviour
             Quaternion.Euler(new Vector3(0, 60, 0)),
             CubesParent.transform);
         cube.layer = layerCube;
+        cube.GetComponent<MeshRenderer>().material = MainCube.GetComponent<MeshRenderer>().material;
         jumpClickController.GetControl(cube);
     }
 

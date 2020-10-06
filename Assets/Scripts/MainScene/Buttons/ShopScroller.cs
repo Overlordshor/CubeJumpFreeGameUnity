@@ -3,6 +3,7 @@
 public class ShopScroller : MonoBehaviour
 {
     public GameObject Cubes;
+    public GameObject MainCube;
 
     private Vector3 oldMousePosition, newMousePosition;
     private float lockedYPosition;
@@ -18,6 +19,13 @@ public class ShopScroller : MonoBehaviour
     public string GetNameCube()
     {
         return cubesName[selectNumberCube];
+    }
+
+    public void GetMaterialCube()
+    {
+        MainCube.GetComponent<MeshRenderer>().material =
+            Cubes.transform.GetChild(selectNumberCube).GetComponent<MeshRenderer>().material;
+        PlayerPrefs.SetInt("Skin", selectNumberCube);
     }
 
     private void Start()
