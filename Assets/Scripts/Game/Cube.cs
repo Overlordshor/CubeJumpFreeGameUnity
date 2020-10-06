@@ -55,7 +55,7 @@ public class Cube : MonoBehaviour
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
         game = FindObjectOfType<Game>();
 
-        SetRandomColor();
+        //SetRandomColor(); temporarily disabled
 
         game.AppearedNewCube = false;
     }
@@ -110,7 +110,7 @@ public class Cube : MonoBehaviour
                             gameObject.transform.position,
                             Quaternion.identity,
                             gameObject.transform.parent);
-        brokenCube.GetComponent<BrokenCubes>().GetColorCube(color);
+        brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
         gameObject.SetActive(false);
         gameObject.transform.parent = game.DeactivatedCubes.transform;
     }
