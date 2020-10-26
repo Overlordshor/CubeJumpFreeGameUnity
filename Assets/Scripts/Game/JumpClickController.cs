@@ -45,6 +45,8 @@ public class JumpClickController : MonoBehaviour
     private void OnMouseDown()
     {
         clickDetected = true;
+        gameCube?.PlayAudioSqueeze(clickDetected);
+
         startTime = Time.time;
         if (game?.JumpAttempt == 0 && gameCube.transform.parent == DeactivatedCubes.transform)
         {
@@ -58,6 +60,7 @@ public class JumpClickController : MonoBehaviour
 
         var pushTime = Time.time - startTime;
         gameCube?.Jump(pushTime);
+        GetComponent<AudioSource>().Stop();
 
         if (RulesText.gameObject.activeSelf)
         {

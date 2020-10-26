@@ -3,6 +3,7 @@
 public class Cube : MonoBehaviour
 {
     public GameObject BrokenCube;
+    public AudioClip audioPass, audioCrash, audioHit, audioSqueeze;
 
     private readonly int layerGround = 8;
     private readonly int layerCube = 9;
@@ -17,10 +18,21 @@ public class Cube : MonoBehaviour
     private Transform transformCube;
     private Rigidbody rigidbodyCube;
     private Game game;
+    private AudioSource audioSource;
+    private bool playedAudioSqueeze = false;
 
     private Color color;
 
     private bool isGround = true;
+
+    public void PlayAudioSqueeze(bool clickDetected)
+    {
+        if (clickDetected && !playedAudioSqueeze)
+        {
+            PlayAudio(audioSqueeze);
+            playedAudioSqueeze = true;
+        }
+    }
 
     public void Squeeze(bool clickDetected)
     {
@@ -46,6 +58,8 @@ public class Cube : MonoBehaviour
             isGround = false;
             jumped = true;
             game.LoseJumpAttempt();
+
+            PlayAudio(audioPass);
         }
     }
 
@@ -54,10 +68,17 @@ public class Cube : MonoBehaviour
         transformCube = gameObject.GetComponent<Transform>();
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
         game = FindObjectOfType<Game>();
+        audioSource = GetComponent<AudioSource>();
 
         //SetRandomColor(); temporarily disabled
 
         game.AppearedNewCube = false;
+    }
+
+    private void PlayAudio(AudioClip audio)
+    {
+        audioSource.clip = audio;
+        audioSource.Play();
     }
 
     private void SetRandomColor()
@@ -100,6 +121,7 @@ public class Cube : MonoBehaviour
         if (collision.gameObject.layer == layerCube)
         {
             game.CreateNewCube(passedControl);
+            PlayAudio(audioHit);
             passedControl = true;
         }
     }

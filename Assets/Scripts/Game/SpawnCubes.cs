@@ -8,7 +8,7 @@ public class SpawnCubes : MonoBehaviour
 
     private JumpClickController jumpClickController;
 
-    private int layerCube = 9;
+    private readonly int layerCube = 9;
 
     public void GetNewCube()
     {

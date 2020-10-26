@@ -11,8 +11,8 @@ public class ButtonAccept : MonoBehaviour
     private bool openCube;
 
     private int costCube = 200;
-    private string keyCoin = "Coin";
-    private string keyOpen = "Open";
+    private readonly string keyCoin = "Coin";
+    private readonly string keyOpen = "Open";
 
     public void SelectCube()
     {
