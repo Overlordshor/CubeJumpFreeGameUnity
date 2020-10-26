@@ -121,7 +121,12 @@ public class Cube : MonoBehaviour
         if (collision.gameObject.layer == layerCube)
         {
             game.CreateNewCube(passedControl);
-            PlayAudio(audioHit);
+
+            if (!passedControl)
+            {
+                PlayAudio(audioHit);
+            }
+
             passedControl = true;
         }
     }
