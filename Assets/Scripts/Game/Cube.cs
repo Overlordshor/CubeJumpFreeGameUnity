@@ -128,6 +128,7 @@ public class Cube : MonoBehaviour
 
     private void BreakDown()
     {
+        game.PlayAudioBrokenBox();
         var brokenCube = Instantiate(BrokenCube,
                             gameObject.transform.position,
                             Quaternion.identity,

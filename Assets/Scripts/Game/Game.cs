@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     private SpawnCubes cubeSpawner;
     private Score score;
     private Coin coin;
+    private AudioSource audioBrokenBox;
 
     public int JumpAttempt { get; set; } = 1;
 
@@ -53,11 +54,17 @@ public class Game : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
+    public void PlayAudioBrokenBox()
+    {
+        audioBrokenBox.Play();
+    }
+
     private void Start()
     {
         cubeSpawner = GetComponent<SpawnCubes>();
         score = GetComponent<Score>();
         coin = GetComponent<Coin>();
+        audioBrokenBox = GetComponent<AudioSource>();
     }
 
     private void PassHeightTower()
