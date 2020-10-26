@@ -30,6 +30,7 @@ public class Buttons : MonoBehaviour
 
     protected void OnMouseUpAsButton()
     {
+        GetComponentInParent<AudioSource>().Play();
         switch (gameObject.name)
         {
             case "SettingButton":

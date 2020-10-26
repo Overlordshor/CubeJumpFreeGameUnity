@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class ButtonAccept : MonoBehaviour
 {
     public Sprite Accept, Buy;
-    //public GameObject PrefabCube; Недоделано
 
     private ShopScroller shopScroller;
     private Coin coin;

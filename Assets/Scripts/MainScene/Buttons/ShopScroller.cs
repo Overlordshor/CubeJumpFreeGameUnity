@@ -16,6 +16,8 @@ public class ShopScroller : MonoBehaviour
 
     private ButtonAccept buttonAccept;
 
+    private AudioSource audioSource;
+
     public string GetNameCube()
     {
         return cubesName[selectNumberCube];
@@ -46,6 +48,7 @@ public class ShopScroller : MonoBehaviour
         PlayerPrefs.SetString(cubesName[0], keyOpen);
 
         buttonAccept = FindObjectOfType<ButtonAccept>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnMouseDown()
@@ -70,6 +73,7 @@ public class ShopScroller : MonoBehaviour
             Cubes.transform.position = new Vector3(Cubes.transform.position.x - distanceToCube, lockedYPosition, lockedZPosition);
             selectNumberCube++;
         }
+        audioSource.Play();
         buttonAccept.GetImage();
     }
 }
