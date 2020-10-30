@@ -8,7 +8,7 @@ public class ShopScroller : MonoBehaviour
     private Vector3 oldMousePosition, newMousePosition;
     private float lockedYPosition;
     private float lockedZPosition;
-    private readonly float distanceToCube = 3.8f;
+    private readonly float distanceToCube = 3.5f;
 
     private string[] cubesName;
     private string keyOpen = "Open";
