@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ButtonLanguage : MonoBehaviour
 {
     public Sprite English, Russian;
-    public Text PlayGameText, Record;
+    public Text PlayGameText, Record, PriceText;
 
     private Image image;
     private string language;
@@ -44,6 +44,9 @@ public class ButtonLanguage : MonoBehaviour
         Language.PrintAnyLanguage(Record,
            "TOP: " + PlayerPrefs.GetInt("Record").ToString(),
            "Рекорд: " + PlayerPrefs.GetInt("Record").ToString());
+        Language.PrintAnyLanguage(PriceText,
+          "200 GOLD",
+          "200 ЗОЛОТЫХ");
     }
 
     private void Start()

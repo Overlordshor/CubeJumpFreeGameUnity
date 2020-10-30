@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameArrengement : MonoBehaviour
 {
-    public Text GameNameText, PlayGameText;
+    public Text GameNameText, PlayGameText, PriceText;
     public Buttons Buttons;
     public GameObject MainCube;
     public GameObject ShopListCubes;
@@ -18,6 +18,9 @@ public class GameArrengement : MonoBehaviour
         Language.PrintAnyLanguage(PlayGameText,
            "TAP TO PLAY",
            "НАЖМИ ДЛЯ ИГРЫ");
+        Language.PrintAnyLanguage(PriceText,
+          "200 GOLD",
+          "200 ЗОЛОТЫХ");
         if (PlayerPrefs.HasKey(keySkin))
         {
             Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt(keySkin)).GetComponent<MeshRenderer>().material;

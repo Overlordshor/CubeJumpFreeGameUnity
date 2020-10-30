@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonAccept : MonoBehaviour
@@ -27,12 +28,13 @@ public class ButtonAccept : MonoBehaviour
             coin.RefreshCount();
             AcceptCube();
         }
-        GetImage();
+        GetButtonImage();
     }
 
-    public void GetImage()
+    public void GetButtonImage()
     {
-        SetImage();
+        CheckBuyCube();
+
         if (openCube)
         {
             image.sprite = Accept;
@@ -41,9 +43,16 @@ public class ButtonAccept : MonoBehaviour
         {
             image.sprite = Buy;
         }
+
+        SetPrice(openCube);
     }
 
-    private void SetImage()
+    private void SetPrice(bool openCube)
+    {
+        transform.GetChild(0).gameObject.SetActive(!openCube);
+    }
+
+    private void CheckBuyCube()
     {
         if (PlayerPrefs.GetString(shopScroller.GetNameCube()) == keyOpen)
         {
@@ -66,6 +75,7 @@ public class ButtonAccept : MonoBehaviour
         shopScroller = FindObjectOfType<ShopScroller>();
         coin = FindObjectOfType<Coin>();
         image = GetComponent<Image>();
-        GetImage();
+
+        GetButtonImage();
     }
 }

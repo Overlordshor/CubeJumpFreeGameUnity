@@ -74,6 +74,6 @@ public class ShopScroller : MonoBehaviour
             selectNumberCube++;
         }
         audioSource.Play();
-        buttonAccept.GetImage();
+        buttonAccept.GetButtonImage();
     }
 }
