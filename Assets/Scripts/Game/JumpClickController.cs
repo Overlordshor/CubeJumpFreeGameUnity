@@ -42,7 +42,39 @@ public class JumpClickController : MonoBehaviour
         gameCube.Squeeze(clickDetected);
     }
 
+#if UNITY_IOS || UNITY_ANDROID
+
+    private void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                ClickToScreen();
+            }
+            if (touch.phase == TouchPhase.Ended)
+            {
+                EndClick();
+            }
+        }
+    }
+
+#endif
+#if UNITY_STANDALONE
+
     private void OnMouseDown()
+    {
+        ClickToScreen();
+    }
+
+     private void OnMouseUp()
+    {
+        EndClick();
+    }
+#endif
+
+    private void ClickToScreen()
     {
         clickDetected = true;
         gameCube?.PlayAudioSqueeze(clickDetected);
@@ -54,7 +86,7 @@ public class JumpClickController : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    private void EndClick()
     {
         clickDetected = false;
 

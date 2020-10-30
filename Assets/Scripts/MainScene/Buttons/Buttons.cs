@@ -10,9 +10,9 @@ public class Buttons : MonoBehaviour
 
     public void GoAway()
     {
-        speed = 5f;
+        speed = 50f;
         move = true;
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
     }
 
     private void Start()
