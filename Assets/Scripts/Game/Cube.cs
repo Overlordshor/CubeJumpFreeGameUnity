@@ -9,7 +9,7 @@ public class Cube : MonoBehaviour
     private readonly int layerCube = 9;
 
     private bool jumped = false;
-    private bool passedControl = false;
+    private bool transferControl = false;
 
     private readonly float originalScaleCube = 0.6f;
     private readonly float compressionScaleCube = 0.3f;
@@ -112,7 +112,7 @@ public class Cube : MonoBehaviour
             if (jumped)
             {
                 BreakDown();
-                if (!passedControl)
+                if (!transferControl)
                 {
                     game.DisplayText();
                 }
@@ -120,14 +120,15 @@ public class Cube : MonoBehaviour
         }
         if (collision.gameObject.layer == layerCube)
         {
-            game.CreateNewCube(passedControl);
-
-            if (!passedControl)
+            if (game.JumpAttempt == 0)
+            {
+                game.CreateNewCube();
+            }
+            if (!transferControl)
             {
                 PlayAudio(audioHit);
             }
-
-            passedControl = true;
+            transferControl = true;
         }
     }
 

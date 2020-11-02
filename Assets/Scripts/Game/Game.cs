@@ -23,9 +23,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void CreateNewCube(bool passedControl)
+    public void CreateNewCube()
     {
-        if (!AppearedNewCube && !passedControl)
+        if (!AppearedNewCube)
         {
             cubeSpawner.GetNewCube();
             JumpAttempt++;
