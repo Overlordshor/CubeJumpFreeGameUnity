@@ -2,11 +2,13 @@
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject ButtonVolume, ButtonPrompt, Shop, Language, Acept;
+    public GameObject ButtonVolume, ButtonPrompt, Shop, Language, Acept, AdvertisingButton;
 
     private float speed;
     private bool move = false;
     private RectTransform button;
+    private new Animation animation;
+    private new AudioSource audio;
 
     public void GoAway()
     {
@@ -18,6 +20,8 @@ public class Buttons : MonoBehaviour
     private void Start()
     {
         button = GetComponent<RectTransform>();
+        animation = GetComponent<Animation>();
+        audio = GetComponentInParent<AudioSource>();
     }
 
     private void Update()
@@ -28,41 +32,49 @@ public class Buttons : MonoBehaviour
         }
     }
 
-    protected void OnMouseUpAsButton()
+    private void OnMouseUpAsButton()
     {
-        GetComponentInParent<AudioSource>().Play();
-        switch (gameObject.name)
+        audio.Play();
+
+        if (!animation.isPlaying)
         {
-            case "SettingButton":
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
-                }
-                break;
+            switch (gameObject.name)
+            {
+                case "SettingButton":
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
+                    }
+                    break;
 
-            case "Volume":
-                ButtonVolume.GetComponent<ButtonVolume>().GetVolume();
-                break;
+                case "Volume":
+                    ButtonVolume.GetComponent<ButtonVolume>().GetVolume();
+                    break;
 
-            case "Prompt":
-                ButtonPrompt.GetComponent<ButtonPrompt>().GetPrompt();
-                break;
+                case "Prompt":
+                    ButtonPrompt.GetComponent<ButtonPrompt>().GetPrompt();
+                    break;
 
-            case "ShopButton":
-                Shop.SetActive(!Shop.activeSelf);
-                break;
+                case "ShopButton":
+                    Shop.SetActive(!Shop.activeSelf);
+                    break;
 
-            case "Cancel":
-                Shop.SetActive(false);
-                break;
+                case "CancelButton":
+                    Shop.SetActive(false);
+                    break;
 
-            case "Accept":
-                Acept.GetComponent<ButtonAccept>().SelectCube();
-                break;
+                case "AcceptButton":
+                    Acept.GetComponent<ButtonAccept>().SelectCube();
+                    break;
 
-            case "Language":
-                Language.GetComponent<ButtonLanguage>().GetLanguage();
-                break;
+                case "Language":
+                    Language.GetComponent<ButtonLanguage>().GetLanguage();
+                    break;
+
+                case "AdvertisingButton":
+                    print("SHOW ADVERTISING");
+                    break;
+            }
         }
     }
 }

@@ -35,7 +35,21 @@ public class GameArrengement : MonoBehaviour
             MainCube.AddComponent<Rigidbody>();
             SwitchScriptsScene();
         }
+        //#if UNITY_IOS || UNITY_ANDROID
+        //        if (Input.touchCount > 0)
+        //        {
+        //            Touch touch = Input.GetTouch(0);
+        //            if (touch.phase == TouchPhase.Began)
+        //            {
+        //                SwtichTextsScene();
+
+        //                AnimateStartGameUI();
+        //            }
+        //        }
+        //#endif
     }
+
+#if UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID
 
     private void OnMouseDown()
     {
@@ -43,6 +57,8 @@ public class GameArrengement : MonoBehaviour
 
         AnimateStartGameUI();
     }
+
+#endif
 
     private void SwtichTextsScene()
     {
