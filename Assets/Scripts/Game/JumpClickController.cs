@@ -44,24 +44,24 @@ public class JumpClickController : MonoBehaviour
 
 #if UNITY_IOS || UNITY_ANDROID
 
-    //private void Update()
-    //{
-    //    if (Input.touchCount > 0)
-    //    {
-    //        Touch touch = Input.GetTouch(0);
-    //        if (touch.phase == TouchPhase.Began)
-    //        {
-    //            ClickToScreen();
-    //        }
-    //        if (touch.phase == TouchPhase.Ended)
-    //        {
-    //            EndClick();
-    //        }
-    //    }
-    //}
+    private void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                ClickToScreen();
+            }
+            if (touch.phase == TouchPhase.Ended)
+            {
+                EndClick();
+            }
+        }
+    }
 
 #endif
-#if UNITY_STANDALONE || UNITY_IOS || UNITY_ANDROID
+#if UNITY_STANDALONE
 
     private void OnMouseDown()
     {
