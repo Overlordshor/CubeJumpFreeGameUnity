@@ -49,7 +49,7 @@ public class GameArrengement : MonoBehaviour
 #endif
     }
 
-#if UNITY_STANDALONE
+#if UNITY_EDITOR
 
     private void OnMouseDown()
     {
