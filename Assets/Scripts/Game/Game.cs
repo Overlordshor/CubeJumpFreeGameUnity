@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
     public GameObject DeactivatedCubes;
     public GameObject CubesTower;
+    public GameObject EndGameButtons;
 
     private SpawnCubes cubeSpawner;
     private Score score;
@@ -19,7 +21,7 @@ public class Game : MonoBehaviour
     {
         if (JumpAttempt == 0)
         {
-            GetComponentInChildren<JumpClickController>().GetFinalText();
+            ActivateButtonsEnd();
         }
     }
 
@@ -57,6 +59,11 @@ public class Game : MonoBehaviour
     public void PlayAudioBrokenBox()
     {
         audioBrokenBox.Play();
+    }
+
+    private void ActivateButtonsEnd()
+    {
+        EndGameButtons.SetActive(true);
     }
 
     private void Start()

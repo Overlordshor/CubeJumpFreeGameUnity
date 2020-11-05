@@ -17,12 +17,6 @@ public class JumpClickController : MonoBehaviour
         gameCube = cube.GetComponentInChildren<Cube>();
     }
 
-    public void GetFinalText()
-    {
-        Language.PrintAnyLanguage(RulesText, "Click to RESTART", "Нажми, чтобы нажать заново");
-        RulesText.gameObject.SetActive(true);
-    }
-
     private void Start()
     {
         gameCube = Cube.GetComponentInChildren<Cube>();

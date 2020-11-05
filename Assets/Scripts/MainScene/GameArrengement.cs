@@ -11,6 +11,13 @@ public class GameArrengement : MonoBehaviour
     private SpawnCubes spawnCubes;
     private string keySkin = "Skin";
 
+    public void StartGame()
+    {
+        SwtichTextsScene();
+
+        AnimateStartGameUI();
+    }
+
     private void Start()
     {
         spawnCubes = GetComponentInParent<SpawnCubes>();
@@ -41,9 +48,7 @@ public class GameArrengement : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Ended)
             {
-                SwtichTextsScene();
-
-                AnimateStartGameUI();
+                StartGame();
             }
         }
 #endif
@@ -53,9 +58,7 @@ public class GameArrengement : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SwtichTextsScene();
-
-        AnimateStartGameUI();
+        StartGame();
     }
 
 #endif

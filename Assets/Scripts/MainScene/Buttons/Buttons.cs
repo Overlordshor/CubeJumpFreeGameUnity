@@ -2,11 +2,9 @@
 
 public class Buttons : MonoBehaviour
 {
-    public GameObject ButtonVolume, ButtonPrompt, Shop, Language, Acept, AdvertisingButton;
-
     private float speed;
     private bool move = false;
-    private RectTransform button;
+    private RectTransform buttonRect;
     private new Animation animation;
     private new AudioSource audio;
 
@@ -19,7 +17,7 @@ public class Buttons : MonoBehaviour
 
     private void Start()
     {
-        button = GetComponent<RectTransform>();
+        buttonRect = GetComponent<RectTransform>();
         animation = GetComponent<Animation>();
         audio = GetComponentInParent<AudioSource>();
     }
@@ -28,7 +26,7 @@ public class Buttons : MonoBehaviour
     {
         if (move)
         {
-            button.offsetMin -= new Vector2(0, speed);
+            buttonRect.offsetMin -= new Vector2(0, speed);
         }
     }
 
@@ -48,31 +46,39 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "Volume":
-                    ButtonVolume.GetComponent<ButtonVolume>().GetVolume();
+                    gameObject.GetComponent<ButtonVolume>().GetVolume();
                     break;
 
                 case "Prompt":
-                    ButtonPrompt.GetComponent<ButtonPrompt>().GetPrompt();
+                    gameObject.GetComponent<ButtonPrompt>().GetPrompt();
                     break;
 
                 case "ShopButton":
-                    Shop.SetActive(!Shop.activeSelf);
+                    gameObject.transform.GetChild(0).gameObject.SetActive(!gameObject.transform.GetChild(0).gameObject.activeSelf);
                     break;
 
                 case "CancelButton":
-                    Shop.SetActive(false);
+                    gameObject.SetActive(false);
                     break;
 
                 case "AcceptButton":
-                    Acept.GetComponent<ButtonAccept>().SelectCube();
+                    gameObject.GetComponent<ButtonAccept>().SelectCube();
                     break;
 
                 case "Language":
-                    Language.GetComponent<ButtonLanguage>().GetLanguage();
+                    gameObject.GetComponent<ButtonLanguage>().GetLanguage();
                     break;
 
                 case "AdvertisingButton":
                     print("SHOW ADVERTISING");
+                    break;
+
+                case "Restart":
+                    gameObject.GetComponent<ButtonsEndGame>().Restart();
+                    break;
+
+                case "Return":
+                    gameObject.GetComponent<ButtonsEndGame>().ReturnToMenu();
                     break;
             }
         }
