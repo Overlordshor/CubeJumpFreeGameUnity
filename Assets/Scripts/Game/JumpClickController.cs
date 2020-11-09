@@ -10,7 +10,6 @@ public class JumpClickController : MonoBehaviour
     private bool clickDetected;
     private float startTime;
     private Cube gameCube;
-    private Game game;
 
     public void GetControl(GameObject cube)
     {
@@ -20,7 +19,6 @@ public class JumpClickController : MonoBehaviour
     private void Start()
     {
         gameCube = Cube.GetComponentInChildren<Cube>();
-        game = GetComponentInParent<Game>();
         clickDetected = false;
         if (PlayerPrefs.GetString("Prompt") == "True")
         {
@@ -75,10 +73,6 @@ public class JumpClickController : MonoBehaviour
         gameCube?.PlayAudioSqueeze(clickDetected);
 
         startTime = Time.time;
-        //if (game?.JumpAttempt == 0 && gameCube.transform.parent == DeactivatedCubes.transform) // рестарт по нажатию на экран
-        //{
-        //    game.Restart();
-        //}
     }
 
     private void EndClick()
