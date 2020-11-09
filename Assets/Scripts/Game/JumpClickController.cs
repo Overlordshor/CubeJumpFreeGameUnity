@@ -75,10 +75,10 @@ public class JumpClickController : MonoBehaviour
         gameCube?.PlayAudioSqueeze(clickDetected);
 
         startTime = Time.time;
-        if (game?.JumpAttempt == 0 && gameCube.transform.parent == DeactivatedCubes.transform)
-        {
-            game.Restart();
-        }
+        //if (game?.JumpAttempt == 0 && gameCube.transform.parent == DeactivatedCubes.transform) // рестарт по нажатию на экран
+        //{
+        //    game.Restart();
+        //}
     }
 
     private void EndClick()
