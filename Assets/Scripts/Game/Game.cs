@@ -17,7 +17,7 @@ public class Game : MonoBehaviour
 
     public bool AppearedNewCube { get; set; } = false;
 
-    public void DisplayText()
+    public void DisplayButtons()
     {
         if (JumpAttempt == 0)
         {
@@ -61,6 +61,13 @@ public class Game : MonoBehaviour
         audioBrokenBox.Play();
     }
 
+    public void PassHeightTower()
+    {
+        var heigtTower = CubesTower.transform.childCount;
+        score.RefreshBuff(heigtTower);
+        print(heigtTower);
+    }
+
     private void ActivateButtonsEnd()
     {
         EndGameButtons.SetActive(true);
@@ -72,11 +79,5 @@ public class Game : MonoBehaviour
         score = GetComponent<Score>();
         coin = GetComponent<Coin>();
         audioBrokenBox = GetComponent<AudioSource>();
-    }
-
-    private void PassHeightTower()
-    {
-        var heigtTower = CubesTower.transform.childCount;
-        score.RefreshBuff(heigtTower);
     }
 }

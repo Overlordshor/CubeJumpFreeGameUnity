@@ -114,7 +114,7 @@ public class Cube : MonoBehaviour
                 BreakDown();
                 if (!transferControl)
                 {
-                    game.DisplayText();
+                    game.DisplayButtons();
                 }
             }
         }
@@ -140,7 +140,9 @@ public class Cube : MonoBehaviour
                             Quaternion.identity,
                             gameObject.transform.parent);
         brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
-        gameObject.SetActive(false);
+
         gameObject.transform.parent = game.DeactivatedCubes.transform;
+        game.PassHeightTower();
+        gameObject.SetActive(false);
     }
 }
