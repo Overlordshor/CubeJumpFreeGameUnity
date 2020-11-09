@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -79,5 +78,19 @@ public class Game : MonoBehaviour
         score = GetComponent<Score>();
         coin = GetComponent<Coin>();
         audioBrokenBox = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        Exit();
+    }
+
+    private void Exit()
+    {
+        if (Input.backButtonLeavesApp)
+        {
+            PlayerPrefs.Save();
+            Application.Quit();
+        }
     }
 }
