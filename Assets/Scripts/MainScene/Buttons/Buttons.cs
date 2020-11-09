@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Buttons : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "CancelButton":
-                    gameObject.SetActive(false);
+                    transform.parent.gameObject.SetActive(false);
                     break;
 
                 case "AcceptButton":
