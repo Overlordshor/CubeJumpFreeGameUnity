@@ -95,12 +95,17 @@ public class Cube : MonoBehaviour
 
     private float GetForces(float pushTime)
     {
+        if (pushTime < 0.07f)
+        {
+            pushTime = 0.07f;
+        }
         float force;
         force = 370f * pushTime;
         if (force > 300f)
         {
             force = 300f;
         }
+
         return force;
     }
 
