@@ -8,7 +8,7 @@ public class ShopScroller : MonoBehaviour
     private Vector3 oldMousePosition, newMousePosition;
     private float lockedYPosition;
     private float lockedZPosition;
-    private readonly float distanceToCube = 3.5f;
+    private readonly float distanceToCube = 3.8f;
 
     private string[] cubesName;
     private string keyOpen = "Open";
@@ -65,14 +65,26 @@ public class ShopScroller : MonoBehaviour
     {
         if (newMousePosition.x > oldMousePosition.x && selectNumberCube > 0) // move mouse right;
         {
-            Cubes.transform.position = new Vector3(Cubes.transform.position.x + distanceToCube, lockedYPosition, lockedZPosition);
-            selectNumberCube--;
+            SelectCube(distanceToCube);
         }
         else if (newMousePosition.x < oldMousePosition.x && selectNumberCube < Cubes.transform.childCount - 1) // move mouse left;
         {
-            Cubes.transform.position = new Vector3(Cubes.transform.position.x - distanceToCube, lockedYPosition, lockedZPosition);
+            SelectCube(-distanceToCube);
+        }
+    }
+
+    private void SelectCube(float distanceToCube)
+    {
+        Cubes.transform.position = new Vector3(Cubes.transform.position.x + distanceToCube, lockedYPosition, lockedZPosition);
+        if (distanceToCube > 0)
+        {
+            selectNumberCube--;
+        }
+        else
+        {
             selectNumberCube++;
         }
+
         audioSource.Play();
         buttonAccept.GetButtonImage();
     }

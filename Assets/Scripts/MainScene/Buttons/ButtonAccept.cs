@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class ButtonAccept : MonoBehaviour
 {
     public Sprite Accept, Buy;
+    public GameObject Price;
 
     private ShopScroller shopScroller;
     private Coin coin;
@@ -48,7 +49,7 @@ public class ButtonAccept : MonoBehaviour
 
     private void SetPrice(bool openCube)
     {
-        transform.GetChild(0).gameObject.SetActive(!openCube);
+        Price.SetActive(!openCube);
     }
 
     private void CheckBuyCube()
