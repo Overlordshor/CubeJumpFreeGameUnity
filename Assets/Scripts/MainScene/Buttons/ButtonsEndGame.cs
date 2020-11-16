@@ -2,14 +2,13 @@
 
 public class ButtonsEndGame : MonoBehaviour
 {
-    public GameObject ClickDetector;
-
     private Game game;
+    private string keyRestart = "Restart";
 
-    public void Restart() // не работает
+    public void Restart()
     {
+        PlayerPrefs.SetString(keyRestart, "true");
         ReturnToMenu();
-        ClickDetector.GetComponent<GameArrengement>().StartGame();
     }
 
     public void ReturnToMenu()

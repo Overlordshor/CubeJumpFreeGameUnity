@@ -72,7 +72,7 @@
     <Compile Include="Assets\Scripts\MainScene\Coin.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
-    <Compile Include="Assets\Scripts\MainScene\GameArrengement.cs" />
+    <Compile Include="Assets\Scripts\MainScene\SceneArrengement.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\Language.cs" />
   </ItemGroup>

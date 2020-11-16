@@ -82,7 +82,8 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "PlayButton":
-                    FindObjectOfType<GameArrengement>().StartGame();
+                    SceneArrengement scene = FindObjectOfType<SceneArrengement>();
+                    scene.StartGame();
                     break;
             }
         }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class GameArrengement : MonoBehaviour
+public class SceneArrengement : MonoBehaviour
 {
     public Text GameNameText, PlayGameText, PriceText;
     public Buttons Buttons;
@@ -10,6 +10,7 @@ public class GameArrengement : MonoBehaviour
 
     private SpawnCubes spawnCubes;
     private string keySkin = "Skin";
+    private string keyRestart = "Restart";
 
     public void StartGame()
     {
@@ -20,7 +21,7 @@ public class GameArrengement : MonoBehaviour
 
     private void Start()
     {
-        spawnCubes = GetComponentInParent<SpawnCubes>();
+        spawnCubes = GetComponent<SpawnCubes>();
 
         Language.PrintAnyLanguage(PlayGameText,
            "TAP TO PLAY",
@@ -32,6 +33,11 @@ public class GameArrengement : MonoBehaviour
         {
             Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt(keySkin)).GetComponent<MeshRenderer>().material;
             MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
+        }
+        if (PlayerPrefs.GetString(keyRestart) == "true")
+        {
+            PlayerPrefs.SetString(keyRestart, "false");
+            StartGame();
         }
     }
 
@@ -59,7 +65,8 @@ public class GameArrengement : MonoBehaviour
     private void SwitchScriptsScene()
     {
         spawnCubes.GetNewCube();
-        GetComponent<JumpClickController>().enabled = true;
+
+        GetComponentInChildren<JumpClickController>().enabled = true;
         Destroy(this);
     }
 }

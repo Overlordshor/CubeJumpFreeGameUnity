@@ -6,13 +6,23 @@ public class Shop : MonoBehaviour
 
     private void OnEnable()
     {
-        ClickDetector.SetActive(false);
-        PlayButton.SetActive(false);
+        ToggleAllUI();
     }
 
     private void OnDisable()
     {
-        ClickDetector?.SetActive(true);
-        PlayButton.SetActive(true);
+        ToggleAllUI();
+    }
+
+    private void ToggleUI(GameObject gameObject)
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    private void ToggleAllUI()
+    {
+        ToggleUI(ClickDetector);
+        ToggleUI(PlayButton);
+        ToggleUI(SocialGroupBar);
     }
 }
