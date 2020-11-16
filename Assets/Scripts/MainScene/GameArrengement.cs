@@ -42,26 +42,7 @@ public class GameArrengement : MonoBehaviour
             MainCube.AddComponent<Rigidbody>();
             SwitchScriptsScene();
         }
-#if UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Ended)
-            {
-                StartGame();
-            }
-        }
-#endif
     }
-
-#if UNITY_EDITOR
-
-    private void OnMouseDown()
-    {
-        StartGame();
-    }
-
-#endif
 
     private void SwtichTextsScene()
     {

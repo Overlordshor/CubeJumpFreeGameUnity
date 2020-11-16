@@ -80,6 +80,10 @@ public class Buttons : MonoBehaviour
                 case "Return":
                     gameObject.GetComponent<ButtonsEndGame>().ReturnToMenu();
                     break;
+
+                case "PlayButton":
+                    FindObjectOfType<GameArrengement>().StartGame();
+                    break;
             }
         }
     }
