@@ -2,7 +2,7 @@
 
 public class Shop : MonoBehaviour
 {
-    public GameObject ClickDetector, PlayButton, SocialGroupBar;
+    public GameObject PlayButton, SocialGroupBar;
 
     private void OnEnable()
     {
@@ -21,7 +21,6 @@ public class Shop : MonoBehaviour
 
     private void ToggleAllUI()
     {
-        ToggleUI(ClickDetector);
         ToggleUI(PlayButton);
         ToggleUI(SocialGroupBar);
     }

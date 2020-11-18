@@ -87,11 +87,6 @@ public class Game : MonoBehaviour
 
     private void Exit()
     {
-        if (Input.backButtonLeavesApp) // not work
-        {
-            PlayerPrefs.Save();
-            Application.Quit();
-        }
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
