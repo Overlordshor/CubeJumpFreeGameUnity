@@ -5,7 +5,7 @@ public class Game : MonoBehaviour
 {
     public GameObject DeactivatedCubes;
     public GameObject CubesTower;
-    public GameObject EndGameButtons;
+    public GameObject EndGameButtons, ExitPanel;
 
     private SpawnCubes cubeSpawner;
     private Score score;
@@ -82,18 +82,23 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        Exit();
+        ShowExitPanel();
     }
 
-    private void Exit()
+    private void ShowExitPanel()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                PlayerPrefs.Save();
-                Application.Quit();
+                ExitPanel.SetActive(true);
             }
         }
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitPanel.SetActive(true);
+        }
+#endif
     }
 }

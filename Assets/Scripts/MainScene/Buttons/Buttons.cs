@@ -85,6 +85,10 @@ public class Buttons : MonoBehaviour
                     SceneArrengement scene = FindObjectOfType<SceneArrengement>();
                     scene.StartGame();
                     break;
+
+                case "AcceptExitButton":
+                    gameObject.GetComponent<AcceptExitButton>().Exit();
+                    break;
             }
         }
     }
