@@ -4,25 +4,27 @@ using UnityEngine.UI;
 public class ButtonLanguage : MonoBehaviour
 {
     public Sprite English, Russian;
-    public Text PlayGameText, Record, PriceText;
+    public Text PlayGameText, Record, PriceText, ExitText;
 
     private Image image;
     private string language;
+    private string keyLanguage = "Language";
 
     public void GetLanguage()
     {
-        if (language == "Russian")
-        {
-            image.sprite = English;
-            language = "English";
-            PlayerPrefs.SetString("Language", "English");
-        }
-        else
+        if (language == "English")
         {
             image.sprite = Russian;
             language = "Russian";
-            PlayerPrefs.SetString("Language", "Russian");
+            PlayerPrefs.SetString(keyLanguage, "Russian");
         }
+        else if (language == "Russian")
+        {
+            image.sprite = English;
+            language = "English";
+            PlayerPrefs.SetString(keyLanguage, "English");
+        }
+
         ChangeLangueageOnScene();
     }
 
@@ -31,7 +33,14 @@ public class ButtonLanguage : MonoBehaviour
     /// </summary>
     private void SetLanguage()
     {
-        language = PlayerPrefs.GetString("Language") == "English" ? "Russian" : "English";
+        if (PlayerPrefs.HasKey(keyLanguage))
+        {
+            language = PlayerPrefs.GetString(keyLanguage) == "English" ? "Russian" : "English";
+        }
+        else
+        {
+            language = "Russian"; // to invert the language
+        }
 
         GetLanguage();
     }
@@ -47,6 +56,9 @@ public class ButtonLanguage : MonoBehaviour
         Language.PrintAnyLanguage(PriceText,
           "200 GOLD",
           "200 ЗОЛОТЫХ");
+        Language.PrintAnyLanguage(ExitText,
+            "Quit the game?",
+            "Выйти из игры?");
     }
 
     private void Start()

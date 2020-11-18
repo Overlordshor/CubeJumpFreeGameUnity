@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SceneArrengement : MonoBehaviour
 {
-    public Text GameNameText, PlayGameText, PriceText;
+    public Text GameNameText, PlayGameText, PriceText, ExitText;
     public Buttons Buttons;
     public GameObject MainCube;
     public GameObject ShopListCubes;
@@ -11,6 +11,7 @@ public class SceneArrengement : MonoBehaviour
     private SpawnCubes spawnCubes;
     private string keySkin = "Skin";
     private string keyRestart = "Restart";
+    private string keyLanguage = "Language";
 
     public void StartGame()
     {
@@ -23,21 +24,42 @@ public class SceneArrengement : MonoBehaviour
     {
         spawnCubes = GetComponent<SpawnCubes>();
 
-        Language.PrintAnyLanguage(PlayGameText,
-           "TAP TO PLAY",
-           "НАЖМИ ДЛЯ ИГРЫ");
-        Language.PrintAnyLanguage(PriceText,
-          "200 GOLD",
-          "200 ЗОЛОТЫХ");
+        SetLanguage();
+        SetSkin();
+        Restart();
+    }
+
+    private void Restart()
+    {
+        if (PlayerPrefs.GetString(keyRestart) == "true")
+        {
+            PlayerPrefs.SetString(keyRestart, "false");
+            StartGame();
+        }
+    }
+
+    private void SetSkin()
+    {
         if (PlayerPrefs.HasKey(keySkin))
         {
             Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt(keySkin)).GetComponent<MeshRenderer>().material;
             MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
         }
-        if (PlayerPrefs.GetString(keyRestart) == "true")
+    }
+
+    private void SetLanguage()
+    {
+        if (PlayerPrefs.HasKey(keyLanguage))
         {
-            PlayerPrefs.SetString(keyRestart, "false");
-            StartGame();
+            Language.PrintAnyLanguage(PlayGameText,
+               "TAP TO PLAY",
+               "НАЖМИ ДЛЯ ИГРЫ");
+            Language.PrintAnyLanguage(PriceText,
+              "200 GOLD",
+              "200 ЗОЛОТЫХ");
+            Language.PrintAnyLanguage(ExitText,
+                "Quit the game?",
+                "Выйти из игры?");
         }
     }
 
