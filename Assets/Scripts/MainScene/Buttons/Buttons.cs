@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class Buttons : MonoBehaviour
     private RectTransform buttonRect;
     private new Animation animation;
     private new AudioSource audio;
+    private ButtonSound sound;
+    private SceneArrengement scene;
+    private Image image;
 
     public void GoAway()
     {
@@ -20,6 +24,8 @@ public class Buttons : MonoBehaviour
         buttonRect = GetComponent<RectTransform>();
         animation = GetComponent<Animation>();
         audio = GetComponentInParent<AudioSource>();
+        scene = FindObjectOfType<SceneArrengement>();
+        image = GetComponent<Image>();
     }
 
     private void Update()
@@ -45,8 +51,11 @@ public class Buttons : MonoBehaviour
                     }
                     break;
 
-                case "Volume":
-                    gameObject.GetComponent<ButtonVolume>().GetVolume();
+                case "Sound":
+                    sound = gameObject.GetComponent<ButtonSound>();
+                    image.sprite = sound.GetSprite(scene.Sound);
+                    sound.GetSound(!scene.Sound);
+                    scene.Sound = !scene.Sound;
                     break;
 
                 case "Prompt":
@@ -82,7 +91,6 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "PlayButton":
-                    SceneArrengement scene = FindObjectOfType<SceneArrengement>();
                     scene.StartGame();
                     break;
 
