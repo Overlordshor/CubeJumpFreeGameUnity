@@ -45,10 +45,7 @@ public class SceneArrengement : MonoBehaviour
             Sound = true;
         }
 
-        if (Sound)
-        {
-            AudioListener.volume = 1f;
-        }
+        AudioListener.volume = Sound ? 1f : 0f;
     }
 
     private void Restart()
