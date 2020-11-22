@@ -61,7 +61,7 @@
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonSetting.cs" />
     <Compile Include="Assets\Scripts\Game\BrokenCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\Buttons.cs" />
-    <Compile Include="Assets\Scripts\MainScene\Buttons\ShopScroller.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\ShopScroller.cs" />
     <Compile Include="Assets\Scripts\Game\Score.cs" />
     <Compile Include="Assets\Scripts\MainScene\CoroutineSpawnStars.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonAccept.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Assets\Scripts\MainScene\Buttons\AcceptExitButton.cs" />
     <Compile Include="Assets\Scripts\MainScene\TextFade.cs" />
     <Compile Include="Assets\Scripts\MainScene\Star.cs" />
-    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\Shop.cs" />
     <Compile Include="Assets\Scripts\MainScene\Coin.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\Language.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\CancelExitButton.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\CubeSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
