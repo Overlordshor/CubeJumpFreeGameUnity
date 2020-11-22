@@ -9,11 +9,13 @@ public class SceneArrengement : MonoBehaviour
     public GameObject ShopListCubes;
 
     public bool Sound { get; set; }
+    public string KeyMute { get => keyMute; private set => keyMute = value; }
 
     private SpawnCubes spawnCubes;
     private string keySkin = "Skin";
     private string keyRestart = "Restart";
     private string keyLanguage = "Language";
+    private string keyMute = "Mute";
 
     public void StartGame()
     {
@@ -34,16 +36,19 @@ public class SceneArrengement : MonoBehaviour
 
     private void SetSound()
     {
-        if (PlayerPrefs.HasKey("Mute"))
+        if (PlayerPrefs.HasKey(KeyMute))
         {
-            Sound = PlayerPrefs.GetString("Mute") != "True";
+            Sound = PlayerPrefs.GetString(KeyMute) != "True";
         }
         else
         {
             Sound = true;
         }
 
-        Camera.main.GetComponent<AudioListener>().enabled = Sound;
+        if (Sound)
+        {
+            AudioListener.volume = 1f;
+        }
     }
 
     private void Restart()

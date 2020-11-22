@@ -6,6 +6,9 @@ public class ButtonSound : MonoBehaviour
     public Sprite SoundOn, SoundOff;
 
     private Image image;
+    private SceneArrengement scene;
+
+    private string trueResult = "True", falseResult = "False";
 
     public Sprite GetSprite(bool sound)
     {
@@ -24,21 +27,22 @@ public class ButtonSound : MonoBehaviour
         if (mute)
         {
             image.sprite = SoundOn;
-            PlayerPrefs.SetString("Mute", "False");
-            Camera.main.GetComponent<AudioListener>().enabled = true;
+            PlayerPrefs.SetString(scene.KeyMute, falseResult);
+            AudioListener.volume = 1f;
         }
         else
         {
             image.sprite = SoundOff;
-            PlayerPrefs.SetString("Mute", "True");
-            Camera.main.GetComponent<AudioListener>().enabled = false;
+            PlayerPrefs.SetString(scene.KeyMute, trueResult);
+            AudioListener.volume = 0f;
         }
     }
 
     private void Start()
     {
+        scene = FindObjectOfType<SceneArrengement>();
         image = GetComponent<Image>();
-        bool mute = PlayerPrefs.GetString("Mute") != "True";
+        bool mute = PlayerPrefs.GetString(scene.KeyMute) != trueResult;
         GetSound(mute);
     }
 }
