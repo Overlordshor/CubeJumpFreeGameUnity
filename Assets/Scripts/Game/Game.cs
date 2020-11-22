@@ -5,7 +5,7 @@ public class Game : MonoBehaviour
 {
     public GameObject DeactivatedCubes;
     public GameObject CubesTower;
-    public GameObject EndGameButtons, ExitPanel;
+    public GameObject EndGameButtons, ExitPanel, Buttons;
 
     private SpawnCubes cubeSpawner;
     private Score score;
@@ -92,12 +92,14 @@ public class Game : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ExitPanel.SetActive(true);
+                Buttons?.SetActive(false);
             }
         }
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ExitPanel.SetActive(true);
+            Buttons?.SetActive(false);
         }
 #endif
     }

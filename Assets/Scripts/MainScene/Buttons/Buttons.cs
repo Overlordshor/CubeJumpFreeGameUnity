@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
@@ -16,7 +17,7 @@ public class Buttons : MonoBehaviour
     {
         speed = 50f;
         move = true;
-        Destroy(gameObject, 2f);
+        StartCoroutine("DisableButtons");
     }
 
     private void Start()
@@ -99,5 +100,11 @@ public class Buttons : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private IEnumerator DisableButtons()
+    {
+        yield return new WaitForSeconds(2f);
+        gameObject.SetActive(false);
     }
 }
