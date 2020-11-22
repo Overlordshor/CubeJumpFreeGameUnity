@@ -60,7 +60,9 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "Prompt":
-                    gameObject.GetComponent<ButtonPrompt>().GetPrompt();
+                    var button = gameObject.GetComponent<ButtonPrompt>();
+                    button.Prompt = !button.Prompt;
+                    button.GetPrompt();
                     break;
 
                 case "ShopButton":
