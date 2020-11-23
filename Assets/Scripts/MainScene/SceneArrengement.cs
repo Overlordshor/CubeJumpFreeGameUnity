@@ -62,7 +62,7 @@ public class SceneArrengement : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(keySkin))
         {
-            Material loadMaterial = ShopListCubes.transform.GetChild(PlayerPrefs.GetInt(keySkin)).GetComponent<MeshRenderer>().material;
+            Material loadMaterial = ShopListCubes.transform.Find(PlayerPrefs.GetString(keySkin)).GetComponent<MeshRenderer>().material;
             MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
         }
     }

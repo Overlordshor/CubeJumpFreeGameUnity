@@ -6,36 +6,36 @@ public class ButtonAccept : MonoBehaviour
     public Sprite Accept, Buy;
     public GameObject Price;
 
-    private ShopScroller shopScroller;
     private Coin coin;
     private Image image;
-    private bool openCube;
+    private Shop shop;
+    private CubeSelection cube;
 
-    private int costCube = 200;
     private readonly string keyCoin = "Coin";
     private readonly string keyOpen = "Open";
 
     public void SelectCube()
     {
-        if (openCube)
+        if (cube.Open)
         {
             AcceptCube();
         }
-        else if (PlayerPrefs.GetInt(keyCoin) >= costCube)
+        else if (PlayerPrefs.GetInt(keyCoin) >= cube.Cost)
         {
-            PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - costCube);
-            PlayerPrefs.SetString(shopScroller.GetNameCube(), keyOpen);
+            PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - cube.Cost);
+            PlayerPrefs.SetString(cube.name, keyOpen);
+            cube.Open = true;
             coin.RefreshCount();
             AcceptCube();
         }
-        GetButtonImage();
+        GetButtonImage(cube);
     }
 
-    public void GetButtonImage()
+    public void GetButtonImage(CubeSelection cubeSelection)
     {
-        CheckBuyCube();
+        cube = cubeSelection;
 
-        if (openCube)
+        if (cube.Open)
         {
             image.sprite = Accept;
         }
@@ -44,38 +44,24 @@ public class ButtonAccept : MonoBehaviour
             image.sprite = Buy;
         }
 
-        SetPrice(openCube);
+        SetActivePrice();
     }
 
-    private void SetPrice(bool openCube)
+    private void SetActivePrice()
     {
-        Price.SetActive(!openCube);
-    }
-
-    private void CheckBuyCube()
-    {
-        if (PlayerPrefs.GetString(shopScroller.GetNameCube()) == keyOpen)
-        {
-            openCube = true;
-        }
-        else
-        {
-            openCube = false;
-        }
+        Price.SetActive(!cube.Open);
     }
 
     private void AcceptCube()
     {
-        shopScroller.GetMaterialCube();
+        shop.SetMaterialCube(cube);
         transform.parent.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        shopScroller = FindObjectOfType<ShopScroller>();
+        shop = FindObjectOfType<Shop>();
         coin = FindObjectOfType<Coin>();
         image = GetComponent<Image>();
-
-        GetButtonImage();
     }
 }

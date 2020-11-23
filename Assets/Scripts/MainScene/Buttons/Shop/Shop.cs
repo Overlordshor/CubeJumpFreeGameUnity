@@ -3,6 +3,13 @@
 public class Shop : MonoBehaviour
 {
     public GameObject PlayButton, SocialGroupBar;
+    public GameObject MainCube;
+
+    public void SetMaterialCube(CubeSelection cube)
+    {
+        MainCube.GetComponent<MeshRenderer>().material = cube.SelectMaterial;
+        PlayerPrefs.SetString("Skin", cube.gameObject.name);
+    }
 
     private void OnEnable()
     {
