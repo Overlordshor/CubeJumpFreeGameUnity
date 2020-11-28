@@ -6,55 +6,46 @@ public class ButtonAccept : MonoBehaviour
     public Sprite Accept, Buy;
     public GameObject Price;
 
-    private Coin coin;
     private Image image;
+    private Coin coin;
     private Shop shop;
-    private CubeSelection cube;
+    private CubeForSale cube;
 
     private readonly string keyCoin = "Coin";
     private readonly string keyOpen = "Open";
 
     public void SelectCube()
     {
-        if (cube.Open)
+        var selectCube = shop.GetSelectCube();
+        if (selectCube.Open)
         {
-            AcceptCube();
+            AcceptCube(selectCube);
         }
-        else if (PlayerPrefs.GetInt(keyCoin) >= cube.Cost)
+        else if (PlayerPrefs.GetInt(keyCoin) >= selectCube.Cost)
         {
-            PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - cube.Cost);
-            PlayerPrefs.SetString(cube.name, keyOpen);
-            cube.Open = true;
+            PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - selectCube.Cost);
+            PlayerPrefs.SetString(selectCube.name, keyOpen);
             coin.RefreshCount();
-            AcceptCube();
+            AcceptCube(selectCube);
         }
-        GetButtonImage(cube);
+        GetButtonImage(selectCube);
     }
 
-    public void GetButtonImage(CubeSelection cubeSelection)
+    public void GetButtonImage(CubeForSale cube)
     {
-        cube = cubeSelection;
-
-        if (cube.Open)
+        if (image == null)
         {
-            image.sprite = Accept;
-        }
-        else
-        {
-            image.sprite = Buy;
+            image = GetComponent<Image>();
         }
 
-        SetActivePrice();
-    }
+        image.sprite = cube.Open ? Accept : Buy;
 
-    private void SetActivePrice()
-    {
         Price.SetActive(!cube.Open);
     }
 
-    private void AcceptCube()
+    private void AcceptCube(CubeForSale selectCube)
     {
-        shop.SetMaterialCube(cube);
+        shop.SetMaterialCube(selectCube);
         transform.parent.gameObject.SetActive(false);
     }
 
@@ -63,5 +54,6 @@ public class ButtonAccept : MonoBehaviour
         shop = FindObjectOfType<Shop>();
         coin = FindObjectOfType<Coin>();
         image = GetComponent<Image>();
+        cube = FindObjectOfType<CubeForSale>();
     }
 }

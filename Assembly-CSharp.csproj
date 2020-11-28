@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\MainScene\Buttons\CancelExitButton.cs" />
     <Compile Include="Assets\Scripts\Game\Cube.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\CubeForSale.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonsEndGame.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonPrompt.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonSetting.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Assets\Scripts\Game\Score.cs" />
     <Compile Include="Assets\Scripts\MainScene\CoroutineSpawnStars.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonAccept.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\ShopButton.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonLanguage.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonSound.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\AcceptExitButton.cs" />
@@ -73,7 +75,6 @@
     <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\Shop.cs" />
     <Compile Include="Assets\Scripts\MainScene\Coin.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
-    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\CubeSelection.cs" />
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
     <Compile Include="Assets\Scripts\MainScene\SceneArrengement.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />

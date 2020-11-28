@@ -23,5 +23,6 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         RefreshCount();
+        countCoin = 1000000;
     }
 }

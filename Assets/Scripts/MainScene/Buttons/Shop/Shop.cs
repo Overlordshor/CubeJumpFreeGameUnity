@@ -2,33 +2,49 @@
 
 public class Shop : MonoBehaviour
 {
-    public GameObject PlayButton, SocialGroupBar;
     public GameObject MainCube;
+    private CubeForSale[] cubesForSale;
 
-    public void SetMaterialCube(CubeSelection cube)
+    public void SetMaterialCube(CubeForSale cube)
     {
-        MainCube.GetComponent<MeshRenderer>().material = cube.SelectMaterial;
+        MainCube.GetComponent<MeshRenderer>().material = cube.Material;
         PlayerPrefs.SetString("Skin", cube.gameObject.name);
     }
 
-    private void OnEnable()
+    public CubeForSale GetSelectCube()
     {
-        ToggleAllUI();
+        CubeForSale cubeSelect = new CubeForSale();
+        foreach (var cube in cubesForSale)
+        {
+            if (cube.Select)
+            {
+                cubeSelect = cube;
+                break;
+            }
+        }
+        return cubeSelect;
     }
 
-    private void OnDisable()
+    public void SelectCube(GameObject gameObject)
     {
-        ToggleAllUI();
+        foreach (var cube in cubesForSale)
+        {
+            if (cube.name == gameObject.name)
+            {
+                cube.Select = true;
+                continue;
+            }
+            cube.Select = false;
+        }
     }
 
-    private void ToggleUI(GameObject gameObject)
+    private void Start()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
-    }
-
-    private void ToggleAllUI()
-    {
-        ToggleUI(PlayButton);
-        ToggleUI(SocialGroupBar);
+        var transformCubesForSale = transform.Find("Cubes");
+        cubesForSale = new CubeForSale[transformCubesForSale.childCount];
+        for (int i = 0; i < transformCubesForSale.childCount; i++)
+        {
+            cubesForSale[i] = transformCubesForSale.GetChild(i).GetComponent<CubeForSale>();
+        }
     }
 }
