@@ -12,6 +12,10 @@ public class Buttons : MonoBehaviour
     private ButtonSound sound;
     private SceneArrengement scene;
     private Image image;
+    private string urlVk = "https://vk.com/towercubejump";
+    private string urlInsta = "https://www.instagram.com/towercubejump/";
+    private string urlFb = "https://www.facebook.com/TowerCubeJump/";
+    private string urlTelegram = "https://t.me/TowerCubeJump";
 
     public void GoAway()
     {
@@ -99,6 +103,22 @@ public class Buttons : MonoBehaviour
 
                 case "AcceptExitButton":
                     gameObject.GetComponent<AcceptExitButton>().Exit();
+                    break;
+
+                case "VKButton":
+                    Application.OpenURL(urlVk);
+                    break;
+
+                case "InstaButton":
+                    Application.OpenURL(urlInsta);
+                    break;
+
+                case "FBButton":
+                    Application.OpenURL(urlFb);
+                    break;
+
+                case "TelegramButton":
+                    Application.OpenURL(urlTelegram);
                     break;
             }
         }
