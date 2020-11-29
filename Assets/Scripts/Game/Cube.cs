@@ -21,7 +21,7 @@ public class Cube : MonoBehaviour
     private AudioSource audioSource;
     private bool playedAudioSqueeze = false;
 
-    private Color color;
+    //private Color color;
 
     private bool isGround = true;
 
@@ -84,7 +84,7 @@ public class Cube : MonoBehaviour
     private void SetRandomColor()
     {
         GetComponent<MeshRenderer>().material.color = new Color(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
-        color = GetComponent<MeshRenderer>().material.color;
+        //color = GetComponent<MeshRenderer>().material.color;
     }
 
     private float GetRandomFloat()
@@ -143,11 +143,10 @@ public class Cube : MonoBehaviour
         var brokenCube = Instantiate(BrokenCube,
                             gameObject.transform.position,
                             Quaternion.identity,
-                            gameObject.transform.parent);
+                            game.DeactivatedCubes.transform);
         brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
 
         gameObject.transform.parent = game.DeactivatedCubes.transform;
-        game.PassHeightTower();
         gameObject.SetActive(false);
     }
 }

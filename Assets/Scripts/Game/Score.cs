@@ -7,9 +7,11 @@ public class Score : MonoBehaviour
     public Text GameNameText;
     public Text Record;
     public Text Buff;
+    public Transform Cubes;
 
     private int totalScore = 0;
-    private int buffPower;
+
+    private int buffPower { get; set; }
 
     public void Add()
     {
@@ -18,29 +20,31 @@ public class Score : MonoBehaviour
         SetRecord(totalScore);
     }
 
-    public void RefreshBuff(int heightTower)
+    private void Start()
     {
-        buffPower = heightTower - 2;
+        SetRecord(totalScore);
     }
 
-    public void PrintBuffOnScreen()
+    private void Update()
     {
-        if (buffPower <= 1)
-        {
-            Buff.gameObject.SetActive(false);
-        }
-        else
+        PrintBuffOnScreen();
+    }
+
+    private void PrintBuffOnScreen()
+    {
+        var height = Cubes.childCount;
+        buffPower = height - 1;
+        if (buffPower >= 2)
         {
             Language.PrintAnyLanguage(Buff,
            "Your buff score: " + buffPower,
            "Уровень твоего бафа:" + buffPower);
             Buff.gameObject.SetActive(true);
         }
-    }
-
-    private void Start()
-    {
-        SetRecord(totalScore);
+        else if (buffPower < 2)
+        {
+            Buff.gameObject.SetActive(false);
+        }
     }
 
     private void SetRecord(int totalScore)

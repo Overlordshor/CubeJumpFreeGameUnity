@@ -32,16 +32,9 @@ public class Game : MonoBehaviour
             JumpAttempt++;
             AppearedNewCube = true;
 
-            PassHeightTower();
-            score.PrintBuffOnScreen();
             score.Add();
             coin.Add();
         }
-    }
-
-    public int GetHeightTower()
-    {
-        return CubesTower.transform.childCount;
     }
 
     public void LoseJumpAttempt()
@@ -58,13 +51,6 @@ public class Game : MonoBehaviour
     public void PlayAudioBrokenBox()
     {
         audioBrokenBox.Play();
-    }
-
-    public void PassHeightTower()
-    {
-        var heigtTower = CubesTower.transform.childCount;
-        score.RefreshBuff(heigtTower);
-        print(heigtTower);
     }
 
     private void ActivateButtonsEnd()
