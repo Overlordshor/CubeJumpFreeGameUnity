@@ -50,9 +50,12 @@ public class CubeForSale : MonoBehaviour
 
     private void Update()
     {
-        if (transform.localScale != originalScale)
+        if (!Select)
         {
-            transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f); ;
+            if (transform.localScale != originalScale)
+            {
+                transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f); ;
+            }
         }
     }
 }

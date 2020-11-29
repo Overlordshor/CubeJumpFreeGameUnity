@@ -24,6 +24,7 @@ public class ButtonAccept : MonoBehaviour
         else if (PlayerPrefs.GetInt(keyCoin) >= selectCube.Cost)
         {
             PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - selectCube.Cost);
+            selectCube.Open = true;
             PlayerPrefs.SetString(selectCube.name, keyOpen);
             coin.RefreshCount();
             AcceptCube(selectCube);
