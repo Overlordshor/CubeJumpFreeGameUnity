@@ -54,7 +54,7 @@ public class CubeForSale : MonoBehaviour
         {
             if (transform.localScale != originalScale)
             {
-                transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f); ;
+                transform.localScale -= new Vector3(1f, 1f, 1f); ;
             }
         }
     }
