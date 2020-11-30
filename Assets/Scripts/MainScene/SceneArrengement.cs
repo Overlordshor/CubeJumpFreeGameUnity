@@ -87,7 +87,7 @@ public class SceneArrengement : MonoBehaviour
     {
         if (!MainCube.GetComponent<Animation>().isPlaying)
         {
-            MainCube.AddComponent<Rigidbody>();
+            MainCube.AddComponent<Rigidbody>().mass = 10;
             SwitchScriptsScene();
         }
     }
