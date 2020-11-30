@@ -120,7 +120,6 @@ public class Cube : MonoBehaviour
                 if (!transferControl)
                 {
                     game.DisplayButtons();
-                    game.ShowAds();
                 }
             }
         }
