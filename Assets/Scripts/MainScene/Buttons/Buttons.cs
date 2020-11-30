@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class Buttons : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Buttons : MonoBehaviour
     private ButtonSound sound;
     private SceneArrengement scene;
     private Image image;
+
     private string urlVk = "https://vk.com/towercubejump";
     private string urlInsta = "https://www.instagram.com/towercubejump/";
     private string urlFb = "https://www.facebook.com/TowerCubeJump/";
@@ -83,10 +85,6 @@ public class Buttons : MonoBehaviour
 
                 case "Language":
                     gameObject.GetComponent<ButtonLanguage>().GetLanguage();
-                    break;
-
-                case "AdvertisingButton":
-                    print("SHOW ADVERTISING");
                     break;
 
                 case "Restart":

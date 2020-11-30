@@ -10,8 +10,13 @@ public class Coin : MonoBehaviour
     public void Add()
     {
         countCoin++;
-        PlayerPrefs.SetInt("Coin", countCoin);
-        CountCoin.text = countCoin.ToString();
+        SetCountCoin();
+    }
+
+    public void Reward()
+    {
+        countCoin += 200;
+        SetCountCoin();
     }
 
     public void RefreshCount()
@@ -23,5 +28,11 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         RefreshCount();
+    }
+
+    private void SetCountCoin()
+    {
+        PlayerPrefs.SetInt("Coin", countCoin);
+        CountCoin.text = countCoin.ToString();
     }
 }

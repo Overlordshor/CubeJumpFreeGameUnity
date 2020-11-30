@@ -13,15 +13,17 @@ public class Game : MonoBehaviour
     private Coin coin;
     private AudioSource audioBrokenBox;
 
+    private string placement = "video";
+
     public int JumpAttempt { get; set; } = 1;
 
     public bool AppearedNewCube { get; set; } = false;
 
     public void ShowAds()
     {
-        if (Advertisement.IsReady())
+        if (Advertisement.IsReady(placement))
         {
-            Advertisement.Show("video");
+            Advertisement.Show(placement);
         }
     }
 
