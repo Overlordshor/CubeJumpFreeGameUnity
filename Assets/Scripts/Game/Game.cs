@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class Game : MonoBehaviour
 {
@@ -15,6 +16,14 @@ public class Game : MonoBehaviour
     public int JumpAttempt { get; set; } = 1;
 
     public bool AppearedNewCube { get; set; } = false;
+
+    public void ShowAds()
+    {
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show("video");
+        }
+    }
 
     public void DisplayButtons()
     {
@@ -64,6 +73,10 @@ public class Game : MonoBehaviour
         score = GetComponent<Score>();
         coin = GetComponent<Coin>();
         audioBrokenBox = GetComponent<AudioSource>();
+        if (Advertisement.isSupported)
+        {
+            Advertisement.Initialize("3921519", false);
+        }
     }
 
     private void Update()
