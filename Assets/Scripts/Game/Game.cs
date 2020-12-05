@@ -14,6 +14,7 @@ public class Game : MonoBehaviour
     private AudioSource audioBrokenBox;
 
     private string placement = "video";
+    private string countPlacementReward = "rewardedVideo";
     private string countGamesKey = "countGames";
 
     public int JumpAttempt { get; set; } = 1;
@@ -58,10 +59,12 @@ public class Game : MonoBehaviour
     {
         PlayerPrefs.SetInt(countGamesKey, PlayerPrefs.GetInt(countGamesKey) + 1);
 
-        if (PlayerPrefs.GetInt(countGamesKey) % 5 == 0)
+        var countGames = PlayerPrefs.GetInt(countGamesKey);
+        if (countGames % 5 == 0)
         {
             ShowAds();
             PlayerPrefs.SetInt(countGamesKey, 0);
+            PlayerPrefs.SetInt(countPlacementReward, 0);
         }
 
         PlayerPrefs.Save();

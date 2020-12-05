@@ -6,11 +6,18 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     private string placementID = "rewardedVideo";
     private Coin coin;
 
+    /// <summary>
+    /// Called from Unity OnClick () by AdvertisingButton
+    /// </summary>
     public void ShowAdvertisements()
     {
         if (Advertisement.IsReady(placementID))
         {
             Advertisement.Show(placementID);
+        }
+        else
+        {
+            Debug.LogError("Fail reward video");
         }
     }
 
@@ -23,6 +30,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (showResult == ShowResult.Finished)
         {
+            PlayerPrefs.SetInt(placementId, PlayerPrefs.GetInt(placementId) + 1);
             coin.Reward();
         }
     }
@@ -38,6 +46,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     private void Start()
     {
         coin = FindObjectOfType<Coin>();
+        if (!PlayerPrefs.HasKey(placementID))
+        {
+            PlayerPrefs.SetInt(placementID, 0);
+        }
 
         Advertisement.AddListener(this);
 

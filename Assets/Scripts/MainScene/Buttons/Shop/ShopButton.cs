@@ -2,7 +2,7 @@
 
 public class ShopButton : MonoBehaviour
 {
-    public GameObject PlayButton, SocialGroupBar;
+    public GameObject PlayButton, SocialGroupBar, AdvertisingButton;
 
     private void OnEnable()
     {

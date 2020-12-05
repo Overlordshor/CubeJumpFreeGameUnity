@@ -5,8 +5,7 @@ public class Coin : MonoBehaviour
 {
     public Text CountCoin;
 
-    private int countCoin;
-    private int coinReward { get; set; }
+    private static int countCoin;
 
     public void Add()
     {
@@ -16,7 +15,7 @@ public class Coin : MonoBehaviour
 
     public void Reward()
     {
-        countCoin += coinReward;
+        countCoin += 100;
         SetCountCoin();
     }
 
@@ -29,7 +28,6 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         RefreshCount();
-        coinReward = 100;
     }
 
     private void SetCountCoin()

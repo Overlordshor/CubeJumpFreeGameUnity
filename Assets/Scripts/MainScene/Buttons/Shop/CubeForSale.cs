@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CubeForSale : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class CubeForSale : MonoBehaviour
     private Vector3 originalScale;
     private ButtonAccept buttonAccept;
     private Shop shop;
-    private readonly string keyOpen = "Open";
+    private string keyOpen = "Open";
 
     private void Start()
     {

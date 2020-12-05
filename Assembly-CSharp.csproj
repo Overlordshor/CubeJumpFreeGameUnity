@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\MainScene\AdsManager.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\Language.cs" />
+    <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\AdvertisingButton.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityAds\UnityEngine.Advertisements.Unsupported.dll" />
