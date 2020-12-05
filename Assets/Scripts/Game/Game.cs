@@ -14,6 +14,7 @@ public class Game : MonoBehaviour
     private AudioSource audioBrokenBox;
 
     private string placement = "video";
+    private string adsKey = "Advertisements";
 
     public int JumpAttempt { get; set; } = 1;
 
@@ -56,6 +57,7 @@ public class Game : MonoBehaviour
     public void Restart()
     {
         PlayerPrefs.Save();
+        ShowAds();
         SceneManager.LoadScene("Main");
     }
 
@@ -78,6 +80,10 @@ public class Game : MonoBehaviour
         if (Advertisement.isSupported)
         {
             Advertisement.Initialize("3921519", false);
+            if (!PlayerPrefs.HasKey(adsKey))
+            {
+                PlayerPrefs.SetInt(adsKey, 0);
+            }
         }
     }
 

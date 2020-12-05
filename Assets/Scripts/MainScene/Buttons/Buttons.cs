@@ -88,7 +88,6 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "Restart":
-                    FindObjectOfType<Game>().ShowAds();
                     gameObject.GetComponent<ButtonsEndGame>().Restart();
                     break;
 

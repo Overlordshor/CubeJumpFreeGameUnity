@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ButtonsEndGame : MonoBehaviour
 {
@@ -8,7 +7,8 @@ public class ButtonsEndGame : MonoBehaviour
 
     public void Restart()
     {
-        StartCoroutine("RestartGame");
+        PlayerPrefs.SetString(keyRestart, "true");
+        ReturnToMenu();
     }
 
     public void ReturnToMenu()
@@ -19,12 +19,5 @@ public class ButtonsEndGame : MonoBehaviour
     private void Start()
     {
         game = FindObjectOfType<Game>();
-    }
-
-    private IEnumerator RestartGame()
-    {
-        yield return new WaitForSeconds(2f);
-        PlayerPrefs.SetString(keyRestart, "true");
-        ReturnToMenu();
     }
 }
