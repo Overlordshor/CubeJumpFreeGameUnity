@@ -14,7 +14,7 @@ public class Game : MonoBehaviour
     private AudioSource audioBrokenBox;
 
     private string placement = "video";
-    private string adsKey = "Advertisements";
+    private string countGamesKey = "countGames";
 
     public int JumpAttempt { get; set; } = 1;
 
@@ -56,8 +56,15 @@ public class Game : MonoBehaviour
 
     public void Restart()
     {
+        PlayerPrefs.SetInt(countGamesKey, PlayerPrefs.GetInt(countGamesKey) + 1);
+
+        if (PlayerPrefs.GetInt(countGamesKey) % 5 == 0)
+        {
+            ShowAds();
+            PlayerPrefs.SetInt(countGamesKey, 0);
+        }
+
         PlayerPrefs.Save();
-        ShowAds();
         SceneManager.LoadScene("Main");
     }
 
@@ -77,12 +84,17 @@ public class Game : MonoBehaviour
         score = GetComponent<Score>();
         coin = GetComponent<Coin>();
         audioBrokenBox = GetComponent<AudioSource>();
+        InitializeAds();
+    }
+
+    private void InitializeAds()
+    {
         if (Advertisement.isSupported)
         {
             Advertisement.Initialize("3921519", false);
-            if (!PlayerPrefs.HasKey(adsKey))
+            if (!PlayerPrefs.HasKey(countGamesKey))
             {
-                PlayerPrefs.SetInt(adsKey, 0);
+                PlayerPrefs.SetInt(countGamesKey, 0);
             }
         }
     }
