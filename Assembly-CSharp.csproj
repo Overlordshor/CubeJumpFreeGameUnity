@@ -77,9 +77,9 @@
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
     <Compile Include="Assets\Scripts\MainScene\SceneArrengement.cs" />
+    <Compile Include="Assets\Scripts\MainScene\AdsManager.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\Language.cs" />
-    <Compile Include="Assets\Scripts\MainScene\AdsManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\UnityAds\UnityEngine.Advertisements.Unsupported.dll" />

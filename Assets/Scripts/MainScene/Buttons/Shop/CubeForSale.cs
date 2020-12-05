@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CubeForSale : MonoBehaviour
 {
-    public int Cost { get; private set; }
+    public int Cost { get; set; }
     public bool Select { get; set; }
     public bool Open { get; set; }
     public Material Material { get; private set; }
