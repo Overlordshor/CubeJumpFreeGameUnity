@@ -9,13 +9,16 @@ public class SceneArrengement : MonoBehaviour
     public GameObject ShopListCubes;
 
     public bool Sound { get; set; }
+    public bool Prompt { get; set; }
     public string KeyMute { get => keyMute; private set => keyMute = value; }
+    public string KeyPrompt { get => keyPrompt; private set => keyPrompt = value; }
 
     private SpawnCubes spawnCubes;
     private string keySkin = "Skin";
     private string keyRestart = "Restart";
     private string keyLanguage = "Language";
     private string keyMute = "Mute";
+    private string keyPrompt = "Prompt";
 
     public void StartGame()
     {
@@ -24,12 +27,26 @@ public class SceneArrengement : MonoBehaviour
         AnimateStartGameUI();
     }
 
+    public void SetPrompt()
+    {
+        if (PlayerPrefs.HasKey(KeyPrompt))
+        {
+            Prompt = PlayerPrefs.GetString(KeyPrompt) == "True";
+        }
+        else
+        {
+            Prompt = true;
+            PlayerPrefs.SetString(KeyPrompt, "True");
+        }
+    }
+
     private void Start()
     {
         spawnCubes = GetComponent<SpawnCubes>();
 
         SetLanguage();
         SetSound();
+        SetPrompt();
         SetSkin();
         Restart();
     }

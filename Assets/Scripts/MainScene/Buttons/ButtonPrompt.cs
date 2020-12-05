@@ -4,42 +4,30 @@ using UnityEngine.UI;
 public class ButtonPrompt : MonoBehaviour
 {
     public Sprite PromptOn, PromptOff;
-    public bool Prompt { get => prompt; set => prompt = value; }
 
     private Image image;
-    private bool prompt = true;
 
-    private void SetPrompt()
-    {
-        if (PlayerPrefs.HasKey("Prompt"))
-        {
-            Prompt = PlayerPrefs.GetString("Prompt") == "True";
-        }
-        else
-        {
-            Prompt = true;
-        }
-
-        GetPrompt();
-    }
+    private SceneArrengement scene;
 
     public void GetPrompt()
     {
-        if (Prompt)
+        if (scene.Prompt)
         {
             image.sprite = PromptOn;
-            PlayerPrefs.SetString("Prompt", "True");
+            PlayerPrefs.SetString(scene.KeyPrompt, "True");
         }
         else
         {
             image.sprite = PromptOff;
-            PlayerPrefs.SetString("Prompt", "False");
+            PlayerPrefs.SetString(scene.KeyPrompt, "False");
         }
     }
 
     private void Start()
     {
         image = GetComponent<Image>();
-        SetPrompt();
+        scene = FindObjectOfType<SceneArrengement>();
+        scene.SetPrompt();
+        GetPrompt();
     }
 }

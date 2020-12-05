@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class Language
 {
+    private static string languageKey = "Language";
+
     /// <summary>
     /// In the presented text on the stage, chooses which text to submit depending on the player's settings.
     /// </summary>
@@ -11,15 +13,22 @@ public class Language
     /// <param name="russian"></param>
     public static void PrintAnyLanguage(Text text, string english, string russian)
     {
-        switch (PlayerPrefs.GetString("Language"))
+        if (PlayerPrefs.HasKey(languageKey))
         {
-            case "English":
-                text.text = english;
-                break;
+            switch (PlayerPrefs.GetString(languageKey))
+            {
+                case "English":
+                    text.text = english;
+                    break;
 
-            case "Russian":
-                text.text = russian;
-                break;
+                case "Russian":
+                    text.text = russian;
+                    break;
+            }
+        }
+        else
+        {
+            text.text = english;
         }
     }
 }

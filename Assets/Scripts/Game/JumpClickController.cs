@@ -23,7 +23,7 @@ public class JumpClickController : MonoBehaviour
         if (PlayerPrefs.GetString("Prompt") == "True")
         {
             Language.PrintAnyLanguage(RulesText,
-                "Press and hold to jump. Get points for every cube hit",
+                "Tap the screen and hold to jump. Get points for every cube hit",
                 "Нажми на экран и удерживай, чтобы прыгнуть. Получай очки за каждое попадание по кубу");
             RulesText.gameObject.SetActive(true);
         }
