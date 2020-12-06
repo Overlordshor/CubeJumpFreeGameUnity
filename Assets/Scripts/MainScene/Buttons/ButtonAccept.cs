@@ -9,7 +9,6 @@ public class ButtonAccept : MonoBehaviour
     private Image image;
     private Coin coin;
     private Shop shop;
-    private CubeForSale cube;
 
     private readonly string keyCoin = "Coin";
     private readonly string keyOpen = "Open";
@@ -55,6 +54,5 @@ public class ButtonAccept : MonoBehaviour
         shop = FindObjectOfType<Shop>();
         coin = FindObjectOfType<Coin>();
         image = GetComponent<Image>();
-        cube = FindObjectOfType<CubeForSale>();
     }
 }

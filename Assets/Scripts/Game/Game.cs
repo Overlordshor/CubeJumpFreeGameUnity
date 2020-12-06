@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
     private Coin coin;
     private AudioSource audioBrokenBox;
 
+    private string gameID = "3921519";
     private string placement = "video";
     private string countPlacementReward = "rewardedVideo";
     private string countGamesKey = "countGames";
@@ -44,9 +45,6 @@ public class Game : MonoBehaviour
             cubeSpawner.GetNewCube();
             JumpAttempt++;
             AppearedNewCube = true;
-
-            score.Add();
-            coin.Add();
         }
     }
 
@@ -76,9 +74,19 @@ public class Game : MonoBehaviour
         audioBrokenBox.Play();
     }
 
+    public void GetReward()
+    {
+        if (!AppearedNewCube)
+        {
+            score.Add();
+            coin.Add();
+        }
+    }
+
     private void ActivateButtonsEnd()
     {
         EndGameButtons.SetActive(true);
+        EndGameButtons.transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display();
     }
 
     private void Start()
@@ -94,7 +102,7 @@ public class Game : MonoBehaviour
     {
         if (Advertisement.isSupported)
         {
-            Advertisement.Initialize("3921519", false);
+            Advertisement.Initialize(gameID, false);
             if (!PlayerPrefs.HasKey(countGamesKey))
             {
                 PlayerPrefs.SetInt(countGamesKey, 0);

@@ -2,11 +2,12 @@
 
 public class ShopButton : MonoBehaviour
 {
-    public GameObject PlayButton, SocialGroupBar, AdvertisingButton;
+    public GameObject PlayButton, SocialGroupBar;
 
     private void OnEnable()
     {
         ToggleAllUI();
+        transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display();
     }
 
     private void OnDisable()

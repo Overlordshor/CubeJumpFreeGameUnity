@@ -53,9 +53,6 @@ public class ButtonLanguage : MonoBehaviour
         Language.PrintAnyLanguage(Record,
            "TOP: " + PlayerPrefs.GetInt("Record").ToString(),
            "Рекорд: " + PlayerPrefs.GetInt("Record").ToString());
-        Language.PrintAnyLanguage(PriceText,
-          "200 GOLD",
-          "200 ЗОЛОТЫХ");
         Language.PrintAnyLanguage(ExitText,
             "Quit the game?",
             "Выйти из игры?");

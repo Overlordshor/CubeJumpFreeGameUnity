@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
     public GameObject MainCube;
-    private CubeForSale[] cubesForSale;
+    public CubeForSale[] cubesForSale;
+    public Text PriceText;
 
     public void SetMaterialCube(CubeForSale cube)
     {
@@ -32,6 +34,7 @@ public class Shop : MonoBehaviour
             if (cube.name == gameObject.name)
             {
                 cube.Select = true;
+                Language.PrintAnyLanguage(PriceText, cube.Cost + " GOLD", cube.Cost + " ЗОЛОТЫХ");
                 continue;
             }
             cube.Select = false;

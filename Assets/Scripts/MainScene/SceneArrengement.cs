@@ -90,9 +90,6 @@ public class SceneArrengement : MonoBehaviour
             Language.PrintAnyLanguage(PlayGameText,
                "TAP TO PLAY",
                "НАЖМИ ДЛЯ ИГРЫ");
-            Language.PrintAnyLanguage(PriceText,
-              "200 GOLD",
-              "200 ЗОЛОТЫХ");
             Language.PrintAnyLanguage(ExitText,
                 "Quit the game?",
                 "Выйти из игры?");

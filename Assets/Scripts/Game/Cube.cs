@@ -127,6 +127,7 @@ public class Cube : MonoBehaviour
         {
             if (game.JumpAttempt == 0)
             {
+                game.GetReward();
                 game.CreateNewCube();
             }
             if (!transferControl)

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class Coin : MonoBehaviour
 {
     public Text CountCoin;
-    public GameObject Count;
 
     private static int countCoin;
 

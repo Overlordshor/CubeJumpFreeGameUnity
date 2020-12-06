@@ -6,6 +6,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     private string placementID = "rewardedVideo";
     private Coin coin;
 
+    private GameObject advertisingButton;
+
     /// <summary>
     /// Called from Unity OnClick () by AdvertisingButton
     /// </summary>
@@ -30,8 +32,22 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (showResult == ShowResult.Finished)
         {
-            PlayerPrefs.SetInt(placementId, PlayerPrefs.GetInt(placementId) + 1);
-            coin.Reward();
+            switch (gameObject.name)
+            {
+                case "AdsManagerShop":
+
+                    PlayerPrefs.SetInt(placementId, PlayerPrefs.GetInt(placementId) + 1);
+                    coin.Reward();
+                    break;
+
+                case "AdsManagerProceed":
+                    transform.parent.gameObject.SetActive(false);
+                    var game = FindObjectOfType<Game>();
+                    game.CreateNewCube();
+                    break;
+            }
+
+            advertisingButton.SetActive(false);
         }
     }
 
@@ -56,5 +72,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             Advertisement.Initialize("3921519", false);
             Advertisement.AddListener(this);
         }
+    }
+
+    private void OnEnable()
+    {
+        advertisingButton = transform.parent.Find("AdvertisingButton").gameObject;
+        advertisingButton.SetActive(Advertisement.IsReady(placementID));
     }
 }

@@ -2,10 +2,15 @@
 
 public class CubeForSale : MonoBehaviour
 {
-    public int Cost { get; set; }
+    public int Cost { get => cost; private set => cost = value; }
     public bool Select { get; set; }
     public bool Open { get; set; }
     public Material Material { get; private set; }
+
+    /// <summary>
+    /// Set from Unity, ShopButton/Shop/Cubes/...
+    /// </summary>
+    [SerializeField] private int cost;
 
     private GameObject acceptButton;
     private new AudioSource audio;
@@ -22,7 +27,6 @@ public class CubeForSale : MonoBehaviour
         Material = GetComponent<MeshRenderer>().material;
         shop = transform.parent.transform.parent.GetComponent<Shop>();
         originalScale = transform.localScale;
-        Cost = 200;
 
         if (!PlayerPrefs.HasKey("CubeStar") && gameObject.name == "CubeStar")
         {
