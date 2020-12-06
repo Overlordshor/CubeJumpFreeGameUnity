@@ -51,11 +51,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             PlayerPrefs.SetInt(placementID, 0);
         }
 
-        Advertisement.AddListener(this);
-
         if (Advertisement.isSupported)
         {
             Advertisement.Initialize("3921519", false);
+            Advertisement.AddListener(this);
         }
     }
 }

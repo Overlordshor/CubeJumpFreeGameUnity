@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class Coin : MonoBehaviour
 {
     public Text CountCoin;
+    public GameObject Count;
 
     private static int countCoin;
 
@@ -15,7 +16,7 @@ public class Coin : MonoBehaviour
 
     public void Reward()
     {
-        countCoin += 100;
+        countCoin += 50;
         SetCountCoin();
     }
 
@@ -33,6 +34,7 @@ public class Coin : MonoBehaviour
     private void SetCountCoin()
     {
         PlayerPrefs.SetInt("Coin", countCoin);
+
         CountCoin.text = countCoin.ToString();
     }
 }
