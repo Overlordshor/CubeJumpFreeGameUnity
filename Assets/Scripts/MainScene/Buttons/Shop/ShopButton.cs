@@ -7,7 +7,7 @@ public class ShopButton : MonoBehaviour
     private void OnEnable()
     {
         ToggleAllUI();
-        transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display();
+        transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display(true);
     }
 
     private void OnDisable()

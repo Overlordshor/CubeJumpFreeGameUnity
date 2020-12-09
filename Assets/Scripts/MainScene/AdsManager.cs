@@ -3,23 +3,46 @@ using UnityEngine;
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
-    private string placementID = "rewardedVideo";
-    private Coin coin;
+    public GameObject ButtonShop, ButtonProceed;
 
-    private GameObject advertisingButton;
+    private Coin coin;
+    private bool shop;
+
+    public void ShowNotRewardAdvertisement()
+    {
+        if (Advertisement.IsReady(Keys.PlacementNotRewardId))
+        {
+            Advertisement.Show(Keys.PlacementNotRewardId);
+        }
+    }
 
     /// <summary>
     /// Called from Unity OnClick () by AdvertisingButton
     /// </summary>
-    public void ShowAdvertisements()
+    public void ShowRewardAdvertisement(bool shop)
     {
-        if (Advertisement.IsReady(placementID))
+        if (Advertisement.IsReady(Keys.PlacementRewardId))
         {
-            Advertisement.Show(placementID);
+            this.shop = shop;
+            Advertisement.Show(Keys.PlacementRewardId);
         }
         else
         {
             Debug.LogError("Fail reward video");
+        }
+    }
+
+    public void InitializeAdvertisements()
+    {
+        if (Advertisement.isSupported)
+        {
+            Advertisement.Initialize(Keys.GameAndroidID, Keys.AdsTestMode);
+            Advertisement.AddListener(this);
+
+            if (!PlayerPrefs.HasKey(Keys.CountGames))
+            {
+                PlayerPrefs.SetInt(Keys.CountGames, 0);
+            }
         }
     }
 
@@ -30,24 +53,22 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
-        if (showResult == ShowResult.Finished)
+        if (Keys.PlacementRewardId == placementId)
         {
-            switch (gameObject.name)
+            if (showResult == ShowResult.Finished)
             {
-                case "AdsManagerShop":
-
-                    PlayerPrefs.SetInt(placementId, PlayerPrefs.GetInt(placementId) + 1);
+                if (shop)
+                {
                     coin.Reward();
-                    break;
-
-                case "AdsManagerProceed":
-                    transform.parent.gameObject.SetActive(false);
+                    PlayerPrefs.SetInt(Keys.CountRewardAdvertising, PlayerPrefs.GetInt(Keys.CountRewardAdvertising) + 1);
+                }
+                else
+                {
                     var game = FindObjectOfType<Game>();
                     game.CreateNewCube();
-                    break;
+                    PlayerPrefs.SetString(Keys.ContinuedAdvertising, "True");
+                }
             }
-
-            advertisingButton.SetActive(false);
         }
     }
 
@@ -57,26 +78,23 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsReady(string placementId)
     {
+        Debug.Log("INITIALIZED " + placementId);
     }
 
     private void Start()
     {
-        coin = FindObjectOfType<Coin>();
-        if (!PlayerPrefs.HasKey(placementID))
-        {
-            PlayerPrefs.SetInt(placementID, 0);
-        }
+        InitializeAdvertisements();
 
-        if (Advertisement.isSupported)
+        coin = FindObjectOfType<Coin>();
+
+        if (!PlayerPrefs.HasKey(Keys.CountRewardAdvertising))
         {
-            Advertisement.Initialize("3921519", false);
-            Advertisement.AddListener(this);
+            PlayerPrefs.SetInt(Keys.CountRewardAdvertising, 0);
         }
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        advertisingButton = transform.parent.Find("AdvertisingButton").gameObject;
-        advertisingButton.SetActive(Advertisement.IsReady(placementID));
+        Advertisement.RemoveListener(this);
     }
 }

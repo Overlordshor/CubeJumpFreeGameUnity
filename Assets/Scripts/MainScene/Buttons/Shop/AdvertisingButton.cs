@@ -3,22 +3,29 @@ using UnityEngine.Advertisements;
 
 public class AdvertisingButton : MonoBehaviour
 {
-    private string placementID = "rewardedVideo";
-
-    public void Display()
+    public void Display(bool shop)
     {
-        if (PlayerPrefs.GetInt(placementID) < 4)
+        if (shop)
         {
-            gameObject.SetActive(Advertisement.IsReady(placementID));
+            if (PlayerPrefs.GetInt(Keys.CountRewardAdvertising) < 4)
+            {
+                gameObject.SetActive(Advertisement.IsReady(Keys.PlacementRewardId));
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
         else
         {
-            gameObject.SetActive(false);
+            if (PlayerPrefs.HasKey(Keys.ContinuedAdvertising))
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(Advertisement.IsReady(Keys.PlacementRewardId));
+            }
         }
-    }
-
-    private void OnMouseUpAsButton()
-    {
-        Display();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Advertisements;
 
 public class Game : MonoBehaviour
 {
@@ -12,29 +11,18 @@ public class Game : MonoBehaviour
     private Score score;
     private Coin coin;
     private AudioSource audioBrokenBox;
-
-    private string gameID = "3921519";
-    private string placement = "video";
-    private string countPlacementReward = "rewardedVideo";
-    private string countGamesKey = "countGames";
+    private AdsManager adsManager;
 
     public int JumpAttempt { get; set; } = 1;
 
     public bool AppearedNewCube { get; set; } = false;
 
-    public void ShowAds()
-    {
-        if (Advertisement.IsReady(placement))
-        {
-            Advertisement.Show(placement);
-        }
-    }
-
     public void DisplayButtons()
     {
         if (JumpAttempt == 0)
         {
-            ActivateButtonsEnd();
+            EndGameButtons.SetActive(true);
+            EndGameButtons.transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display(false);
         }
     }
 
@@ -45,6 +33,10 @@ public class Game : MonoBehaviour
             cubeSpawner.GetNewCube();
             JumpAttempt++;
             AppearedNewCube = true;
+            if (EndGameButtons.activeSelf)
+            {
+                EndGameButtons.SetActive(false);
+            }
         }
     }
 
@@ -55,17 +47,19 @@ public class Game : MonoBehaviour
 
     public void Restart()
     {
-        PlayerPrefs.SetInt(countGamesKey, PlayerPrefs.GetInt(countGamesKey) + 1);
+        PlayerPrefs.SetInt(Keys.CountGames, PlayerPrefs.GetInt(Keys.CountGames) + 1);
 
-        var countGames = PlayerPrefs.GetInt(countGamesKey);
+        var countGames = PlayerPrefs.GetInt(Keys.CountGames);
         if (countGames % 5 == 0)
         {
-            ShowAds();
-            PlayerPrefs.SetInt(countGamesKey, 0);
-            PlayerPrefs.SetInt(countPlacementReward, 0);
+            adsManager.ShowNotRewardAdvertisement();
+            PlayerPrefs.SetInt(Keys.CountGames, 0);
+            PlayerPrefs.SetInt(Keys.PlacementRewardId, 0);
         }
 
         PlayerPrefs.Save();
+
+        PlayerPrefs.DeleteKey(Keys.ContinuedAdvertising);
         SceneManager.LoadScene("Main");
     }
 
@@ -83,31 +77,15 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void ActivateButtonsEnd()
-    {
-        EndGameButtons.SetActive(true);
-        EndGameButtons.transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display();
-    }
-
     private void Start()
     {
         cubeSpawner = GetComponent<SpawnCubes>();
         score = GetComponent<Score>();
         coin = GetComponent<Coin>();
         audioBrokenBox = GetComponent<AudioSource>();
-        InitializeAds();
-    }
 
-    private void InitializeAds()
-    {
-        if (Advertisement.isSupported)
-        {
-            Advertisement.Initialize(gameID, false);
-            if (!PlayerPrefs.HasKey(countGamesKey))
-            {
-                PlayerPrefs.SetInt(countGamesKey, 0);
-            }
-        }
+        adsManager = FindObjectOfType<AdsManager>();
+        adsManager.InitializeAdvertisements();
     }
 
     private void Update()

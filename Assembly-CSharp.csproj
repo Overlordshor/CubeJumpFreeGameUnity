@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Game\Cube.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\JumpClickController.cs" />
+    <Compile Include="Assets\Scripts\Game\Keys.cs" />
     <Compile Include="Assets\Scripts\Game\Score.cs" />
     <Compile Include="Assets\Scripts\Game\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\MainScene\AdsManager.cs" />
@@ -635,6 +636,9 @@
     <Reference Include="Unity.Timeline">
       <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.CollabProxy.Editor">
+      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -643,9 +647,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
