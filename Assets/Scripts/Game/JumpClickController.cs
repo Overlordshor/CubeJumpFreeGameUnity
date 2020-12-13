@@ -7,9 +7,15 @@ public class JumpClickController : MonoBehaviour
     public Text RulesText;
     public GameObject DeactivatedCubes;
 
+    public Slider PowerJumpBar;
+    public GameObject PowerJumpBarFill;
+
+    private Image powerJumpFillImage;
+
     private bool clickDetected;
     private float startTime;
     private Cube gameCube;
+    private float pushTime;
 
     public void GetControl(GameObject cube)
     {
@@ -19,7 +25,9 @@ public class JumpClickController : MonoBehaviour
     private void Start()
     {
         gameCube = Cube.GetComponentInChildren<Cube>();
+        powerJumpFillImage = PowerJumpBarFill.GetComponent<Image>();
         clickDetected = false;
+
         if (PlayerPrefs.GetString("Prompt") == "True")
         {
             Language.PrintAnyLanguage(RulesText,
@@ -49,11 +57,17 @@ public class JumpClickController : MonoBehaviour
             {
                 EndClick();
             }
+            SetHealthBar();
         }
     }
 
 #endif
 #if UNITY_EDITOR
+
+    private void LateUpdate()
+    {
+        SetHealthBar();
+    }
 
     private void OnMouseDown()
     {
@@ -78,7 +92,6 @@ public class JumpClickController : MonoBehaviour
     private void EndClick()
     {
         clickDetected = false;
-
         var pushTime = Time.time - startTime;
         gameCube?.Jump(pushTime);
         GetComponent<AudioSource>().Stop();
@@ -86,6 +99,20 @@ public class JumpClickController : MonoBehaviour
         if (RulesText.gameObject.activeSelf)
         {
             RulesText.gameObject.SetActive(false);
+        }
+    }
+
+    private void SetHealthBar()
+    {
+        PowerJumpBar.value = (float)(gameCube?.ForceJump);
+        switch (PowerJumpBar.value)
+        {
+            case 25: powerJumpFillImage.color = new Color(0.5f, 1f, 0); break;
+            case 70: powerJumpFillImage.color = new Color(1f, 1f, 0); break;
+            case 150: powerJumpFillImage.color = new Color(1f, 0.5f, 0); break;
+            case 300: powerJumpFillImage.color = new Color(1f, 0, 0); break;
+            default:
+                powerJumpFillImage.color = new Color(0, 1f, 0); break;
         }
     }
 }

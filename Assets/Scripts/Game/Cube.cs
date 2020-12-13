@@ -5,6 +5,8 @@ public class Cube : MonoBehaviour
     public GameObject BrokenCube;
     public AudioClip audioPass, audioCrash, audioHit, audioSqueeze;
 
+    public float ForceJump { get; private set; }
+
     private readonly int layerGround = 8;
     private readonly int layerCube = 9;
 
@@ -50,10 +52,10 @@ public class Cube : MonoBehaviour
     {
         if (isGround)
         {
-            var forceJump = GetForces(pushtime);
+            ForceJump = GetForces(pushtime);
 
-            rigidbodyCube.AddRelativeForce(transform.right * -forceJump);
-            rigidbodyCube.AddRelativeForce(transform.up * forceJump * 2.5f);
+            rigidbodyCube.AddRelativeForce(transform.right * -ForceJump);
+            rigidbodyCube.AddRelativeForce(transform.up * ForceJump * 2.5f);
 
             isGround = false;
             jumped = true;
