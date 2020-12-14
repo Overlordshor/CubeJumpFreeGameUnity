@@ -95,7 +95,7 @@ public class Cube : MonoBehaviour
         return random;
     }
 
-    private float GetForces(float pushTime)
+    public float GetForces(float pushTime)
     {
         if (pushTime < 0.07f)
         {

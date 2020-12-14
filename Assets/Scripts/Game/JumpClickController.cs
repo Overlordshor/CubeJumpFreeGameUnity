@@ -15,7 +15,7 @@ public class JumpClickController : MonoBehaviour
     private bool clickDetected;
     private float startTime;
     private Cube gameCube;
-    private float pushTime;
+    private Game game;
 
     public void GetControl(GameObject cube)
     {
@@ -25,6 +25,7 @@ public class JumpClickController : MonoBehaviour
     private void Start()
     {
         gameCube = Cube.GetComponentInChildren<Cube>();
+        game = GetComponentInParent<Game>();
         powerJumpFillImage = PowerJumpBarFill.GetComponent<Image>();
         clickDetected = false;
 
@@ -57,6 +58,7 @@ public class JumpClickController : MonoBehaviour
             {
                 EndClick();
             }
+
             SetHealthBar();
         }
     }
@@ -100,19 +102,34 @@ public class JumpClickController : MonoBehaviour
         {
             RulesText.gameObject.SetActive(false);
         }
+
+        PowerJumpBar.value = 0f;
     }
 
     private void SetHealthBar()
     {
-        PowerJumpBar.value = (float)(gameCube?.ForceJump);
-        switch (PowerJumpBar.value)
+        if (clickDetected && !game.EndGameButtons.activeSelf)
         {
-            case 25: powerJumpFillImage.color = new Color(0.5f, 1f, 0); break;
-            case 70: powerJumpFillImage.color = new Color(1f, 1f, 0); break;
-            case 150: powerJumpFillImage.color = new Color(1f, 0.5f, 0); break;
-            case 300: powerJumpFillImage.color = new Color(1f, 0, 0); break;
-            default:
-                powerJumpFillImage.color = new Color(0, 1f, 0); break;
+            var pushTime = Time.time - startTime;
+
+            PowerJumpBar.value = gameCube.GetForces(pushTime);
+
+            if (PowerJumpBar.value >= 300f)
+            {
+                powerJumpFillImage.color = new Color(1f, 0, 0); // red;
+            }
+            else if (PowerJumpBar.value > 220f)
+            {
+                powerJumpFillImage.color = new Color(1f, 0.5f, 0); // orange;
+            }
+            else if (PowerJumpBar.value >= 160f)
+            {
+                powerJumpFillImage.color = new Color(0, 1f, 0); // green;
+            }
+            else if (PowerJumpBar.value < 160f)
+            {
+                powerJumpFillImage.color = new Color(1f, 1f, 0); // yellow;
+            }
         }
     }
 }
