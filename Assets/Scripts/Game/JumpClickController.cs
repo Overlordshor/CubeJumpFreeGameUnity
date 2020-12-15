@@ -58,18 +58,17 @@ public class JumpClickController : MonoBehaviour
             {
                 EndClick();
             }
-
-            SetHealthBar();
         }
     }
 
 #endif
-#if UNITY_EDITOR
 
     private void LateUpdate()
     {
         SetHealthBar();
     }
+
+#if UNITY_EDITOR
 
     private void OnMouseDown()
     {

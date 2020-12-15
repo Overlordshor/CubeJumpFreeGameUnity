@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
     public GameObject DeactivatedCubes;
     public GameObject CubesTower;
     public GameObject EndGameButtons, ExitPanel, Buttons;
+
+    public Text LivesText;
 
     private SpawnCubes cubeSpawner;
     private Score score;
@@ -42,7 +45,11 @@ public class Game : MonoBehaviour
 
     public void LoseJumpAttempt()
     {
-        JumpAttempt--;
+        if (JumpAttempt >= 1)
+        {
+            LivesText.gameObject.SetActive(true);
+            JumpAttempt--;
+        }
     }
 
     public void Restart()
@@ -91,6 +98,8 @@ public class Game : MonoBehaviour
     private void Update()
     {
         ShowExitPanel();
+
+        LivesText.text = "Lives: " + JumpAttempt.ToString();
     }
 
     private void ShowExitPanel()
