@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F8338FB7-1FD6-E330-FDF4-27C6CB030560}</ProjectGuid>
+    <ProjectGuid>{043666BD-3FF4-EF8A-C518-148CE3378B07}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -271,10 +271,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.15f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Assets/UnityAds/UnityEngine.Advertisements.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Monetization.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Assets/UnityAds/UnityEngine.Monetization.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Assets/UnityAds/UnityEngine.Monetization.Editor.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.15f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -622,31 +622,31 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.15f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/User/TowerCubeJump/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/User/Cube, JUMP FREE! - Hold &amp; Hit &amp; Play Game!/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
