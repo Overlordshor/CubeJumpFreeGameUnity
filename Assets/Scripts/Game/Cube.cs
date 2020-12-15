@@ -127,13 +127,10 @@ public class Cube : MonoBehaviour
         }
         if (collision.gameObject.layer == layerCube)
         {
-            if (game.JumpAttempt == 0)
+            if (!transferControl)
             {
                 game.GetReward();
                 game.CreateNewCube();
-            }
-            if (!transferControl)
-            {
                 PlayAudio(audioHit);
             }
             transferControl = true;
