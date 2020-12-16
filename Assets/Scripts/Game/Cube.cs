@@ -25,7 +25,7 @@ public class Cube : MonoBehaviour
 
     //private Color color;
 
-    private bool isGround = true;
+    private bool isGround = false;
 
     public void PlayAudioSqueeze(bool clickDetected)
     {
@@ -116,6 +116,7 @@ public class Cube : MonoBehaviour
         if (collision.gameObject.layer == layerGround)
         {
             isGround = true;
+
             if (jumped)
             {
                 BreakDown();
@@ -129,6 +130,7 @@ public class Cube : MonoBehaviour
         {
             if (!transferControl && jumped)
             {
+                rigidbodyCube.freezeRotation = false;
                 game.GetReward();
                 game.CreateNewCube();
                 PlayAudio(audioHit);
