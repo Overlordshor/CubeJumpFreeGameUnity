@@ -9,5 +9,5 @@
     public static string PlacementRewardId = "rewardedVideo";
     public static string PlacementNotRewardId = "video";
 
-    public static bool AdsTestMode = true;
+    public static bool AdsTestMode = false;
 }
