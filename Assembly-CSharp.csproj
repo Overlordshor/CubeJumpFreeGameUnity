@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\MainScene\Coin.cs" />
     <Compile Include="Assets\Scripts\MainScene\CoroutineSpawnStars.cs" />
     <Compile Include="Assets\Scripts\MainScene\Language.cs" />
+    <Compile Include="Assets\Scripts\MainScene\MakeScreenshotByMouseClick.cs" />
     <Compile Include="Assets\Scripts\MainScene\SceneArrengement.cs" />
     <Compile Include="Assets\Scripts\MainScene\Star.cs" />
     <Compile Include="Assets\Scripts\MainScene\TextFade.cs" />
