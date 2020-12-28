@@ -10,4 +10,6 @@
     public static string PlacementNotRewardId = "video";
 
     public static bool AdsTestMode = false;
+
+    public static readonly string LeaderBoard = "CgkI16bBvIodEAIQAA";
 }

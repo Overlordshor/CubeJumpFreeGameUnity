@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 public class Score : MonoBehaviour
 {
@@ -52,6 +54,7 @@ public class Score : MonoBehaviour
         if (PlayerPrefs.GetInt("Record") < totalScore)
         {
             PlayerPrefs.SetInt("Record", totalScore);
+            GoogleServicesManager.ReportScore(totalScore);
         }
         Language.PrintAnyLanguage(Record,
            "TOP: " + PlayerPrefs.GetInt("Record").ToString(),

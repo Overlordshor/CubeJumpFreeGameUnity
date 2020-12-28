@@ -117,6 +117,10 @@ public class Buttons : MonoBehaviour
                 case "TelegramButton":
                     Application.OpenURL(urlTelegram);
                     break;
+
+                case "LeaderboardButton":
+                    GoogleServicesManager.ShowLeaderboardUI();
+                    break;
             }
         }
     }
