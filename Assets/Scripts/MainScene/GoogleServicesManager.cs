@@ -1,8 +1,12 @@
 using UnityEngine;
 using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 public class GoogleServicesManager : MonoBehaviour
 {
+    public static bool IsAuthenticate;
+
     public static void ReportScore(int totalScore)
     {
         Social.ReportScore(totalScore, Keys.LeaderBoard, (bool success) => { });
@@ -22,9 +26,9 @@ public class GoogleServicesManager : MonoBehaviour
     {
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
-
         Social.localUser.Authenticate(succes =>
         {
+            IsAuthenticate = succes;
             Debug.Log("Social " + succes);
         });
     }

@@ -13,11 +13,6 @@ public class Buttons : MonoBehaviour
     private SceneArrengement scene;
     private Image image;
 
-    private string urlVk = "https://vk.com/towercubejump";
-    private string urlInsta = "https://www.instagram.com/towercubejump/";
-    private string urlFb = "https://www.facebook.com/TowerCubeJump/";
-    private string urlTelegram = "https://t.me/TowerCubeJump";
-
     public void GoAway()
     {
         speed = 50f;
@@ -103,23 +98,27 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "VKButton":
-                    Application.OpenURL(urlVk);
+                    Application.OpenURL(Keys.UrlVk);
                     break;
 
                 case "InstaButton":
-                    Application.OpenURL(urlInsta);
+                    Application.OpenURL(Keys.UrlInstagram);
                     break;
 
                 case "FBButton":
-                    Application.OpenURL(urlFb);
+                    Application.OpenURL(Keys.UrlFb);
                     break;
 
                 case "TelegramButton":
-                    Application.OpenURL(urlTelegram);
+                    Application.OpenURL(Keys.UrlTelegram);
                     break;
 
                 case "LeaderboardButton":
-                    GoogleServicesManager.ShowLeaderboardUI();
+                    if (GoogleServicesManager.IsAuthenticate)
+                    {
+                        GoogleServicesManager.ReportScore(PlayerPrefs.GetInt("Record"));
+                        GoogleServicesManager.ShowLeaderboardUI();
+                    }
                     break;
             }
         }
