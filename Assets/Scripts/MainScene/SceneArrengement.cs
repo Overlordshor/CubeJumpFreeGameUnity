@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SceneArrengement : MonoBehaviour
@@ -18,6 +19,9 @@ public class SceneArrengement : MonoBehaviour
     private string keyRestart = "Restart";
     private string keyMute = "Mute";
     private string keyPrompt = "Prompt";
+
+    [SerializeField]
+    private List<CubeData> cubesData;
 
     public void StartGame()
     {
@@ -77,8 +81,15 @@ public class SceneArrengement : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(keySkin))
         {
-            Material loadMaterial = ShopListCubes.transform.Find(PlayerPrefs.GetString(keySkin)).GetComponent<MeshRenderer>().material;
-            MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
+            foreach (var cube in cubesData)
+            {
+                if (PlayerPrefs.GetString(keySkin) == cube.ID)
+                {
+                    Material loadMaterial = cube.Material;
+                    MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
+                    break;
+                }
+            }
         }
     }
 

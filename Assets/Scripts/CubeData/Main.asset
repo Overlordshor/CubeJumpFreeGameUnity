@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06124bbb7b872e49ba0713f62e58d9e, type: 3}
   m_Name: Main
   m_EditorClassIdentifier: 
+  cubeID: 4
   cubeNameEnglish: Star Cube
   cubeNameRussian: "\u0417\u0432\u0451\u0437\u0434\u043D\u044B\u0439 \u041A\u0443\u0431"
   cost: 0

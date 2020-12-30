@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New CubeData", menuName = "CubeData", order = 51)]
 public class CubeData : ScriptableObject
 {
+    [SerializeField]
+    private string cubeID;
+
     [SerializeField]
     private string cubeNameEnglish;
 
@@ -20,16 +24,20 @@ public class CubeData : ScriptableObject
 
     public int Cost => cost;
     public Material Material => material;
+    public string ID => cubeID;
 
     public bool Open
     {
         get
         {
-            if (PlayerPrefs.GetString(cubeNameEnglish) == Keys.Open)
+            if (PlayerPrefs.GetString(cubeID) == Keys.Open)
             {
                 open = true;
             }
             return open;
+        }
+        set
+        {
         }
     }
 

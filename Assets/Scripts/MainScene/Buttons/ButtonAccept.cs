@@ -24,14 +24,14 @@ public class ButtonAccept : MonoBehaviour
         {
             PlayerPrefs.SetInt(keyCoin, PlayerPrefs.GetInt(keyCoin) - selectCube.Cost);
             selectCube.Open = true;
-            PlayerPrefs.SetString(selectCube.name, keyOpen);
+            PlayerPrefs.SetString(selectCube.ID, keyOpen);
             coin.RefreshCount();
             AcceptCube(selectCube);
         }
         GetButtonImage(selectCube);
     }
 
-    public void GetButtonImage(CubeForSale cube)
+    public void GetButtonImage(CubeData cube)
     {
         if (image == null)
         {
@@ -43,7 +43,7 @@ public class ButtonAccept : MonoBehaviour
         Price.SetActive(!cube.Open);
     }
 
-    private void AcceptCube(CubeForSale selectCube)
+    private void AcceptCube(CubeData selectCube)
     {
         shop.SetMaterialCube(selectCube);
         transform.parent.gameObject.SetActive(false);

@@ -12,24 +12,32 @@ public class Shop : MonoBehaviour
     [SerializeField]
     private Text goldCost;
 
+    private CubeData cubeData;
+
     public void UpdateDisplayUI(CubeData cubeData)
     {
+        this.cubeData = cubeData;
         cubeName.text = cubeData.CubeName;
         Language.PrintAnyLanguage(goldCost, cubeData.Cost + " GOLD", cubeData.Cost + " ЗОЛОТЫХ");
     }
 
-    public void SetMaterialCube(CubeForSale cube)
+    public void SetMaterialCube(CubeData cube)
     {
         MainCube.GetComponent<MeshRenderer>().material = cube.Material;
-        PlayerPrefs.SetString("Skin", cube.gameObject.name);
+        PlayerPrefs.SetString("Skin", cube.ID);
     }
 
-    public CubeForSale GetSelectCube()
+    public CubeData GetSelectCube()
+    {
+        return cubeData;
+    }
+
+    public CubeForSale GetSelectCube1()
     {
         CubeForSale cubeSelect = new CubeForSale();
         foreach (var cube in cubesForSale)
         {
-            if (cube.Select)
+            if (cube.IsSelect)
             {
                 cubeSelect = cube;
                 break;
@@ -44,10 +52,10 @@ public class Shop : MonoBehaviour
         {
             if (cube.name == gameObject.name)
             {
-                cube.Select = true;
+                cube.IsSelect = true;
                 continue;
             }
-            cube.Select = false;
+            cube.IsSelect = false;
         }
     }
 

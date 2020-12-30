@@ -3,22 +3,12 @@
 public class CubeForSale : MonoBehaviour
 {
     [SerializeField]
-    private int cost;
-
-    [SerializeField]
     private CubeData cubeData;
 
     [SerializeField]
     private GameEvent onCubeSelected;
 
-    public int Cost { get => cost; private set => cost = value; }
-    public bool Select { get; set; }
-    public bool Open { get; set; }
-    public Material Material { get; private set; }
-
-    /// <summary>
-    /// Set from Unity, ShopButton/Shop/Cubes/...
-    /// </summary>
+    public bool IsSelect { get; set; }
 
     private GameObject acceptButton;
     private new AudioSource audio;
@@ -31,17 +21,15 @@ public class CubeForSale : MonoBehaviour
         acceptButton = transform.parent.transform.parent.Find("AcceptButton").gameObject;
         buttonAccept = acceptButton.GetComponent<ButtonAccept>();
         audio = GetComponentInParent<AudioSource>();
-        Material = GetComponent<MeshRenderer>().material;
         shop = transform.parent.transform.parent.GetComponent<Shop>();
         originalScale = transform.localScale;
 
-        if (!PlayerPrefs.HasKey("CubeStar") && gameObject.name == "CubeStar")
+        if (!PlayerPrefs.HasKey("4") && cubeData.CubeName == "CubeStar")
         {
-            PlayerPrefs.SetString(gameObject.name, Keys.Open);
+            PlayerPrefs.SetString("4", Keys.Open);
         }
-        Open = PlayerPrefs.GetString(gameObject.name) == Keys.Open;
 
-        Select = false;
+        IsSelect = false;
     }
 
     private void OnMouseUpAsButton()
@@ -50,9 +38,9 @@ public class CubeForSale : MonoBehaviour
 
         audio.Play();
         acceptButton.SetActive(true);
-        if (!Select)
+        if (!IsSelect)
         {
-            buttonAccept.GetButtonImage(this);
+            buttonAccept.GetButtonImage(cubeData);
 
             transform.localScale += new Vector3(50f, 50f, 50f);
 
@@ -62,7 +50,7 @@ public class CubeForSale : MonoBehaviour
 
     private void Update()
     {
-        if (!Select)
+        if (!IsSelect)
         {
             if (transform.localScale != originalScale)
             {

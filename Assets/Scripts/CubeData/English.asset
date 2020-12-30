@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06124bbb7b872e49ba0713f62e58d9e, type: 3}
   m_Name: English
   m_EditorClassIdentifier: 
+  cubeID: 2
   cubeNameEnglish: English Cube
   cubeNameRussian: "\u0410\u043D\u0433\u043B\u0438\u0439\u0441\u043A\u0438\u0439
     \u041A\u0443\u0431"

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06124bbb7b872e49ba0713f62e58d9e, type: 3}
   m_Name: Coin
   m_EditorClassIdentifier: 
+  cubeID: 1
   cubeNameEnglish: Coin Cube
   cubeNameRussian: "\u041A\u0443\u0431 \u041C\u043E\u043D\u0435\u0442\u043A\u0430"
   cost: 100
