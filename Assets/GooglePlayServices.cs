@@ -21,10 +21,11 @@
 /// Resources.
 ///
 
-
 public static class GooglePlayServices
 {
-        public const string leaderboard_player_rating = "CgkI16bBvIodEAIQAA"; // <GPGSID>
-
+    public const string leaderboard_player_rating = "CgkI16bBvIodEAIQAA"; // <GPGSID>
+    public const string achievement_best_buyer = "CgkI16bBvIodEAIQBQ"; // <GPGSID>
+    public const string achievement_tower_of_babel = "CgkI16bBvIodEAIQAw"; // <GPGSID>
+    public const string achievement_bakers_dozen = "CgkI16bBvIodEAIQAg"; // <GPGSID>
+    public const string achievement_first_record = "CgkI16bBvIodEAIQBA"; // <GPGSID>
 }
-

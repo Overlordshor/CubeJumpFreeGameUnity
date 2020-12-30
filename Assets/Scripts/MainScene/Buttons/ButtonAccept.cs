@@ -27,6 +27,8 @@ public class ButtonAccept : MonoBehaviour
             PlayerPrefs.SetString(selectCube.ID, keyOpen);
             coin.RefreshCount();
             AcceptCube(selectCube);
+
+            GoogleServicesManager.UnlockAchievement(Keys.AchievementBestBuyer);
         }
         GetButtonImage(selectCube);
     }

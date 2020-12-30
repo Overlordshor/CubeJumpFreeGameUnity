@@ -12,6 +12,10 @@
     public static bool AdsTestMode = false;
 
     public static readonly string LeaderBoard = "CgkI16bBvIodEAIQAA";
+    public static readonly string AchievementBestBuyer = "CgkI16bBvIodEAIQBQ";
+    public static readonly string AchievementTowerBabel = "CgkI16bBvIodEAIQAw";
+    public static readonly string AchievementBakersDozen = "CgkI16bBvIodEAIQAg";
+    public static readonly string AchievementFirstRecord = "CgkI16bBvIodEAIQBA";
 
     public static readonly string UrlVk = "https://vk.com/towercubejump";
     public static readonly string UrlInstagram = "https://www.instagram.com/towercubejump/";

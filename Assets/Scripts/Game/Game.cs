@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour
 {
     public GameObject DeactivatedCubes;
-    public GameObject CubesTower;
     public GameObject EndGameButtons, ExitPanel, Buttons;
 
     public Text LivesText;
@@ -60,8 +59,16 @@ public class Game : MonoBehaviour
         if (countGames % 5 == 0)
         {
             adsManager.ShowNotRewardAdvertisement();
-            PlayerPrefs.SetInt(Keys.CountGames, 0);
+
             PlayerPrefs.SetInt(Keys.PlacementRewardId, 0);
+            if (countGames == 13)
+            {
+                GoogleServicesManager.UnlockAchievement(Keys.AchievementBakersDozen);
+            }
+            if (countGames == 15)
+            {
+                PlayerPrefs.SetInt(Keys.CountGames, 0);
+            }
         }
 
         PlayerPrefs.Save();

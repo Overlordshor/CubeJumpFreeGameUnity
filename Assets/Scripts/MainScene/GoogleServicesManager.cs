@@ -17,6 +17,16 @@ public class GoogleServicesManager : MonoBehaviour
         Social.ShowLeaderboardUI();
     }
 
+    public static void ShowAchievementsUI()
+    {
+        Social.ShowAchievementsUI();
+    }
+
+    public static void UnlockAchievement(string achievementID)
+    {
+        Social.ReportProgress(achievementID, 100, (bool success) => { });
+    }
+
     public static void SingOut()
     {
         PlayGamesPlatform.Instance.SignOut();

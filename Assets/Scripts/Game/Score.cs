@@ -40,6 +40,11 @@ public class Score : MonoBehaviour
            "Your buff score: " + buffPower,
            "Уровень твоего бафа:" + buffPower);
             Buff.gameObject.SetActive(true);
+
+            if (height == 6)
+            {
+                GoogleServicesManager.UnlockAchievement(Keys.AchievementTowerBabel);
+            }
         }
         else if (buffPower < 2)
         {
@@ -56,5 +61,10 @@ public class Score : MonoBehaviour
         Language.PrintAnyLanguage(Record,
            "TOP: " + PlayerPrefs.GetInt("Record").ToString(),
            "Рекорд: " + PlayerPrefs.GetInt("Record").ToString());
+
+        if (totalScore >= 100)
+        {
+            GoogleServicesManager.UnlockAchievement(Keys.AchievementFirstRecord);
+        }
     }
 }
