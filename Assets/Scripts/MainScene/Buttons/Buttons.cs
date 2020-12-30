@@ -119,6 +119,10 @@ public class Buttons : MonoBehaviour
                         GoogleServicesManager.ReportScore(PlayerPrefs.GetInt("Record"));
                         GoogleServicesManager.ShowLeaderboardUI();
                     }
+                    else
+                    {
+                        Debug.LogError("GoogleServices " + GoogleServicesManager.IsAuthenticate);
+                    }
                     break;
             }
         }

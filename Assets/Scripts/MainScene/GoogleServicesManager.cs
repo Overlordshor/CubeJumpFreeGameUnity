@@ -24,6 +24,8 @@ public class GoogleServicesManager : MonoBehaviour
 
     private void Start()
     {
+        PlayGamesClientConfiguration configuration = new PlayGamesClientConfiguration.Builder().Build();
+        PlayGamesPlatform.InitializeInstance(configuration);
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
         Social.localUser.Authenticate(succes =>
