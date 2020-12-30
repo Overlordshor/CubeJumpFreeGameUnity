@@ -2,6 +2,15 @@
 
 public class CubeForSale : MonoBehaviour
 {
+    [SerializeField]
+    private int cost;
+
+    [SerializeField]
+    private CubeData cubeData;
+
+    [SerializeField]
+    private GameEvent onCubeSelected;
+
     public int Cost { get => cost; private set => cost = value; }
     public bool Select { get; set; }
     public bool Open { get; set; }
@@ -10,14 +19,12 @@ public class CubeForSale : MonoBehaviour
     /// <summary>
     /// Set from Unity, ShopButton/Shop/Cubes/...
     /// </summary>
-    [SerializeField] private int cost;
 
     private GameObject acceptButton;
     private new AudioSource audio;
     private Vector3 originalScale;
     private ButtonAccept buttonAccept;
     private Shop shop;
-    private string keyOpen = "Open";
 
     private void Start()
     {
@@ -30,15 +37,17 @@ public class CubeForSale : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("CubeStar") && gameObject.name == "CubeStar")
         {
-            PlayerPrefs.SetString(gameObject.name, keyOpen);
+            PlayerPrefs.SetString(gameObject.name, Keys.Open);
         }
-        Open = PlayerPrefs.GetString(gameObject.name) == keyOpen;
+        Open = PlayerPrefs.GetString(gameObject.name) == Keys.Open;
 
         Select = false;
     }
 
     private void OnMouseUpAsButton()
     {
+        onCubeSelected.Raise();
+
         audio.Play();
         acceptButton.SetActive(true);
         if (!Select)

@@ -17,4 +17,6 @@
     public static readonly string UrlInstagram = "https://www.instagram.com/towercubejump/";
     public static readonly string UrlFb = "https://www.facebook.com/TowerCubeJump/";
     public static readonly string UrlTelegram = "https://t.me/TowerCubeJump";
+    public static readonly string Language = "Language";
+    public static readonly string Open = "Open";
 }

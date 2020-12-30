@@ -8,7 +8,6 @@ public class ButtonLanguage : MonoBehaviour
 
     private Image image;
     private string language;
-    private string keyLanguage = "Language";
 
     public void GetLanguage()
     {
@@ -16,13 +15,13 @@ public class ButtonLanguage : MonoBehaviour
         {
             image.sprite = Russian;
             language = "Russian";
-            PlayerPrefs.SetString(keyLanguage, "Russian");
+            PlayerPrefs.SetString(Keys.Language, "Russian");
         }
         else if (language == "Russian")
         {
             image.sprite = English;
             language = "English";
-            PlayerPrefs.SetString(keyLanguage, "English");
+            PlayerPrefs.SetString(Keys.Language, "English");
         }
 
         ChangeLangueageOnScene();
@@ -33,9 +32,9 @@ public class ButtonLanguage : MonoBehaviour
     /// </summary>
     private void SetLanguage()
     {
-        if (PlayerPrefs.HasKey(keyLanguage))
+        if (PlayerPrefs.HasKey(Keys.Language))
         {
-            language = PlayerPrefs.GetString(keyLanguage) == "English" ? "Russian" : "English";
+            language = PlayerPrefs.GetString(Keys.Language) == "English" ? "Russian" : "English";
         }
         else
         {

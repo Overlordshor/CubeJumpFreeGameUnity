@@ -16,7 +16,6 @@ public class SceneArrengement : MonoBehaviour
     private SpawnCubes spawnCubes;
     private string keySkin = "Skin";
     private string keyRestart = "Restart";
-    private string keyLanguage = "Language";
     private string keyMute = "Mute";
     private string keyPrompt = "Prompt";
 
@@ -85,7 +84,7 @@ public class SceneArrengement : MonoBehaviour
 
     private void SetLanguage()
     {
-        if (PlayerPrefs.HasKey(keyLanguage))
+        if (PlayerPrefs.HasKey(Keys.Language))
         {
             Language.PrintAnyLanguage(PlayGameText,
                "TAP TO PLAY",

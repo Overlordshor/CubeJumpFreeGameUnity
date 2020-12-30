@@ -5,7 +5,18 @@ public class Shop : MonoBehaviour
 {
     public GameObject MainCube;
     public CubeForSale[] cubesForSale;
-    public Text PriceText;
+
+    [SerializeField]
+    private Text cubeName;
+
+    [SerializeField]
+    private Text goldCost;
+
+    public void UpdateDisplayUI(CubeData cubeData)
+    {
+        cubeName.text = cubeData.CubeName;
+        Language.PrintAnyLanguage(goldCost, cubeData.Cost + " GOLD", cubeData.Cost + " ЗОЛОТЫХ");
+    }
 
     public void SetMaterialCube(CubeForSale cube)
     {
@@ -34,7 +45,6 @@ public class Shop : MonoBehaviour
             if (cube.name == gameObject.name)
             {
                 cube.Select = true;
-                Language.PrintAnyLanguage(PriceText, cube.Cost + " GOLD", cube.Cost + " ЗОЛОТЫХ");
                 continue;
             }
             cube.Select = false;
