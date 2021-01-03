@@ -1,16 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class Language
+public class Translator : MonoBehaviour
 {
-    /// <summary>
-    /// In the presented text on the stage, chooses which text to submit depending on the player's settings.
-    /// </summary>
-    /// <param name="text"></param>
-    /// <param name="english"></param>
-    /// <param name="russian"></param>
-    public static void PrintAnyLanguage(Text text, string english, string russian)
+    [SerializeField] private string english;
+    [SerializeField] private string russian;
+    private Text text;
+
+    private void OnEnable()
     {
+        text = GetComponent<Text>();
         if (PlayerPrefs.HasKey(Keys.Language))
         {
             switch (PlayerPrefs.GetString(Keys.Language))

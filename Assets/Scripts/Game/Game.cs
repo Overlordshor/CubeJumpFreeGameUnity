@@ -105,8 +105,7 @@ public class Game : MonoBehaviour
     private void Update()
     {
         ShowExitPanel();
-
-        LivesText.text = "Lives: " + JumpAttempt.ToString();
+        Language.PrintAnyLanguage(LivesText, "Lives: " + JumpAttempt.ToString(), "Жизней: " + JumpAttempt.ToString());
     }
 
     private void ShowExitPanel()
