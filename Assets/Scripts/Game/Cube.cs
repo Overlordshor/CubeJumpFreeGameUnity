@@ -22,10 +22,10 @@ public class Cube : MonoBehaviour
     private Game game;
     private AudioSource audioSource;
     private bool playedAudioSqueeze = false;
-
-    //private Color color;
-
     private bool isGround = false;
+
+    private MeshRenderer meshRenderer;
+    private Color colorDefault;
 
     public void PlayAudioSqueeze(bool clickDetected)
     {
@@ -67,12 +67,13 @@ public class Cube : MonoBehaviour
 
     private void Start()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
+        colorDefault = meshRenderer.material.color;
+
         transformCube = gameObject.GetComponent<Transform>();
         rigidbodyCube = gameObject.GetComponent<Rigidbody>();
         game = FindObjectOfType<Game>();
         audioSource = GetComponent<AudioSource>();
-
-        //SetRandomColor(); temporarily disabled
 
         game.AppearedNewCube = false;
     }
@@ -81,18 +82,6 @@ public class Cube : MonoBehaviour
     {
         audioSource.clip = audio;
         audioSource.Play();
-    }
-
-    private void SetRandomColor()
-    {
-        GetComponent<MeshRenderer>().material.color = new Color(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
-        //color = GetComponent<MeshRenderer>().material.color;
-    }
-
-    private float GetRandomFloat()
-    {
-        float random = Random.Range(0f, 1f);
-        return random;
     }
 
     public float GetForces(float pushTime)
@@ -130,13 +119,32 @@ public class Cube : MonoBehaviour
         {
             if (!transferControl && jumped)
             {
-                rigidbodyCube.freezeRotation = false;
+                if (transform.position.x >= collision.transform.position.x - collision.transform.position.x * 20 / 100 &&
+                    transform.position.x <= collision.transform.position.x + collision.transform.position.x * 20 / 100)
+                {
+                    rigidbodyCube.freezeRotation = true;
+                    meshRenderer.material.color = new Color(colorDefault.r, 1f, colorDefault.b, 0.1f); // green
+                }
+                else
+                {
+                    rigidbodyCube.freezeRotation = false;
+                    meshRenderer.material.color = new Color(1f, colorDefault.g, colorDefault.b, 0.1f); // red
+                }
+
+                Invoke("ResetMaterial", 1f);
+
                 game.GetReward();
                 game.CreateNewCube();
                 PlayAudio(audioHit);
                 transferControl = true;
+                // 1.44f 1.98f 0.2717f
             }
         }
+    }
+
+    private void ResetMaterial()
+    {
+        meshRenderer.material.color = colorDefault;
     }
 
     private void BreakDown()
