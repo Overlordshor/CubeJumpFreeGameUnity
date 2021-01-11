@@ -74,7 +74,17 @@ public class Game : MonoBehaviour
         PlayerPrefs.Save();
 
         PlayerPrefs.DeleteKey(Keys.ContinuedAdvertising);
-        SceneManager.LoadScene("Main");
+
+        Scene activeScene;
+        if (PlayerPrefs.GetString(Keys.StartImmediately) == "true")
+        {
+            activeScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(activeScene.buildIndex);
+        }
+        else
+        {
+            SceneManager.LoadScene(0); // Main;
+        }
     }
 
     public void PlayAudioBrokenBox()

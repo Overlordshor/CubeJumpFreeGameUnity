@@ -3,11 +3,10 @@
 public class ButtonsEndGame : MonoBehaviour
 {
     private Game game;
-    private string keyRestart = "Restart";
 
     public void Restart()
     {
-        PlayerPrefs.SetString(keyRestart, "true");
+        PlayerPrefs.SetString(Keys.StartImmediately, "true");
         ReturnToMenu();
     }
 

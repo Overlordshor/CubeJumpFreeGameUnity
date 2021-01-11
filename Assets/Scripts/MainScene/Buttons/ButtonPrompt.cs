@@ -14,12 +14,12 @@ public class ButtonPrompt : MonoBehaviour
         if (scene.Prompt)
         {
             image.sprite = PromptOn;
-            PlayerPrefs.SetString(scene.KeyPrompt, "True");
+            PlayerPrefs.SetString(Keys.Prompt, "True");
         }
         else
         {
             image.sprite = PromptOff;
-            PlayerPrefs.SetString(scene.KeyPrompt, "False");
+            PlayerPrefs.SetString(Keys.Prompt, "False");
         }
     }
 

@@ -5,27 +5,37 @@ public class Translator : MonoBehaviour
 {
     [SerializeField] private string english;
     [SerializeField] private string russian;
-    private Text text;
+    private Text _text;
 
     private void OnEnable()
     {
-        text = GetComponent<Text>();
+        _text = GetComponent<Text>();
+        TranslateText();
+    }
+
+    private void TranslateText()
+    {
         if (PlayerPrefs.HasKey(Keys.Language))
         {
             switch (PlayerPrefs.GetString(Keys.Language))
             {
                 case "English":
-                    text.text = english;
+                    _text.text = english;
                     break;
 
                 case "Russian":
-                    text.text = russian;
+                    _text.text = russian;
                     break;
             }
         }
         else
         {
-            text.text = english;
+            _text.text = english;
         }
+    }
+
+    public void UpdateLanguageText()
+    {
+        TranslateText();
     }
 }

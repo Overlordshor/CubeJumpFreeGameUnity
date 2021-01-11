@@ -2,7 +2,7 @@
 
 public class ShopButton : MonoBehaviour
 {
-    public GameObject PlayButton, SocialGroupBar;
+    [SerializeField] private GameObject _playClassicButton, PlayReductionButton, _socialGroupBar;
 
     private void OnEnable()
     {
@@ -22,7 +22,8 @@ public class ShopButton : MonoBehaviour
 
     private void ToggleAllUI()
     {
-        ToggleUI(PlayButton);
-        ToggleUI(SocialGroupBar);
+        ToggleUI(_playClassicButton);
+        ToggleUI(PlayReductionButton);
+        ToggleUI(_socialGroupBar);
     }
 }

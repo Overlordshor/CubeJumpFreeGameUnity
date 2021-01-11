@@ -89,10 +89,6 @@ public class Buttons : MonoBehaviour
                     gameObject.GetComponent<ButtonsEndGame>().ReturnToMenu();
                     break;
 
-                case "PlayButton":
-                    scene.StartGame();
-                    break;
-
                 case "AcceptExitButton":
                     gameObject.GetComponent<AcceptExitButton>().Exit();
                     break;
@@ -132,5 +128,15 @@ public class Buttons : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
+    }
+
+    public void PlayClassicGame()
+    {
+        scene.StartGame(0);
+    }
+
+    public void PlayReductionMode()
+    {
+        scene.StartGame(1);
     }
 }

@@ -3,24 +3,27 @@ using UnityEngine.UI;
 
 public class ButtonLanguage : MonoBehaviour
 {
-    public Sprite English, Russian;
-    public Text PlayGameText, Record, PriceText, ExitText;
+    private Image _image;
+    private string _language;
 
-    private Image image;
-    private string language;
+    [SerializeField]
+    private GameEvent _onSelected;
+
+    public Sprite English, Russian;
+    public Text PlayGameText, PlayReductionModeText, Record, PriceText, ExitText;
 
     public void GetLanguage()
     {
-        if (language == "English")
+        if (_language == "English")
         {
-            image.sprite = Russian;
-            language = "Russian";
+            _image.sprite = Russian;
+            _language = "Russian";
             PlayerPrefs.SetString(Keys.Language, "Russian");
         }
-        else if (language == "Russian")
+        else if (_language == "Russian")
         {
-            image.sprite = English;
-            language = "English";
+            _image.sprite = English;
+            _language = "English";
             PlayerPrefs.SetString(Keys.Language, "English");
         }
 
@@ -34,11 +37,11 @@ public class ButtonLanguage : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(Keys.Language))
         {
-            language = PlayerPrefs.GetString(Keys.Language) == "English" ? "Russian" : "English";
+            _language = PlayerPrefs.GetString(Keys.Language) == "English" ? "Russian" : "English";
         }
         else
         {
-            language = "Russian"; // to invert the language
+            _language = "Russian"; // to invert the language
         }
 
         GetLanguage();
@@ -49,17 +52,23 @@ public class ButtonLanguage : MonoBehaviour
         Language.PrintAnyLanguage(PlayGameText,
             "TAP TO PLAY",
             "НАЖМИ ДЛЯ ИГРЫ");
+        Language.PrintAnyLanguage(PlayReductionModeText,
+            "TAP TO PLAY",
+            "НАЖМИ ДЛЯ ИГРЫ");
         Language.PrintAnyLanguage(Record,
            "TOP: " + PlayerPrefs.GetInt("Record").ToString(),
            "Рекорд: " + PlayerPrefs.GetInt("Record").ToString());
         Language.PrintAnyLanguage(ExitText,
             "Quit the game?",
             "Выйти из игры?");
+
+        // new translation
+        _onSelected.Raise();
     }
 
     private void Start()
     {
-        image = GetComponent<Image>();
+        _image = GetComponent<Image>();
         SetLanguage();
     }
 }

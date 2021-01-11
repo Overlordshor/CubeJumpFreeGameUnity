@@ -27,13 +27,13 @@ public class ButtonSound : MonoBehaviour
         if (mute)
         {
             image.sprite = SoundOn;
-            PlayerPrefs.SetString(scene.KeyMute, falseResult);
+            PlayerPrefs.SetString(Keys.Mute, falseResult);
             AudioListener.volume = 1f;
         }
         else
         {
             image.sprite = SoundOff;
-            PlayerPrefs.SetString(scene.KeyMute, trueResult);
+            PlayerPrefs.SetString(Keys.Mute, trueResult);
             AudioListener.volume = 0f;
         }
     }
@@ -42,7 +42,7 @@ public class ButtonSound : MonoBehaviour
     {
         scene = FindObjectOfType<SceneArrengement>();
         image = GetComponent<Image>();
-        bool mute = PlayerPrefs.GetString(scene.KeyMute) != trueResult;
+        bool mute = PlayerPrefs.GetString(Keys.Mute) != trueResult;
         GetSound(mute);
     }
 }

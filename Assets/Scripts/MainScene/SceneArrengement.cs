@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneArrengement : MonoBehaviour
@@ -11,41 +12,42 @@ public class SceneArrengement : MonoBehaviour
 
     public bool Sound { get; set; }
     public bool Prompt { get; set; }
-    public string KeyMute { get => keyMute; private set => keyMute = value; }
-    public string KeyPrompt { get => keyPrompt; private set => keyPrompt = value; }
 
-    private SpawnCubes spawnCubes;
-    private string keySkin = "Skin";
-    private string keyRestart = "Restart";
-    private string keyMute = "Mute";
-    private string keyPrompt = "Prompt";
+    private SpawnCubes _spawnCubes;
 
     [SerializeField]
     private List<CubeData> cubesData;
 
-    public void StartGame()
+    public void StartGame(int buildIndex)
     {
-        SwtichTextsScene();
-
-        AnimateStartGameUI();
+        if (SceneManager.GetActiveScene().buildIndex == buildIndex)
+        {
+            SwtichTextsScene();
+            AnimateStartGameUI();
+        }
+        else
+        {
+            PlayerPrefs.SetString(Keys.StartImmediately, "true");
+            SceneManager.LoadScene(buildIndex);
+        }
     }
 
     public void SetPrompt()
     {
-        if (PlayerPrefs.HasKey(KeyPrompt))
+        if (PlayerPrefs.HasKey(Keys.Prompt))
         {
-            Prompt = PlayerPrefs.GetString(KeyPrompt) == "True";
+            Prompt = PlayerPrefs.GetString(Keys.Prompt) == "True";
         }
         else
         {
             Prompt = true;
-            PlayerPrefs.SetString(KeyPrompt, "True");
+            PlayerPrefs.SetString(Keys.Prompt, "True");
         }
     }
 
     private void Start()
     {
-        spawnCubes = GetComponent<SpawnCubes>();
+        _spawnCubes = GetComponent<SpawnCubes>();
 
         SetLanguage();
         SetSound();
@@ -56,9 +58,9 @@ public class SceneArrengement : MonoBehaviour
 
     private void SetSound()
     {
-        if (PlayerPrefs.HasKey(KeyMute))
+        if (PlayerPrefs.HasKey(Keys.Mute))
         {
-            Sound = PlayerPrefs.GetString(KeyMute) != "True";
+            Sound = PlayerPrefs.GetString(Keys.Mute) != "True";
         }
         else
         {
@@ -70,20 +72,20 @@ public class SceneArrengement : MonoBehaviour
 
     private void Restart()
     {
-        if (PlayerPrefs.GetString(keyRestart) == "true")
+        if (PlayerPrefs.GetString(Keys.StartImmediately) == "true")
         {
-            PlayerPrefs.SetString(keyRestart, "false");
-            StartGame();
+            PlayerPrefs.SetString(Keys.StartImmediately, "false");
+            StartGame(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
     private void SetSkin()
     {
-        if (PlayerPrefs.HasKey(keySkin))
+        if (PlayerPrefs.HasKey(Keys.Skin))
         {
             foreach (var cube in cubesData)
             {
-                if (PlayerPrefs.GetString(keySkin) == cube.ID)
+                if (PlayerPrefs.GetString(Keys.Skin) == cube.ID)
                 {
                     Material loadMaterial = cube.Material;
                     MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
@@ -129,7 +131,7 @@ public class SceneArrengement : MonoBehaviour
 
     private void SwitchScriptsScene()
     {
-        spawnCubes.GetNewCube();
+        _spawnCubes.GetNewCube();
 
         GetComponentInChildren<JumpClickController>().enabled = true;
         Destroy(this);

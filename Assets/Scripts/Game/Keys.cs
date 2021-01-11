@@ -24,6 +24,11 @@
     public static readonly string Language = "Language";
     public static readonly string Open = "Open";
 
+    public static readonly string Skin = "Skin";
+    public static readonly string StartImmediately = "Restart";
+    public static readonly string Mute = "Mute";
+    public static readonly string Prompt = "Prompt";
+
     public struct Layer
     {
         public static readonly int Cube = 9;
