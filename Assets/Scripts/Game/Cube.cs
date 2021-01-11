@@ -1,87 +1,167 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cube : MonoBehaviour
 {
-    public GameObject BrokenCube;
-    public AudioClip audioPass, audioCrash, audioHit, audioSqueeze;
+    private bool _isJumped = false;
+    private bool _isGround = false;
+    private bool _isTransferControl = false;
+    private bool _playedAudioSqueeze = false;
+
+    private float _originalScaleCube = 0.6f;
+    private float _compressionScaleCube = 0.3f;
+
+    private Vector3 _forceCompression = new Vector3(0, 0.01f, 0f);
+
+    private Transform _transformCube;
+    private Rigidbody _rigidbodyCube;
+    private Game _game;
+    private AudioSource _audioSource;
+
+    private MeshRenderer _meshRenderer;
+    private Color _colorDefault;
+
+    [SerializeField] private AudioClip _audioPass, _audioCrash, _audioHit, _audioSqueeze;
+    [SerializeField] private GameObject _brokenCube;
 
     public float ForceJump { get; private set; }
+    public float ReducedScale { get; private set; }
 
-    private readonly int layerGround = 8;
-    private readonly int layerCube = 9;
+    private void Awake()
+    {
+        ReducedScale = 0.01f;
+    }
+    private void Start()
+    {
+        _meshRenderer = GetComponent<MeshRenderer>();
+        _colorDefault = _meshRenderer.material.color;
 
-    private bool jumped = false;
-    private bool transferControl = false;
+        _transformCube = gameObject.GetComponent<Transform>();
+        _rigidbodyCube = gameObject.GetComponent<Rigidbody>();
+        _game = FindObjectOfType<Game>();
+        _audioSource = GetComponent<AudioSource>();
 
-    private readonly float originalScaleCube = 0.6f;
-    private readonly float compressionScaleCube = 0.3f;
-    private Vector3 forceCompression = new Vector3(0, 0.01f, 0f);
+        _game.AppearedNewCube = false;
+    }
 
-    private Transform transformCube;
-    private Rigidbody rigidbodyCube;
-    private Game game;
-    private AudioSource audioSource;
-    private bool playedAudioSqueeze = false;
-    private bool isGround = false;
+    public void SetCompressionScale(int index)
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (_originalScaleCube > ReducedScale)
+            {
+                _originalScaleCube -= ReducedScale * index;
 
-    private MeshRenderer meshRenderer;
-    private Color colorDefault;
+                if (_compressionScaleCube > ReducedScale)
+                {
+                    _compressionScaleCube -= ReducedScale * index;
+                }
+            }
+        }
+    }
+
+    private void PlayAudio(AudioClip audio)
+    {
+        _audioSource.clip = audio;
+        _audioSource.Play();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == Keys.Layer.Ground)
+        {
+            _isGround = true;
+
+            if (_isJumped)
+            {
+                BreakDown();
+                if (!_isTransferControl)
+                {
+                    _game.DisplayButtons();
+                }
+            }
+        }
+        if (collision.gameObject.layer == Keys.Layer.Cube)
+        {
+            if (!_isTransferControl && _isJumped)
+            {
+                if (transform.position.x >= collision.transform.position.x - collision.transform.position.x * 20 / 100 &&
+                    transform.position.x <= collision.transform.position.x + collision.transform.position.x * 20 / 100)
+                {
+                    _rigidbodyCube.freezeRotation = true;
+                    _meshRenderer.material.color = new Color(_colorDefault.r, 1f, _colorDefault.b, 0.1f); // green
+                }
+                else
+                {
+                    _rigidbodyCube.freezeRotation = false;
+                    _meshRenderer.material.color = new Color(1f, _colorDefault.g, _colorDefault.b, 0.1f); // red
+                }
+
+                Invoke("ResetMaterial", 1f);
+
+                _game.GetReward();
+                _game.CreateNewCube();
+                PlayAudio(_audioHit);
+                _isTransferControl = true;
+                // 1.44f 1.98f 0.2717f
+            }
+        }
+    }
+
+    private void ResetMaterial()
+    {
+        _meshRenderer.material.color = _colorDefault;
+    }
+
+    private void BreakDown()
+    {
+        _game.PlayAudioBrokenBox();
+        var brokenCube = Instantiate(_brokenCube,
+                            gameObject.transform.position,
+                            Quaternion.identity,
+                            _game.DeactivatedCubes.transform);
+        brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
+
+        gameObject.transform.parent = _game.DeactivatedCubes.transform;
+        gameObject.SetActive(false);
+    }
 
     public void PlayAudioSqueeze(bool clickDetected)
     {
-        if (clickDetected && !playedAudioSqueeze)
+        if (clickDetected && !_playedAudioSqueeze)
         {
-            PlayAudio(audioSqueeze);
-            playedAudioSqueeze = true;
+            PlayAudio(_audioSqueeze);
+            _playedAudioSqueeze = true;
         }
     }
 
     public void Squeeze(bool clickDetected)
     {
-        if (clickDetected && transformCube.localScale.y > compressionScaleCube && isGround)
+        if (clickDetected && _transformCube.localScale.y > _compressionScaleCube && _isGround)
         {
-            transformCube.localScale -= forceCompression;
+            _transformCube.localScale -= _forceCompression;
         }
-        else if (transformCube.localScale.y < originalScaleCube)
+        else if (_transformCube.localScale.y < _originalScaleCube)
         {
-            transformCube.localScale += forceCompression * 2;
+            _transformCube.localScale += _forceCompression * 2;
         }
     }
 
     public void Jump(float pushtime)
     {
-        if (isGround)
+        if (_isGround)
         {
             ForceJump = GetForces(pushtime);
 
-            rigidbodyCube.AddRelativeForce(transform.right * -ForceJump);
-            rigidbodyCube.AddRelativeForce(transform.up * ForceJump * 2.5f);
+            _rigidbodyCube.AddRelativeForce(transform.right * -ForceJump);
+            _rigidbodyCube.AddRelativeForce(transform.up * ForceJump * 2.5f);
 
-            isGround = false;
-            jumped = true;
-            game.LoseJumpAttempt();
+            _isGround = false;
+            _isJumped = true;
+            _game.LoseJumpAttempt();
 
-            PlayAudio(audioPass);
+            PlayAudio(_audioPass);
         }
-    }
-
-    private void Start()
-    {
-        meshRenderer = GetComponent<MeshRenderer>();
-        colorDefault = meshRenderer.material.color;
-
-        transformCube = gameObject.GetComponent<Transform>();
-        rigidbodyCube = gameObject.GetComponent<Rigidbody>();
-        game = FindObjectOfType<Game>();
-        audioSource = GetComponent<AudioSource>();
-
-        game.AppearedNewCube = false;
-    }
-
-    private void PlayAudio(AudioClip audio)
-    {
-        audioSource.clip = audio;
-        audioSource.Play();
     }
 
     public float GetForces(float pushTime)
@@ -98,65 +178,5 @@ public class Cube : MonoBehaviour
         }
 
         return force;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == layerGround)
-        {
-            isGround = true;
-
-            if (jumped)
-            {
-                BreakDown();
-                if (!transferControl)
-                {
-                    game.DisplayButtons();
-                }
-            }
-        }
-        if (collision.gameObject.layer == layerCube)
-        {
-            if (!transferControl && jumped)
-            {
-                if (transform.position.x >= collision.transform.position.x - collision.transform.position.x * 20 / 100 &&
-                    transform.position.x <= collision.transform.position.x + collision.transform.position.x * 20 / 100)
-                {
-                    rigidbodyCube.freezeRotation = true;
-                    meshRenderer.material.color = new Color(colorDefault.r, 1f, colorDefault.b, 0.1f); // green
-                }
-                else
-                {
-                    rigidbodyCube.freezeRotation = false;
-                    meshRenderer.material.color = new Color(1f, colorDefault.g, colorDefault.b, 0.1f); // red
-                }
-
-                Invoke("ResetMaterial", 1f);
-
-                game.GetReward();
-                game.CreateNewCube();
-                PlayAudio(audioHit);
-                transferControl = true;
-                // 1.44f 1.98f 0.2717f
-            }
-        }
-    }
-
-    private void ResetMaterial()
-    {
-        meshRenderer.material.color = colorDefault;
-    }
-
-    private void BreakDown()
-    {
-        game.PlayAudioBrokenBox();
-        var brokenCube = Instantiate(BrokenCube,
-                            gameObject.transform.position,
-                            Quaternion.identity,
-                            game.DeactivatedCubes.transform);
-        brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
-
-        gameObject.transform.parent = game.DeactivatedCubes.transform;
-        gameObject.SetActive(false);
     }
 }

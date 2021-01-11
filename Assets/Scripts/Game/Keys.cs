@@ -1,4 +1,4 @@
-﻿public static class Keys
+﻿public struct Keys
 {
     public static string DispayAdsButtonKey = "DisplayAdsButton";
     public static string ContinuedAdvertising = "ContinuedAdvertising";
@@ -23,4 +23,10 @@
     public static readonly string UrlTelegram = "https://t.me/TowerCubeJump";
     public static readonly string Language = "Language";
     public static readonly string Open = "Open";
+
+    public struct Layer
+    {
+        public static readonly int Cube = 9;
+        public static readonly int Ground = 8;
+    }
 }

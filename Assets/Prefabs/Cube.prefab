@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4450484551217943001}
   m_LocalRotation: {x: 0, y: 0.5, z: 0, w: 0.8660254}
   m_LocalPosition: {x: -2, y: -4.08, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -143,12 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85bf4a01f3c0ed429f425082ebe226a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BrokenCube: {fileID: 1837467971476825538, guid: 79fe7b31f6bedc443bbc738df14b28b3,
+  _audioPass: {fileID: 8300000, guid: 87d5f6340e89c29469899c80a520162a, type: 3}
+  _audioCrash: {fileID: 8300000, guid: c453f447e8978ed44ba560f2f8f0bbc2, type: 3}
+  _audioHit: {fileID: 8300000, guid: cf3ff7397f5574b4282f7af37dd1824b, type: 3}
+  _audioSqueeze: {fileID: 8300000, guid: 0cc97609938603b45981efcaf08a9213, type: 3}
+  _brokenCube: {fileID: 1837467971476825538, guid: 79fe7b31f6bedc443bbc738df14b28b3,
     type: 3}
-  audioPass: {fileID: 8300000, guid: 87d5f6340e89c29469899c80a520162a, type: 3}
-  audioCrash: {fileID: 8300000, guid: c453f447e8978ed44ba560f2f8f0bbc2, type: 3}
-  audioHit: {fileID: 8300000, guid: cf3ff7397f5574b4282f7af37dd1824b, type: 3}
-  audioSqueeze: {fileID: 8300000, guid: 0cc97609938603b45981efcaf08a9213, type: 3}
 --- !u!82 &1297839347869200342
 AudioSource:
   m_ObjectHideFlags: 0
