@@ -22,7 +22,7 @@ public class Cube : MonoBehaviour
     private Color _colorDefault;
 
     [SerializeField] private AudioClip _audioPass, _audioCrash, _audioHit, _audioSqueeze;
-    [SerializeField] private GameObject _brokenCube;
+    [SerializeField] private GameObject _brokenCube, _expolosion;
 
     public float ForceJump { get; private set; }
     public float ReducedScale { get; private set; }
@@ -31,6 +31,7 @@ public class Cube : MonoBehaviour
     {
         ReducedScale = 0.01f;
     }
+
     private void Start()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -121,6 +122,9 @@ public class Cube : MonoBehaviour
                             Quaternion.identity,
                             _game.DeactivatedCubes.transform);
         brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
+        Instantiate(_expolosion,
+                            gameObject.transform.position,
+                            Quaternion.identity, brokenCube.transform);
 
         gameObject.transform.parent = _game.DeactivatedCubes.transform;
         gameObject.SetActive(false);

@@ -149,6 +149,8 @@ MonoBehaviour:
   _audioSqueeze: {fileID: 8300000, guid: 0cc97609938603b45981efcaf08a9213, type: 3}
   _brokenCube: {fileID: 1837467971476825538, guid: 79fe7b31f6bedc443bbc738df14b28b3,
     type: 3}
+  _expolosion: {fileID: 1845955007268882, guid: 67a684e320da6e7439421a07e3fa265c,
+    type: 3}
 --- !u!82 &1297839347869200342
 AudioSource:
   m_ObjectHideFlags: 0
