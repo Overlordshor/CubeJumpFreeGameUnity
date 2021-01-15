@@ -28,6 +28,7 @@
     public static readonly string StartImmediately = "Restart";
     public static readonly string Mute = "Mute";
     public static readonly string Prompt = "Prompt";
+    public static readonly string Mode = "Mode";
 
     public struct Layer
     {

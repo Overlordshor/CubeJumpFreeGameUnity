@@ -4,44 +4,44 @@ using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
-    private float speed;
-    private bool move = false;
-    private RectTransform buttonRect;
-    private new Animation animation;
-    private new AudioSource audio;
-    private ButtonSound sound;
-    private SceneArrengement scene;
-    private Image image;
+    private float _speed;
+    private bool _move = false;
+    private RectTransform _buttonRect;
+    private Animation _animation;
+    private AudioSource _audio;
+    private ButtonSound _sound;
+    private SceneArrengement _scene;
+    private Image _image;
 
     public void GoAway()
     {
-        speed = 50f;
-        move = true;
+        _speed = 50f;
+        _move = true;
         StartCoroutine("DisableButtons");
     }
 
     private void Start()
     {
-        buttonRect = GetComponent<RectTransform>();
-        animation = GetComponent<Animation>();
-        audio = GetComponentInParent<AudioSource>();
-        scene = FindObjectOfType<SceneArrengement>();
-        image = GetComponent<Image>();
+        _buttonRect = GetComponent<RectTransform>();
+        _animation = GetComponent<Animation>();
+        _audio = GetComponentInParent<AudioSource>();
+        _scene = FindObjectOfType<SceneArrengement>();
+        _image = GetComponent<Image>();
     }
 
     private void Update()
     {
-        if (move)
+        if (_move)
         {
-            buttonRect.offsetMin -= new Vector2(0, speed);
+            _buttonRect.offsetMin -= new Vector2(0, _speed);
         }
     }
 
     private void OnMouseUpAsButton()
     {
-        audio.Play();
+        _audio.Play();
 
-        if (!animation.isPlaying)
+        if (!_animation.isPlaying)
         {
             switch (gameObject.name)
             {
@@ -53,15 +53,15 @@ public class Buttons : MonoBehaviour
                     break;
 
                 case "Sound":
-                    sound = gameObject.GetComponent<ButtonSound>();
-                    image.sprite = sound.GetSprite(scene.Sound);
-                    sound.GetSound(!scene.Sound);
-                    scene.Sound = !scene.Sound;
+                    _sound = gameObject.GetComponent<ButtonSound>();
+                    _image.sprite = _sound.GetSprite(_scene.Sound);
+                    _sound.GetSound(!_scene.Sound);
+                    _scene.Sound = !_scene.Sound;
                     break;
 
                 case "Prompt":
                     var button = gameObject.GetComponent<ButtonPrompt>();
-                    scene.Prompt = !scene.Prompt;
+                    _scene.Prompt = !_scene.Prompt;
                     button.GetPrompt();
                     break;
 
@@ -132,11 +132,11 @@ public class Buttons : MonoBehaviour
 
     public void PlayClassicGame()
     {
-        scene.StartGame(0);
+        _scene.StartGame(Mode.Classic);
     }
 
     public void PlayReductionMode()
     {
-        scene.StartGame(1);
+        _scene.StartGame(Mode.Reduction);
     }
 }

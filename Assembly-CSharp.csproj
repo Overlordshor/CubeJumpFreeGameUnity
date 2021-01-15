@@ -147,6 +147,7 @@
     <Compile Include="Assets\GooglePlayGames\BasicApi\Nearby\EndpointDetails.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
     <Compile Include="Assets\Scripts\MainScene\GoogleServicesManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Mode.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />

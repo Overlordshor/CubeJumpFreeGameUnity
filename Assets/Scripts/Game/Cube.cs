@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Cube : MonoBehaviour
 {
@@ -30,6 +29,7 @@ public class Cube : MonoBehaviour
     private void Awake()
     {
         ReducedScale = 0.01f;
+        _game = FindObjectOfType<Game>();
     }
 
     private void Start()
@@ -39,7 +39,7 @@ public class Cube : MonoBehaviour
 
         _transformCube = gameObject.GetComponent<Transform>();
         _rigidbodyCube = gameObject.GetComponent<Rigidbody>();
-        _game = FindObjectOfType<Game>();
+
         _audioSource = GetComponent<AudioSource>();
 
         _game.AppearedNewCube = false;
@@ -47,7 +47,7 @@ public class Cube : MonoBehaviour
 
     public void SetCompressionScale(int index)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (_game.IsMode == Mode.Reduction)
         {
             if (_originalScaleCube > ReducedScale)
             {
@@ -104,7 +104,6 @@ public class Cube : MonoBehaviour
                 _game.CreateNewCube();
                 PlayAudio(_audioHit);
                 _isTransferControl = true;
-                // 1.44f 1.98f 0.2717f
             }
         }
     }

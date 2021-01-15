@@ -5,55 +5,36 @@ using UnityEngine.UI;
 
 public class SceneArrengement : MonoBehaviour
 {
+    private Game _game;
+    private SpawnCubes _spawnCubes;
+
     public Text GameNameText, PlayGameText, PriceText, ExitText;
     public Buttons Buttons;
     public GameObject MainCube;
     public GameObject ShopListCubes;
 
-    public bool Sound { get; set; }
-    public bool Prompt { get; set; }
-
-    private SpawnCubes _spawnCubes;
-
     [SerializeField]
     private List<CubeData> cubesData;
 
-    public void StartGame(int buildIndex)
-    {
-        if (SceneManager.GetActiveScene().buildIndex == buildIndex)
-        {
-            SwtichTextsScene();
-            AnimateStartGameUI();
-        }
-        else
-        {
-            PlayerPrefs.SetString(Keys.StartImmediately, "true");
-            SceneManager.LoadScene(buildIndex);
-        }
-    }
-
-    public void SetPrompt()
-    {
-        if (PlayerPrefs.HasKey(Keys.Prompt))
-        {
-            Prompt = PlayerPrefs.GetString(Keys.Prompt) == "True";
-        }
-        else
-        {
-            Prompt = true;
-            PlayerPrefs.SetString(Keys.Prompt, "True");
-        }
-    }
+    public bool Sound { get; set; }
+    public bool Prompt { get; set; }
 
     private void Start()
     {
         _spawnCubes = GetComponent<SpawnCubes>();
+        _game = GetComponent<Game>();
 
         SetLanguage();
         SetSound();
         SetPrompt();
         SetSkin();
-        Restart();
+
+        if (PlayerPrefs.GetString(Keys.StartImmediately) == "true")
+        {
+            PlayerPrefs.DeleteKey(Keys.StartImmediately);
+            var mode = (Mode)PlayerPrefs.GetInt(Keys.Mode);
+            StartGame(mode);
+        }
     }
 
     private void SetSound()
@@ -68,15 +49,6 @@ public class SceneArrengement : MonoBehaviour
         }
 
         AudioListener.volume = Sound ? 1f : 0f;
-    }
-
-    private void Restart()
-    {
-        if (PlayerPrefs.GetString(Keys.StartImmediately) == "true")
-        {
-            PlayerPrefs.SetString(Keys.StartImmediately, "false");
-            StartGame(SceneManager.GetActiveScene().buildIndex);
-        }
     }
 
     private void SetSkin()
@@ -135,5 +107,25 @@ public class SceneArrengement : MonoBehaviour
 
         GetComponentInChildren<JumpClickController>().enabled = true;
         Destroy(this);
+    }
+
+    public void StartGame(Mode mode)
+    {
+        _game.IsMode = mode;
+        SwtichTextsScene();
+        AnimateStartGameUI();
+    }
+
+    public void SetPrompt()
+    {
+        if (PlayerPrefs.HasKey(Keys.Prompt))
+        {
+            Prompt = PlayerPrefs.GetString(Keys.Prompt) == "True";
+        }
+        else
+        {
+            Prompt = true;
+            PlayerPrefs.SetString(Keys.Prompt, "True");
+        }
     }
 }

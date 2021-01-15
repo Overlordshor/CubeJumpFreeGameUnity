@@ -2,22 +2,24 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Game : MonoBehaviour
+public partial class Game : MonoBehaviour
 {
     public GameObject DeactivatedCubes;
     public GameObject EndGameButtons, ExitPanel, Buttons;
 
     public Text LivesText;
 
-    private SpawnCubes cubeSpawner;
-    private Score score;
-    private Coin coin;
-    private AudioSource audioBrokenBox;
-    private AdsManager adsManager;
+    private SpawnCubes _cubeSpawner;
+    private Score _score;
+    private Coin _coin;
+    private AudioSource _audioBrokenBox;
+    private AdsManager _adsManager;
 
     public int JumpAttempt { get; set; } = 1;
 
     public bool AppearedNewCube { get; set; } = false;
+
+    public Mode IsMode { get; set; }
 
     public void DisplayButtons()
     {
@@ -32,7 +34,7 @@ public class Game : MonoBehaviour
     {
         if (!AppearedNewCube)
         {
-            cubeSpawner.GetNewCube();
+            _cubeSpawner.GetNewCube();
             JumpAttempt++;
             AppearedNewCube = true;
             if (EndGameButtons.activeSelf)
@@ -58,7 +60,7 @@ public class Game : MonoBehaviour
         var countGames = PlayerPrefs.GetInt(Keys.CountGames);
         if (countGames % 5 == 0)
         {
-            adsManager.ShowNotRewardAdvertisement();
+            _adsManager.ShowNotRewardAdvertisement();
 
             PlayerPrefs.SetInt(Keys.PlacementRewardId, 0);
             if (countGames == 13)
@@ -75,41 +77,33 @@ public class Game : MonoBehaviour
 
         PlayerPrefs.DeleteKey(Keys.ContinuedAdvertising);
 
-        Scene activeScene;
-        if (PlayerPrefs.GetString(Keys.StartImmediately) == "true")
-        {
-            activeScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(activeScene.buildIndex);
-        }
-        else
-        {
-            SceneManager.LoadScene(0); // Main;
-        }
+        PlayerPrefs.SetInt(Keys.Mode, (int)IsMode);
+        SceneManager.LoadScene(0); // Main;
     }
 
     public void PlayAudioBrokenBox()
     {
-        audioBrokenBox.Play();
+        _audioBrokenBox.Play();
     }
 
     public void GetReward()
     {
         if (!AppearedNewCube)
         {
-            score.Add();
-            coin.Add();
+            _score.Add();
+            _coin.Add();
         }
     }
 
     private void Start()
     {
-        cubeSpawner = GetComponent<SpawnCubes>();
-        score = GetComponent<Score>();
-        coin = GetComponent<Coin>();
-        audioBrokenBox = GetComponent<AudioSource>();
+        _cubeSpawner = GetComponent<SpawnCubes>();
+        _score = GetComponent<Score>();
+        _coin = GetComponent<Coin>();
+        _audioBrokenBox = GetComponent<AudioSource>();
 
-        adsManager = FindObjectOfType<AdsManager>();
-        adsManager.InitializeAdvertisements();
+        _adsManager = FindObjectOfType<AdsManager>();
+        _adsManager.InitializeAdvertisements();
     }
 
     private void Update()

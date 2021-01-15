@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SpawnCubes : MonoBehaviour
 {
     private JumpClickController _jumpClickController;
     private int _countCubes;
+    private Game _game;
 
     public GameObject Cube;
     public GameObject MainCube;
@@ -13,6 +13,7 @@ public class SpawnCubes : MonoBehaviour
     private void Start()
     {
         _jumpClickController = gameObject.GetComponentInChildren<JumpClickController>();
+        _game = GetComponent<Game>();
     }
 
     public void GetNewCube()
@@ -22,7 +23,7 @@ public class SpawnCubes : MonoBehaviour
             CubesParent.transform);
         gameCube.layer = Keys.Layer.Cube;
         gameCube.GetComponent<MeshRenderer>().material = MainCube.GetComponent<MeshRenderer>().material;
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (_game.IsMode == Mode.Reduction)
         {
             var cube = gameCube.GetComponent<Cube>();
             cube.SetCompressionScale(_countCubes);
