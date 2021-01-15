@@ -4,9 +4,8 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    private int totalScore;
+    private int _totalScore;
     private int _buffPower;
-    [SerializeField] private GameObject[] _fires;
 
     [SerializeField]
     private Text _buff, _gameNameText, _record;
@@ -15,7 +14,7 @@ public class Score : MonoBehaviour
 
     private void Start()
     {
-        SetRecord(totalScore);
+        SetRecord(_totalScore);
     }
 
     private void Update()
@@ -33,18 +32,6 @@ public class Score : MonoBehaviour
            "Your buff score: " + _buffPower,
            "Уровень твоего бафа:" + _buffPower);
             _buff.gameObject.SetActive(true);
-            if (_buffPower >= 15)
-            {
-                ActivateFire(2); // green;
-            }
-            else if (_buffPower >= 7)
-            {
-                ActivateFire(1); // red;
-            }
-            else if (_buffPower < 7)
-            {
-                ActivateFire(0); // yellow;
-            }
 
             if (height == 6)
             {
@@ -54,22 +41,7 @@ public class Score : MonoBehaviour
         else if (_buffPower < 2)
         {
             _buff.gameObject.SetActive(false);
-            DeactivateFire();
         }
-    }
-
-    private void DeactivateFire()
-    {
-        foreach (var fire in _fires)
-        {
-            fire.SetActive(false);
-        }
-    }
-
-    private void ActivateFire(int indexFire)
-    {
-        DeactivateFire();
-        _fires[2].SetActive(true);
     }
 
     private void SetRecord(int totalScore)
@@ -90,8 +62,8 @@ public class Score : MonoBehaviour
 
     public void Add()
     {
-        totalScore += 1 * _buffPower;
-        _gameNameText.text = Convert.ToString(totalScore);
-        SetRecord(totalScore);
+        _totalScore += 1 * _buffPower;
+        _gameNameText.text = Convert.ToString(_totalScore);
+        SetRecord(_totalScore);
     }
 }
