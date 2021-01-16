@@ -36,3 +36,5 @@
         public static readonly int Ground = 8;
     }
 }
+
+public enum 

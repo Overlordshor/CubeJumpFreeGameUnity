@@ -62,7 +62,7 @@ public partial class Game : MonoBehaviour
         {
             _adsManager.ShowNotRewardAdvertisement();
 
-            PlayerPrefs.SetInt(Keys.PlacementRewardId, 0);
+            PlayerPrefs.SetInt(Keys.CountRewardAdvertising, 0);
             if (countGames == 13)
             {
                 GoogleServicesManager.UnlockAchievement(Keys.AchievementBakersDozen);

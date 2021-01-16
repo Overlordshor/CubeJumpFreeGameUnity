@@ -3,10 +3,26 @@ using UnityEngine;
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
-    public GameObject ButtonShop, ButtonProceed;
+    [SerializeField] private GameObject _buttonShop, _buttonProceed;
+    private Coin _coin;
+    private bool _isShop;
 
-    private Coin coin;
-    private bool shop;
+    private void Start()
+    {
+        InitializeAdvertisements();
+
+        _coin = FindObjectOfType<Coin>();
+
+        if (!PlayerPrefs.HasKey(Keys.CountRewardAdvertising))
+        {
+            PlayerPrefs.SetInt(Keys.CountRewardAdvertising, 0);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Advertisement.RemoveListener(this);
+    }
 
     public void ShowNotRewardAdvertisement()
     {
@@ -23,7 +39,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (Advertisement.IsReady(Keys.PlacementRewardId))
         {
-            this.shop = shop;
+            _isShop = shop;
             Advertisement.Show(Keys.PlacementRewardId);
         }
         else
@@ -57,9 +73,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         {
             if (showResult == ShowResult.Finished)
             {
-                if (shop)
+                if (_isShop)
                 {
-                    coin.Reward();
+                    _coin.Reward();
                     PlayerPrefs.SetInt(Keys.CountRewardAdvertising, PlayerPrefs.GetInt(Keys.CountRewardAdvertising) + 1);
                 }
                 else
@@ -79,22 +95,5 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     public void OnUnityAdsReady(string placementId)
     {
         Debug.Log("INITIALIZED " + placementId);
-    }
-
-    private void Start()
-    {
-        InitializeAdvertisements();
-
-        coin = FindObjectOfType<Coin>();
-
-        if (!PlayerPrefs.HasKey(Keys.CountRewardAdvertising))
-        {
-            PlayerPrefs.SetInt(Keys.CountRewardAdvertising, 0);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        Advertisement.RemoveListener(this);
     }
 }

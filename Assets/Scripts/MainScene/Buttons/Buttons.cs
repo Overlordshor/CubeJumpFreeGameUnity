@@ -17,7 +17,7 @@ public class Buttons : MonoBehaviour
     {
         _speed = 50f;
         _move = true;
-        StartCoroutine("DisableButtons");
+        StartCoroutine(nameof(DisableButtons));
     }
 
     private void Start()

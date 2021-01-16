@@ -2,7 +2,7 @@
 
 public class ButtonsEndGame : MonoBehaviour
 {
-    private Game game;
+    private Game _game;
 
     public void Restart()
     {
@@ -12,11 +12,11 @@ public class ButtonsEndGame : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        game.Restart();
+        _game.Restart();
     }
 
     private void Start()
     {
-        game = FindObjectOfType<Game>();
+        _game = FindObjectOfType<Game>();
     }
 }
