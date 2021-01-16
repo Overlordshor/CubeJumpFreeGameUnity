@@ -6,6 +6,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     [SerializeField] private GameObject _buttonShop, _buttonProceed;
     private Coin _coin;
     private bool _isShop;
+    private readonly bool _adsTestMode = false;
 
     private void Start()
     {
@@ -26,9 +27,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void ShowNotRewardAdvertisement()
     {
-        if (Advertisement.IsReady(Keys.PlacementNotRewardId))
+        if (Advertisement.IsReady(Keys.ID.PlacementNotReward))
         {
-            Advertisement.Show(Keys.PlacementNotRewardId);
+            Advertisement.Show(Keys.ID.PlacementNotReward);
         }
     }
 
@@ -37,10 +38,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     /// </summary>
     public void ShowRewardAdvertisement(bool shop)
     {
-        if (Advertisement.IsReady(Keys.PlacementRewardId))
+        if (Advertisement.IsReady(Keys.ID.PlacementReward))
         {
             _isShop = shop;
-            Advertisement.Show(Keys.PlacementRewardId);
+            Advertisement.Show(Keys.ID.PlacementReward);
         }
         else
         {
@@ -52,7 +53,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (Advertisement.isSupported)
         {
-            Advertisement.Initialize(Keys.GameAndroidID, Keys.AdsTestMode);
+            Advertisement.Initialize(Keys.ID.GameAndroid, _adsTestMode);
             Advertisement.AddListener(this);
 
             if (!PlayerPrefs.HasKey(Keys.CountGames))
@@ -69,7 +70,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
-        if (Keys.PlacementRewardId == placementId)
+        if (Keys.ID.PlacementReward == placementId)
         {
             if (showResult == ShowResult.Finished)
             {

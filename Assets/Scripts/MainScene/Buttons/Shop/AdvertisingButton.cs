@@ -13,7 +13,7 @@ public class AdvertisingButton : MonoBehaviour
         {
             if (PlayerPrefs.GetInt(Keys.CountRewardAdvertising) < 4)
             {
-                gameObject.SetActive(Advertisement.IsReady(Keys.PlacementRewardId));
+                gameObject.SetActive(Advertisement.IsReady(Keys.ID.PlacementReward));
             }
             else
             {
@@ -28,7 +28,7 @@ public class AdvertisingButton : MonoBehaviour
             }
             else
             {
-                gameObject.SetActive(Advertisement.IsReady(Keys.PlacementRewardId));
+                gameObject.SetActive(Advertisement.IsReady(Keys.ID.PlacementReward));
             }
         }
     }

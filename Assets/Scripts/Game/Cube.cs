@@ -69,7 +69,7 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == Keys.Layer.Ground)
+        if (collision.gameObject.layer == (int)Layer.Ground)
         {
             _isGround = true;
 
@@ -82,7 +82,7 @@ public class Cube : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.layer == Keys.Layer.Cube)
+        if (collision.gameObject.layer == (int)Layer.Cube)
         {
             if (!_isTransferControl && _isJumped)
             {

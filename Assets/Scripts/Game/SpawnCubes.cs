@@ -21,7 +21,7 @@ public class SpawnCubes : MonoBehaviour
         var gameCube = Instantiate(Cube, new Vector3(-4f, -4.08f, 5f),
             Quaternion.Euler(new Vector3(0, 60, 0)),
             CubesParent.transform);
-        gameCube.layer = Keys.Layer.Cube;
+        gameCube.layer = (int)Layer.Cube;
         gameCube.GetComponent<MeshRenderer>().material = MainCube.GetComponent<MeshRenderer>().material;
         if (_game.IsMode == Mode.Reduction)
         {

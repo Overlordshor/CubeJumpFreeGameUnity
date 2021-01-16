@@ -5,12 +5,6 @@
     public static string CountRewardAdvertising = "CountRewardAdvertising";
     public static string CountGames = "countGames";
 
-    public static string GameAndroidID = "3921519";
-    public static string PlacementRewardId = "rewardedVideo";
-    public static string PlacementNotRewardId = "video";
-
-    public static bool AdsTestMode = false;
-
     public static readonly string LeaderBoard = "CgkI16bBvIodEAIQAA";
     public static readonly string AchievementBestBuyer = "CgkI16bBvIodEAIQBQ";
     public static readonly string AchievementTowerBabel = "CgkI16bBvIodEAIQAw";
@@ -30,11 +24,10 @@
     public static readonly string Prompt = "Prompt";
     public static readonly string Mode = "Mode";
 
-    public struct Layer
+    public struct ID
     {
-        public static readonly int Cube = 9;
-        public static readonly int Ground = 8;
+        public static string GameAndroid = "3921519";
+        public static string PlacementReward = "rewardedVideo";
+        public static string PlacementNotReward = "video";
     }
 }
-
-public enum 
