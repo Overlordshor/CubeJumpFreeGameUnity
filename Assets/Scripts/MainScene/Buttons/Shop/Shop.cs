@@ -14,6 +14,16 @@ public class Shop : MonoBehaviour
 
     private CubeData cubeData;
 
+    private void Start()
+    {
+        var transformCubesForSale = transform.Find("Cubes");
+        cubesForSale = new CubeForSale[transformCubesForSale.childCount];
+        for (int i = 0; i < transformCubesForSale.childCount; i++)
+        {
+            cubesForSale[i] = transformCubesForSale.GetChild(i).GetComponent<CubeForSale>();
+        }
+    }
+
     public void UpdateDisplayUI(CubeData cubeData)
     {
         this.cubeData = cubeData;
@@ -56,16 +66,6 @@ public class Shop : MonoBehaviour
                 continue;
             }
             cube.IsSelect = false;
-        }
-    }
-
-    private void Start()
-    {
-        var transformCubesForSale = transform.Find("Cubes");
-        cubesForSale = new CubeForSale[transformCubesForSale.childCount];
-        for (int i = 0; i < transformCubesForSale.childCount; i++)
-        {
-            cubesForSale[i] = transformCubesForSale.GetChild(i).GetComponent<CubeForSale>();
         }
     }
 }

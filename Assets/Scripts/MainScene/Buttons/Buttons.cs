@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
+    [SerializeField] private GameObject _shop;
     private float _speed;
     private bool _move = false;
     private RectTransform _buttonRect;
@@ -63,14 +64,6 @@ public class Buttons : MonoBehaviour
                     var button = gameObject.GetComponent<ButtonPrompt>();
                     _scene.Prompt = !_scene.Prompt;
                     button.GetPrompt();
-                    break;
-
-                case "ShopButton":
-                    gameObject.transform.GetChild(0).gameObject.SetActive(!gameObject.transform.GetChild(0).gameObject.activeSelf);
-                    break;
-
-                case "CancelButton":
-                    transform.parent.gameObject.SetActive(false);
                     break;
 
                 case "AcceptButton":
