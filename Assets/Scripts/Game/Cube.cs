@@ -98,7 +98,7 @@ public class Cube : MonoBehaviour
                     _meshRenderer.material.color = new Color(1f, _colorDefault.g, _colorDefault.b, 0.1f); // red
                 }
 
-                Invoke("ResetMaterial", 1f);
+                Invoke(nameof(ResetMaterial), 1f);
 
                 _game.GetReward();
                 _game.CreateNewCube();
