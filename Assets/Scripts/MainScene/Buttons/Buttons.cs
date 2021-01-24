@@ -66,10 +66,6 @@ public class Buttons : MonoBehaviour
                     button.GetPrompt();
                     break;
 
-                case "AcceptButton":
-                    gameObject.GetComponent<ButtonAccept>().SelectCube();
-                    break;
-
                 case "Language":
                     gameObject.GetComponent<ButtonLanguage>().GetLanguage();
                     break;

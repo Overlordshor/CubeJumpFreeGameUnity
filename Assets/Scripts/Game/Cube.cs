@@ -90,12 +90,12 @@ public class Cube : MonoBehaviour
                     transform.position.x <= collision.transform.position.x + collision.transform.position.x * 20 / 100)
                 {
                     _rigidbodyCube.freezeRotation = true;
-                    _meshRenderer.material.color = new Color(_colorDefault.r, 1f, _colorDefault.b, 0.1f); // green
+                    _meshRenderer.material.color = new Color(_colorDefault.r / 2, 1f, _colorDefault.b / 2, 0.1f); // green
                 }
                 else
                 {
                     _rigidbodyCube.freezeRotation = false;
-                    _meshRenderer.material.color = new Color(1f, _colorDefault.g, _colorDefault.b, 0.1f); // red
+                    _meshRenderer.material.color = new Color(1f, _colorDefault.g / 2, _colorDefault.b / 2, 0.1f); // red
                 }
 
                 Invoke(nameof(ResetMaterial), 1f);
