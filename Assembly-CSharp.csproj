@@ -89,7 +89,7 @@
     <Compile Include="Assets\GooglePlayGames\ISocialPlatform\PlayGamesAchievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Events\IEvent.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\AdvertisingButton.cs" />
-    <Compile Include="Assets\Scripts\GameEvent.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\GameEvent.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Nearby\INearbyConnectionClient.cs" />
     <Compile Include="Assets\Scripts\MainScene\MakeScreenshotByMouseClick.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonSetting.cs" />

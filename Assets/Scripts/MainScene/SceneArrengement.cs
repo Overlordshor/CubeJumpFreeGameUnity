@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneArrengement : MonoBehaviour
@@ -69,6 +69,14 @@ public class SceneArrengement : MonoBehaviour
 
     private void SetLanguage()
     {
+        if (!PlayerPrefs.HasKey(Keys.Language))
+        {
+            var currentCultureName = CultureInfo.CurrentCulture.Name;
+            if (currentCultureName == "ru-RU")
+            {
+                PlayerPrefs.SetString(Keys.Language, "Russian");
+            }
+        }
         if (PlayerPrefs.HasKey(Keys.Language))
         {
             Language.PrintAnyLanguage(PlayGameText,

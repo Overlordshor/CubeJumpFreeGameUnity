@@ -1,4 +1,4 @@
-﻿public struct Keys
+﻿public class Keys
 {
     public static string DispayAdsButtonKey = "DisplayAdsButton";
     public static string ContinuedAdvertising = "ContinuedAdvertising";
@@ -24,7 +24,7 @@
     public static readonly string Prompt = "Prompt";
     public static readonly string Mode = "Mode";
 
-    public struct ID
+    public class ID
     {
         public static string GameAndroid = "3921519";
         public static string PlacementReward = "rewardedVideo";

@@ -15,6 +15,8 @@ public partial class Game : MonoBehaviour
     private AudioSource _audioBrokenBox;
     private AdsManager _adsManager;
 
+    public Transform DeathStars;
+
     public int JumpAttempt { get; set; } = 1;
 
     public bool AppearedNewCube { get; set; } = false;
@@ -63,14 +65,11 @@ public partial class Game : MonoBehaviour
             _adsManager.ShowNotRewardAdvertisement();
 
             PlayerPrefs.SetInt(Keys.CountRewardAdvertising, 0);
-            if (countGames == 13)
-            {
-                GoogleServicesManager.UnlockAchievement(Keys.AchievementBakersDozen);
-            }
-            if (countGames == 15)
-            {
-                PlayerPrefs.SetInt(Keys.CountGames, 0);
-            }
+        }
+        if (countGames == 13)
+        {
+            GoogleServicesManager.UnlockAchievement(Keys.AchievementBakersDozen);
+            PlayerPrefs.SetInt(Keys.CountGames, 0);
         }
 
         PlayerPrefs.Save();

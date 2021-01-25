@@ -151,6 +151,7 @@ MonoBehaviour:
     type: 3}
   _expolosion: {fileID: 1845955007268882, guid: 67a684e320da6e7439421a07e3fa265c,
     type: 3}
+  _star: {fileID: 5735767327210985461, guid: d9055ab47b70be24b95a498a2ff8e9e3, type: 3}
 --- !u!82 &1297839347869200342
 AudioSource:
   m_ObjectHideFlags: 0

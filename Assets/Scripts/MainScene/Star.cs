@@ -7,7 +7,6 @@ public class Star : MonoBehaviour
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        Destroy(gameObject, 2f);
     }
 
     private void Update()
