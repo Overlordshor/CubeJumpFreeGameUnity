@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+public delegate void OnFellGroundDelegate();
+
 public class Cube : MonoBehaviour
 {
     private bool _isJumped = false;
@@ -14,7 +16,7 @@ public class Cube : MonoBehaviour
 
     private Transform _transformCube;
     private Rigidbody _rigidbodyCube;
-    private Game _game;
+    public Game Game;
     private AudioSource _audioSource;
 
     private MeshRenderer _meshRenderer;
@@ -23,13 +25,15 @@ public class Cube : MonoBehaviour
     [SerializeField] private AudioClip _audioPass, _audioCrash, _audioHit, _audioSqueeze;
     [SerializeField] private GameObject _brokenCube, _expolosion, _star;
 
+    public event OnFellGroundDelegate OnFellGround;
+
     public float ForceJump { get; private set; }
     public float ReducedScale { get; private set; }
 
     private void Awake()
     {
         ReducedScale = 0.01f;
-        _game = FindObjectOfType<Game>();
+        Game = FindObjectOfType<Game>();
     }
 
     private void Start()
@@ -42,12 +46,12 @@ public class Cube : MonoBehaviour
 
         _audioSource = GetComponent<AudioSource>();
 
-        _game.AppearedNewCube = false;
+        Game.AppearedNewCube = false;
     }
 
     public void SetCompressionScale(int index)
     {
-        if (_game.IsMode == Mode.Reduction)
+        if (Game.IsMode == Mode.Reduction)
         {
             if (_originalScaleCube > ReducedScale)
             {
@@ -75,10 +79,10 @@ public class Cube : MonoBehaviour
 
             if (_isJumped)
             {
-                BreakDown();
+                OnFellGround();
                 if (!_isTransferControl)
                 {
-                    _game.DisplayButtons();
+                    Game.DisplayButtons();
                 }
             }
         }
@@ -100,8 +104,8 @@ public class Cube : MonoBehaviour
 
                 Invoke(nameof(ResetMaterial), 1f);
 
-                _game.GetReward();
-                _game.CreateNewCube();
+                Game.GetReward();
+                Game.CreateNewCube();
                 PlayAudio(_audioHit);
                 _isTransferControl = true;
             }
@@ -111,24 +115,6 @@ public class Cube : MonoBehaviour
     private void ResetMaterial()
     {
         _meshRenderer.material.color = _colorDefault;
-    }
-
-    private void BreakDown()
-    {
-        _game.PlayAudioBrokenBox();
-        var brokenCube = Instantiate(_brokenCube,
-                            gameObject.transform.position,
-                            Quaternion.identity,
-                            _game.DeactivatedCubes.transform);
-        brokenCube.GetComponent<BrokenCubes>().PassMaterial(gameObject.GetComponent<MeshRenderer>().material);
-        Instantiate(_star, gameObject.transform.position,
-                           Quaternion.identity, _game.DeathStars.transform);
-        Instantiate(_expolosion,
-                            gameObject.transform.position,
-                            Quaternion.identity, brokenCube.transform);
-
-        gameObject.transform.parent = _game.DeactivatedCubes.transform;
-        gameObject.SetActive(false);
     }
 
     public void PlayAudioSqueeze(bool clickDetected)
@@ -163,7 +149,7 @@ public class Cube : MonoBehaviour
 
             _isGround = false;
             _isJumped = true;
-            _game.LoseJumpAttempt();
+            Game.LoseJumpAttempt();
 
             PlayAudio(_audioPass);
         }

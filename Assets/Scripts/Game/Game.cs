@@ -12,7 +12,6 @@ public partial class Game : MonoBehaviour
     private SpawnCubes _cubeSpawner;
     private Score _score;
     private Coin _coin;
-    private AudioSource _audioBrokenBox;
     private AdsManager _adsManager;
 
     public Transform DeathStars;
@@ -78,11 +77,6 @@ public partial class Game : MonoBehaviour
 
         PlayerPrefs.SetInt(Keys.Mode, (int)IsMode);
         SceneManager.LoadScene(0); // Main;
-    }
-
-    public void PlayAudioBrokenBox()
-    {
-        _audioBrokenBox.Play();
     }
 
     public void GetReward()
