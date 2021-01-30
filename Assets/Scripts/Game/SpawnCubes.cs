@@ -3,12 +3,9 @@
 public class SpawnCubes : MonoBehaviour
 {
     private JumpClickController _jumpClickController;
-    private int _countCubes;
     private Game _game;
 
-    public GameObject Cube;
-    public GameObject MainCube;
-    public GameObject CubesParent;
+    private static int _countCubes;
 
     private void Start()
     {
@@ -16,20 +13,22 @@ public class SpawnCubes : MonoBehaviour
         _game = GetComponent<Game>();
     }
 
-    public void GetNewCube()
+    public void GetCube(GameObject cubePrefab, GameObject mainCube)
     {
-        var gameCube = Instantiate(Cube, new Vector3(-4f, -4.08f, 5f),
+        var gameCube = Instantiate(cubePrefab, new Vector3(-4f, -4.08f, 5f),
             Quaternion.Euler(new Vector3(0, 60, 0)),
-            CubesParent.transform);
+            mainCube.transform.parent);
         gameCube.layer = (int)Layer.Cube;
-        gameCube.GetComponent<MeshRenderer>().material = MainCube.GetComponent<MeshRenderer>().material;
+        gameCube.GetComponent<MeshRenderer>().material = mainCube.GetComponent<MeshRenderer>().material;
         if (_game.IsMode == Mode.Reduction)
         {
-            var cube = gameCube.GetComponent<Cube>();
+            var cube = gameCube.GetComponent<CubeSqueezer>();
             cube.SetCompressionScale(_countCubes);
             gameCube.transform.localScale -= new Vector3(cube.ReducedScale, cube.ReducedScale, cube.ReducedScale) * _countCubes;
             _countCubes++;
         }
+
         _jumpClickController.GetControl(gameCube);
+        _game.IntroduceCube(gameCube);
     }
 }

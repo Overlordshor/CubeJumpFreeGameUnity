@@ -2,56 +2,44 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public partial class Game : MonoBehaviour
+public partial class Game : MonoBehaviour, ICubeEventComponent
 {
+    private int _jumpAttempt = 1;
+
+    private Score _score;
+
+    private Coin _coin;
+    private AdsManager _adsManager;
+    private CollisionHandler _collision;
+
     public GameObject DeactivatedCubes;
     public GameObject EndGameButtons, ExitPanel, Buttons;
 
     public Text LivesText;
 
-    private SpawnCubes _cubeSpawner;
-    private Score _score;
-    private Coin _coin;
-    private AdsManager _adsManager;
-
     public Transform DeathStars;
-
-    public int JumpAttempt { get; set; } = 1;
-
-    public bool AppearedNewCube { get; set; } = false;
 
     public Mode IsMode { get; set; }
 
-    public void DisplayButtons()
+    private void Start()
     {
-        if (JumpAttempt == 0)
-        {
-            EndGameButtons.SetActive(true);
-            EndGameButtons.transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display(false);
-        }
+        _score = GetComponent<Score>();
+        _coin = GetComponent<Coin>();
+
+        _adsManager = FindObjectOfType<AdsManager>();
+        _adsManager.InitializeAdvertisements();
     }
 
-    public void CreateNewCube()
+    private void Update()
     {
-        if (!AppearedNewCube)
-        {
-            _cubeSpawner.GetNewCube();
-            JumpAttempt++;
-            AppearedNewCube = true;
-            if (EndGameButtons.activeSelf)
-            {
-                EndGameButtons.SetActive(false);
-            }
-        }
+        ShowExitPanel();
+        Language.PrintAnyLanguage(LivesText, "Lives: " + _jumpAttempt.ToString(), "Жизней: " + _jumpAttempt.ToString());
     }
 
-    public void LoseJumpAttempt()
+    private void DisplayEndGameButtons()
     {
-        if (JumpAttempt >= 1)
-        {
-            LivesText.gameObject.SetActive(true);
-            JumpAttempt--;
-        }
+        EndGameButtons.SetActive(true);
+        EndGameButtons.transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display(false);
     }
 
     public void Restart()
@@ -79,30 +67,10 @@ public partial class Game : MonoBehaviour
         SceneManager.LoadScene(0); // Main;
     }
 
-    public void GetReward()
+    private void GetReward()
     {
-        if (!AppearedNewCube)
-        {
-            _score.Add();
-            _coin.Add();
-        }
-    }
-
-    private void Start()
-    {
-        _cubeSpawner = GetComponent<SpawnCubes>();
-        _score = GetComponent<Score>();
-        _coin = GetComponent<Coin>();
-        _audioBrokenBox = GetComponent<AudioSource>();
-
-        _adsManager = FindObjectOfType<AdsManager>();
-        _adsManager.InitializeAdvertisements();
-    }
-
-    private void Update()
-    {
-        ShowExitPanel();
-        Language.PrintAnyLanguage(LivesText, "Lives: " + JumpAttempt.ToString(), "Жизней: " + JumpAttempt.ToString());
+        _score.Add();
+        _coin.Add();
     }
 
     private void ShowExitPanel()
@@ -122,5 +90,49 @@ public partial class Game : MonoBehaviour
             Buttons?.SetActive(false);
         }
 #endif
+    }
+
+    public void Cube_OnCompressedCube()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Cube_OnHitCube()
+    {
+        GetReward();
+        _collision.OnFellGround -= Cube_OnHitCube;
+    }
+
+    public void Cube_OnJumped()
+    {
+        if (_jumpAttempt >= 1)
+        {
+            LivesText.gameObject.SetActive(true);
+        }
+
+        _jumpAttempt--;
+        _collision.OnFellGround -= Cube_OnJumped;
+    }
+
+    public void Cube_OnFellGround()
+    {
+        if (/*_cube.IsJumped && !_cube.IsPlayerControl && */_jumpAttempt == 0)
+        {
+            DisplayEndGameButtons();
+            _collision.OnFellGround -= Cube_OnFellGround;
+        }
+    }
+
+    public void SubscribeOnEvent()
+    {
+        _collision.OnFellGround += Cube_OnFellGround;
+        _collision.OnFellGround += Cube_OnJumped;
+        _collision.OnFellGround += Cube_OnHitCube;
+    }
+
+    public void IntroduceCube(GameObject cube)
+    {
+        _collision = cube.GetComponent<CollisionHandler>();
+        SubscribeOnEvent();
     }
 }

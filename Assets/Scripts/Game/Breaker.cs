@@ -1,20 +1,36 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Breaker : MonoBehaviour
+public class Breaker : MonoBehaviour, ICubeEventComponent
 {
     private Cube _cube;
+    private CollisionHandler _collision;
     [SerializeField] private GameObject _brokenCube, _deathStar, _expolosion;
     private Transform _deactivatedCubes;
 
     private void Start()
     {
         _cube = GetComponent<Cube>();
+        _collision = GetComponent<CollisionHandler>();
         _deactivatedCubes = _cube.Game.DeactivatedCubes.transform;
-        _cube.OnFellGround += Break;
+        SubscribeOnEvent();
     }
 
-    private void Break()
+    public void Cube_OnCompressedCube()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Cube_OnHitCube()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Cube_OnJumped()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Cube_OnFellGround()
     {
         var brokenCube = Instantiate(_brokenCube,
                             gameObject.transform.position,
@@ -33,10 +49,12 @@ public class Breaker : MonoBehaviour
 
         gameObject.transform.parent = _deactivatedCubes;
         gameObject.SetActive(false);
+
+        _collision.OnFellGround -= Cube_OnFellGround;
     }
 
-    private void OnDestroy()
+    public void SubscribeOnEvent()
     {
-        _cube.OnFellGround -= Break;
+        _collision.OnFellGround += Cube_OnFellGround;
     }
 }

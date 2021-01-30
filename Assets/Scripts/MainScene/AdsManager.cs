@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
-    [SerializeField] private GameObject _buttonShop, _buttonProceed;
+    [SerializeField] private GameObject _buttonShop, _buttonProceed, _cube, _mainCube;
     private Coin _coin;
     private bool _isShop;
     private readonly bool _adsTestMode = false;
@@ -81,8 +81,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
                 }
                 else
                 {
-                    var game = FindObjectOfType<Game>();
-                    game.CreateNewCube();
+                    var spawn = FindObjectOfType<SpawnCubes>();
+                    spawn.GetCube(_cube, _mainCube);
                     PlayerPrefs.SetString(Keys.ContinuedAdvertising, "True");
                 }
             }

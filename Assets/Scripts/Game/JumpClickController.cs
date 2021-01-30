@@ -1,8 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+public delegate void OnCompressedCubeDelegate();
+
 public class JumpClickController : MonoBehaviour
 {
+    private Image _powerJumpFillImage;
+
+    private float _startTime;
+
+    private Cube _gameCube;
+    private Game _game;
+
     public GameObject Cube;
     public Text RulesText;
     public GameObject DeactivatedCubes;
@@ -10,24 +19,20 @@ public class JumpClickController : MonoBehaviour
     public Slider PowerJumpBar;
     public GameObject PowerJumpBarFill;
 
-    private Image powerJumpFillImage;
+    public event OnCompressedCubeDelegate OnCompressedCube;
 
-    private bool clickDetected;
-    private float startTime;
-    private Cube gameCube;
-    private Game game;
+    public bool IsClickDetected { get; private set; } = false;
 
     public void GetControl(GameObject cube)
     {
-        gameCube = cube.GetComponentInChildren<Cube>();
+        _gameCube = cube.GetComponentInChildren<Cube>();
     }
 
     private void Start()
     {
-        gameCube = Cube.GetComponentInChildren<Cube>();
-        game = GetComponentInParent<Game>();
-        powerJumpFillImage = PowerJumpBarFill.GetComponent<Image>();
-        clickDetected = false;
+        _gameCube = Cube.GetComponentInChildren<Cube>();
+        _game = GetComponentInParent<Game>();
+        _powerJumpFillImage = PowerJumpBarFill.GetComponent<Image>();
 
         if (PlayerPrefs.GetString("Prompt") == "True")
         {
@@ -36,11 +41,6 @@ public class JumpClickController : MonoBehaviour
                 "Нажми на экран и удерживай, чтобы прыгнуть. Получай очки за каждое попадание по кубу");
             RulesText.gameObject.SetActive(true);
         }
-    }
-
-    private void FixedUpdate()
-    {
-        gameCube.Squeeze(clickDetected);
     }
 
 #if UNITY_IOS || UNITY_ANDROID
@@ -52,49 +52,43 @@ public class JumpClickController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                ClickToScreen();
+                OnCompressedCube();
+                IsClickDetected = true;
+                _startTime = Time.time;
             }
             if (touch.phase == TouchPhase.Ended)
             {
-                EndClick();
+                IsClickDetected = false;
+                var pushTime = Time.time - _startTime;
+                _gameCube?.Jump(pushTime);
+                GetComponent<AudioSource>().Stop();
+
+                if (RulesText.gameObject.activeSelf)
+                {
+                    RulesText.gameObject.SetActive(false);
+                }
+
+                PowerJumpBar.value = 0f;
             }
         }
     }
 
 #endif
 
-    private void LateUpdate()
-    {
-        SetHealthBar();
-    }
-
 #if UNITY_EDITOR
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
-        ClickToScreen();
+        OnCompressedCube();
+        IsClickDetected = true;
+        _startTime = Time.time;
     }
 
     private void OnMouseUp()
     {
-        EndClick();
-    }
-
-#endif
-
-    private void ClickToScreen()
-    {
-        clickDetected = true;
-        gameCube?.PlayAudioSqueeze(clickDetected);
-
-        startTime = Time.time;
-    }
-
-    private void EndClick()
-    {
-        clickDetected = false;
-        var pushTime = Time.time - startTime;
-        gameCube?.Jump(pushTime);
+        IsClickDetected = false;
+        var pushTime = Time.time - _startTime;
+        _gameCube?.Jump(pushTime);
         GetComponent<AudioSource>().Stop();
 
         if (RulesText.gameObject.activeSelf)
@@ -105,29 +99,36 @@ public class JumpClickController : MonoBehaviour
         PowerJumpBar.value = 0f;
     }
 
+#endif
+
+    private void LateUpdate()
+    {
+        SetHealthBar();
+    }
+
     private void SetHealthBar()
     {
-        if (clickDetected && !game.EndGameButtons.activeSelf)
+        if (IsClickDetected && !_game.EndGameButtons.activeSelf)
         {
-            var pushTime = Time.time - startTime;
+            var pushTime = Time.time - _startTime;
 
-            PowerJumpBar.value = gameCube.GetForces(pushTime);
+            PowerJumpBar.value = _gameCube.GetForces(pushTime);
 
             if (PowerJumpBar.value >= 300f)
             {
-                powerJumpFillImage.color = new Color(1f, 0, 0); // red;
+                _powerJumpFillImage.color = new Color(1f, 0, 0); // red;
             }
             else if (PowerJumpBar.value > 220f)
             {
-                powerJumpFillImage.color = new Color(1f, 0.5f, 0); // orange;
+                _powerJumpFillImage.color = new Color(1f, 0.5f, 0); // orange;
             }
             else if (PowerJumpBar.value >= 160f)
             {
-                powerJumpFillImage.color = new Color(0, 1f, 0); // green;
+                _powerJumpFillImage.color = new Color(0, 1f, 0); // green;
             }
             else if (PowerJumpBar.value < 160f)
             {
-                powerJumpFillImage.color = new Color(1f, 1f, 0); // yellow;
+                _powerJumpFillImage.color = new Color(1f, 1f, 0); // yellow;
             }
         }
     }

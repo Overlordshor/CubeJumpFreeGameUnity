@@ -62,6 +62,7 @@
     <Compile Include="Assets\GooglePlayGames\OurUtils\PlatformUtils.cs" />
     <Compile Include="Assets\GooglePlayGames\OurUtils\Logger.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\Game\CollisionHandler.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Nearby\AdvertisingResult.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Events\Event.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Video\VideoCaptureState.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\GooglePlayGames\BasicApi\SavedGame\ISavedGameMetadata.cs" />
     <Compile Include="Assets\Scripts\MainScene\Language.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\Buttons.cs" />
+    <Compile Include="Assets\Scripts\Game\PrecisionHandler.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\Shop\ShopButton.cs" />
     <Compile Include="Assets\Scripts\GameEventListener.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\SignInInteractivity.cs" />
@@ -102,11 +104,13 @@
     <Compile Include="Assets\GooglePlayGames\OurUtils\PlayGamesHelperObject.cs" />
     <Compile Include="Assets\GooglePlayGames\ISocialPlatform\PlayGamesLeaderboard.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonPrompt.cs" />
+    <Compile Include="Assets\Scripts\Game\Breaker.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\SignInStatus.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\Scripts\MainScene\SceneArrengement.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\Android\AndroidJavaConverter.cs" />
     <Compile Include="Assets\Scripts\MainScene\TextFade.cs" />
+    <Compile Include="Assets\Scripts\Game\CubeSqueezer.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\Android\AndroidTaskUtils.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Nearby\NearbyConnectionConfiguration.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\PlayerProfile.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="Assets\GooglePlayGames\ISocialPlatform\PlayGamesLocalUser.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\SignInHelper.cs" />
     <Compile Include="Assets\Scripts\MainScene\Buttons\CancelExitButton.cs" />
+    <Compile Include="Assets\Scripts\Game\AudioPlayer.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\Android\AndroidClient.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Events\IEventsClient.cs" />
@@ -147,10 +152,10 @@
     <Compile Include="Assets\Scripts\MainScene\Buttons\ButtonLanguage.cs" />
     <Compile Include="Assets\GooglePlayGames\ISocialPlatform\PlayGamesUserProfile.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Nearby\EndpointDetails.cs" />
+    <Compile Include="Assets\Scripts\Game\ICubeEventComponent.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
     <Compile Include="Assets\Scripts\MainScene\GoogleServicesManager.cs" />
-    <Compile Include="Assets\Scripts\Game\Breaker.cs" />
-    <Compile Include="Assets\Scripts\Game\AudioPlayer.cs" />
+    <Compile Include="Assets\Scripts\Game\Spawner.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />

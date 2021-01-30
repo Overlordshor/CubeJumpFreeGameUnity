@@ -1,157 +1,43 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public delegate void OnFellGroundDelegate();
-
-public class Cube : MonoBehaviour
+public class Cube : MonoBehaviour, ICubeEventComponent
 {
-    private bool _isJumped = false;
-    private bool _isGround = false;
-    private bool _isTransferControl = false;
-    private bool _playedAudioSqueeze = false;
-
-    private float _originalScaleCube = 0.6f;
-    private float _compressionScaleCube = 0.3f;
-
-    private Vector3 _forceCompression = new Vector3(0, 0.01f, 0f);
-
-    private Transform _transformCube;
     private Rigidbody _rigidbodyCube;
     public Game Game;
-    private AudioSource _audioSource;
 
-    private MeshRenderer _meshRenderer;
-    private Color _colorDefault;
-
-    [SerializeField] private AudioClip _audioPass, _audioCrash, _audioHit, _audioSqueeze;
-    [SerializeField] private GameObject _brokenCube, _expolosion, _star;
-
-    public event OnFellGroundDelegate OnFellGround;
+    private CollisionHandler _collision;
 
     public float ForceJump { get; private set; }
-    public float ReducedScale { get; private set; }
+
+    [HideInInspector] public bool IsJumped { get; private set; } = false;
+    [HideInInspector] public bool IsPlayerControl { get; private set; } = true;
+    [HideInInspector] public bool IsGround { get; private set; } = true;
 
     private void Awake()
     {
-        ReducedScale = 0.01f;
         Game = FindObjectOfType<Game>();
     }
 
     private void Start()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
-        _colorDefault = _meshRenderer.material.color;
-
-        _transformCube = gameObject.GetComponent<Transform>();
+        _collision = GetComponent<CollisionHandler>();
         _rigidbodyCube = gameObject.GetComponent<Rigidbody>();
 
-        _audioSource = GetComponent<AudioSource>();
-
-        Game.AppearedNewCube = false;
-    }
-
-    public void SetCompressionScale(int index)
-    {
-        if (Game.IsMode == Mode.Reduction)
-        {
-            if (_originalScaleCube > ReducedScale)
-            {
-                _originalScaleCube -= ReducedScale * index;
-
-                if (_compressionScaleCube > ReducedScale)
-                {
-                    _compressionScaleCube -= ReducedScale * index;
-                }
-            }
-        }
-    }
-
-    private void PlayAudio(AudioClip audio)
-    {
-        _audioSource.clip = audio;
-        _audioSource.Play();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == (int)Layer.Ground)
-        {
-            _isGround = true;
-
-            if (_isJumped)
-            {
-                OnFellGround();
-                if (!_isTransferControl)
-                {
-                    Game.DisplayButtons();
-                }
-            }
-        }
-        if (collision.gameObject.layer == (int)Layer.Cube)
-        {
-            if (!_isTransferControl && _isJumped)
-            {
-                if (transform.position.x >= collision.transform.position.x - collision.transform.position.x * 20 / 100 &&
-                    transform.position.x <= collision.transform.position.x + collision.transform.position.x * 20 / 100)
-                {
-                    _rigidbodyCube.freezeRotation = true;
-                    _meshRenderer.material.color = new Color(_colorDefault.r / 2, 1f, _colorDefault.b / 2, 0.1f); // green
-                }
-                else
-                {
-                    _rigidbodyCube.freezeRotation = false;
-                    _meshRenderer.material.color = new Color(1f, _colorDefault.g / 2, _colorDefault.b / 2, 0.1f); // red
-                }
-
-                Invoke(nameof(ResetMaterial), 1f);
-
-                Game.GetReward();
-                Game.CreateNewCube();
-                PlayAudio(_audioHit);
-                _isTransferControl = true;
-            }
-        }
-    }
-
-    private void ResetMaterial()
-    {
-        _meshRenderer.material.color = _colorDefault;
-    }
-
-    public void PlayAudioSqueeze(bool clickDetected)
-    {
-        if (clickDetected && !_playedAudioSqueeze)
-        {
-            PlayAudio(_audioSqueeze);
-            _playedAudioSqueeze = true;
-        }
-    }
-
-    public void Squeeze(bool clickDetected)
-    {
-        if (clickDetected && _transformCube.localScale.y > _compressionScaleCube && _isGround)
-        {
-            _transformCube.localScale -= _forceCompression;
-        }
-        else if (_transformCube.localScale.y < _originalScaleCube)
-        {
-            _transformCube.localScale += _forceCompression * 2;
-        }
+        SubscribeOnEvent();
     }
 
     public void Jump(float pushtime)
     {
-        if (_isGround)
+        if (IsGround)
         {
             ForceJump = GetForces(pushtime);
 
             _rigidbodyCube.AddRelativeForce(transform.right * -ForceJump);
             _rigidbodyCube.AddRelativeForce(transform.up * ForceJump * 2.5f);
 
-            _isGround = false;
-            _isJumped = true;
-            Game.LoseJumpAttempt();
-
-            PlayAudio(_audioPass);
+            IsGround = false;
+            IsJumped = true;
         }
     }
 
@@ -169,5 +55,37 @@ public class Cube : MonoBehaviour
         }
 
         return force;
+    }
+
+    public void Cube_OnCompressedCube()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Cube_OnHitCube()
+    {
+        IsPlayerControl = false;
+        _collision.OnJumped -= Cube_OnHitCube;
+    }
+
+    public void Cube_OnJumped()
+    {
+        IsJumped = true;
+        IsGround = false;
+        _collision.OnJumped -= Cube_OnJumped;
+    }
+
+    public void Cube_OnFellGround()
+    {
+        IsPlayerControl = false;
+        IsGround = true;
+        _collision.OnJumped -= Cube_OnFellGround;
+    }
+
+    public void SubscribeOnEvent()
+    {
+        _collision.OnJumped += Cube_OnJumped;
+        _collision.OnJumped += Cube_OnFellGround;
+        _collision.OnJumped += Cube_OnHitCube;
     }
 }

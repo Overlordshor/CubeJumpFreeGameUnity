@@ -808,8 +808,9 @@ namespace GooglePlayGames
             });
         }
 
-        internal static int progressToSteps(double progress, int totalSteps) {
-            return (progress >= 100.0) ? totalSteps : (int) (progress * totalSteps / 100.0);
+        internal static int progressToSteps(double progress, int totalSteps)
+        {
+            return (progress >= 100.0) ? totalSteps : (int)(progress * totalSteps / 100.0);
         }
 
         /// <summary>
@@ -1366,18 +1367,21 @@ namespace GooglePlayGames
                 case TimeScope.AllTime:
                     timeSpan = LeaderboardTimeSpan.AllTime;
                     break;
+
                 case TimeScope.Week:
                     timeSpan = LeaderboardTimeSpan.Weekly;
                     break;
+
                 case TimeScope.Today:
                     timeSpan = LeaderboardTimeSpan.Daily;
                     break;
+
                 default:
                     timeSpan = LeaderboardTimeSpan.AllTime;
                     break;
             }
 
-            ((PlayGamesLeaderboard) board).loading = true;
+            ((PlayGamesLeaderboard)board).loading = true;
             GooglePlayGames.OurUtils.Logger.d("LoadScores, board=" + board +
                                               " callback is " + callback);
             mClient.LoadScores(
@@ -1387,7 +1391,7 @@ namespace GooglePlayGames
                 board.userScope == UserScope.FriendsOnly ? LeaderboardCollection.Social : LeaderboardCollection.Public,
                 timeSpan,
                 (scoreData) => HandleLoadingScores(
-                    (PlayGamesLeaderboard) board, scoreData, callback));
+                    (PlayGamesLeaderboard)board, scoreData, callback));
         }
 
         /// <summary>Asks user to give permissions for the given scopes.</summary>
@@ -1395,7 +1399,7 @@ namespace GooglePlayGames
         /// <param name="callback">Callback used to indicate the outcome of the operation.</param>
         public void RequestPermission(string scope, Action<SignInStatus> callback)
         {
-            RequestPermissions(new string[] {scope}, callback);
+            RequestPermissions(new string[] { scope }, callback);
         }
 
         /// <summary>Asks user to give permissions for the given scopes.</summary>
@@ -1419,7 +1423,7 @@ namespace GooglePlayGames
         /// <returns><c>true</c>, if given, <c>false</c> otherwise.</returns>
         public bool HasPermission(string scope)
         {
-            return HasPermissions(new string[] {scope});
+            return HasPermissions(new string[] { scope });
         }
 
         /// <summary>Returns whether or not user has given permissions for given scopes.</summary>
@@ -1669,11 +1673,13 @@ namespace GooglePlayGames
         {
             if (toConvert == null)
             {
-                return delegate { };
+                return delegate
+                { };
             }
 
             return (val) => PlayGamesHelperObject.RunOnGameThread(() => toConvert(val));
         }
     }
 }
+
 #endif

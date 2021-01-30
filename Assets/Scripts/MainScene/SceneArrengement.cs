@@ -8,9 +8,10 @@ public class SceneArrengement : MonoBehaviour
     private Game _game;
     private SpawnCubes _spawnCubes;
 
+    [SerializeField] private GameObject _cubePrefab, _mainCube;
+
     public Text GameNameText, PlayGameText, PriceText, ExitText;
     public Buttons Buttons;
-    public GameObject MainCube;
     public GameObject ShopListCubes;
 
     [SerializeField]
@@ -60,7 +61,7 @@ public class SceneArrengement : MonoBehaviour
                 if (PlayerPrefs.GetString(Keys.Skin) == cube.ID)
                 {
                     Material loadMaterial = cube.Material;
-                    MainCube.GetComponent<MeshRenderer>().material = loadMaterial;
+                    _mainCube.GetComponent<MeshRenderer>().material = loadMaterial;
                     break;
                 }
             }
@@ -90,9 +91,9 @@ public class SceneArrengement : MonoBehaviour
 
     private void Update()
     {
-        if (!MainCube.GetComponent<Animation>().isPlaying)
+        if (!_mainCube.GetComponent<Animation>().isPlaying)
         {
-            MainCube.AddComponent<Rigidbody>().mass = 10;
+            _mainCube.AddComponent<Rigidbody>().mass = 10;
             SwitchScriptsScene();
         }
     }
@@ -106,14 +107,15 @@ public class SceneArrengement : MonoBehaviour
     private void AnimateStartGameUI()
     {
         Buttons.GoAway();
-        MainCube.GetComponent<Animation>().Play("StartGameCube");
+        _mainCube.GetComponent<Animation>().Play("StartGameCube");
     }
 
     private void SwitchScriptsScene()
     {
-        _spawnCubes.GetNewCube();
-
         GetComponentInChildren<JumpClickController>().enabled = true;
+
+        _spawnCubes.GetCube(_cubePrefab, _mainCube);
+
         Destroy(this);
     }
 
