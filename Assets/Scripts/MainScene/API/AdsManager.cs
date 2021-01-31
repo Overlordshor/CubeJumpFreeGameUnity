@@ -5,6 +5,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
     [SerializeField] private GameObject _buttonShop, _buttonProceed, _cube, _mainCube;
     private Coin _coin;
+    private Lives _lives;
     private bool _isShop;
     private readonly bool _adsTestMode = false;
 
@@ -13,6 +14,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         InitializeAdvertisements();
 
         _coin = FindObjectOfType<Coin>();
+        _lives = FindObjectOfType<Lives>();
 
         if (!PlayerPrefs.HasKey(Keys.CountRewardAdvertising))
         {
@@ -76,13 +78,14 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             {
                 if (_isShop)
                 {
-                    _coin.Reward();
+                    _coin.AddReward();
                     PlayerPrefs.SetInt(Keys.CountRewardAdvertising, PlayerPrefs.GetInt(Keys.CountRewardAdvertising) + 1);
                 }
                 else
                 {
                     var spawn = FindObjectOfType<SpawnCubes>();
                     spawn.GetCube(_cube, _mainCube);
+                    _lives.Add();
                     PlayerPrefs.SetString(Keys.ContinuedAdvertising, "True");
                 }
             }

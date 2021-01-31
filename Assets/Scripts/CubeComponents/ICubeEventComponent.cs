@@ -8,5 +8,5 @@
 
     public void Cube_OnFellGround();
 
-    public void SubscribeOnEvent();
+    public void SubscribeOnEvents();
 }

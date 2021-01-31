@@ -10,10 +10,12 @@ public class JumpClickController : MonoBehaviour
     private float _startTime;
 
     private Cube _gameCube;
-    private Game _game;
+    private Lives _lives;
+
+    [SerializeField] private Text _classicRulesText, _reductionRulesText;
+    [SerializeField] private GameObject _rules;
 
     public GameObject Cube;
-    public Text RulesText;
 
     public Slider PowerJumpBar;
     public GameObject PowerJumpBarFill;
@@ -25,15 +27,23 @@ public class JumpClickController : MonoBehaviour
     private void Start()
     {
         _gameCube = Cube.GetComponentInChildren<Cube>();
-        _game = GetComponentInParent<Game>();
+        _lives = FindObjectOfType<Lives>();
         _powerJumpFillImage = PowerJumpBarFill.GetComponent<Image>();
 
         if (PlayerPrefs.GetString("Prompt") == "True")
         {
-            Language.PrintAnyLanguage(RulesText,
-                "Tap the screen and hold to jump. Get points for every cube hit",
-                "Нажми на экран и удерживай, чтобы прыгнуть. Получай очки за каждое попадание по кубу");
-            RulesText.gameObject.SetActive(true);
+            _rules.SetActive(true);
+
+            switch (Game.IsMode)
+            {
+                case Mode.Classic:  
+                    _classicRulesText.gameObject.SetActive(true);
+                    break;
+
+                case Mode.Reduction:
+                    _reductionRulesText.gameObject.SetActive(true);
+                    break;
+            }
         }
     }
 
@@ -45,7 +55,10 @@ public class JumpClickController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                OnCompressedCube();
+                if (OnCompressedCube != null)
+                {
+                    OnCompressedCube();
+                }
                 IsClickDetected = true;
                 _startTime = Time.time;
             }
@@ -56,10 +69,7 @@ public class JumpClickController : MonoBehaviour
                 _gameCube?.Jump(pushTime);
                 GetComponent<AudioSource>().Stop();
 
-                if (RulesText.gameObject.activeSelf)
-                {
-                    RulesText.gameObject.SetActive(false);
-                }
+                _rules.SetActive(false);
 
                 PowerJumpBar.value = 0f;
             }
@@ -72,7 +82,10 @@ public class JumpClickController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        OnCompressedCube();
+        if (OnCompressedCube != null)
+        {
+            OnCompressedCube();
+        }
         IsClickDetected = true;
         _startTime = Time.time;
     }
@@ -84,10 +97,7 @@ public class JumpClickController : MonoBehaviour
         _gameCube?.Jump(pushTime);
         GetComponent<AudioSource>().Stop();
 
-        if (RulesText.gameObject.activeSelf)
-        {
-            RulesText.gameObject.SetActive(false);
-        }
+        _rules.SetActive(false);
 
         PowerJumpBar.value = 0f;
     }
@@ -96,7 +106,7 @@ public class JumpClickController : MonoBehaviour
 
     private void SetHealthBar()
     {
-        if (IsClickDetected && !_game.EndGameButtons.activeSelf)
+        if (IsClickDetected && !_lives.Ended())
         {
             var pushTime = Time.time - _startTime;
 

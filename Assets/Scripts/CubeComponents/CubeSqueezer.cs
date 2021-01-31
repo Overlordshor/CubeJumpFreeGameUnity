@@ -27,7 +27,7 @@ public class CubeSqueezer : MonoBehaviour, ICubeEventComponent
         _jumpClickController = FindObjectOfType<JumpClickController>();
         _game = FindObjectOfType<Game>();
 
-        SubscribeOnEvent();
+        SubscribeOnEvents();
     }
 
     private void FixedUpdate()
@@ -90,7 +90,7 @@ public class CubeSqueezer : MonoBehaviour, ICubeEventComponent
         _collision.OnFellGround -= Cube_OnFellGround;
     }
 
-    public void SubscribeOnEvent()
+    public void SubscribeOnEvents()
     {
         _jumpClickController.OnCompressedCube += Cube_OnCompressedCube;
         _collision.OnHitCube += Cube_OnHitCube;

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class Buttons : MonoBehaviour
 {
-    [SerializeField] private GameObject _shop;
     private float _speed;
     private bool _move = false;
     private RectTransform _buttonRect;

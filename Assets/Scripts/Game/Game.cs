@@ -2,21 +2,15 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public partial class Game : MonoBehaviour, ICubeEventComponent
+public partial class Game : MonoBehaviour
 {
-    private int _lives = 1;
-
     private AdsManager _adsManager;
-    private CollisionHandler _collision;
 
-    [SerializeField] private GameObject _canvas;
+    [SerializeField] private GameObject _exitPanel, _buttons, _rules;
 
     public GameObject DeactivatedCubes;
-    public GameObject EndGameButtons, ExitPanel, Buttons;
 
     public Text LivesText;
-
-    public Transform DeathStars;
 
     public static Mode IsMode { get; set; }
 
@@ -29,12 +23,6 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
     private void Update()
     {
         ShowExitPanel();
-    }
-
-    private void DisplayEndGameButtons()
-    {
-        EndGameButtons.SetActive(true);
-        EndGameButtons.transform.Find("AdvertisingButton").GetComponent<AdvertisingButton>().Display(false);
     }
 
     public void Restart()
@@ -68,59 +56,18 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ExitPanel.SetActive(true);
-                Buttons?.SetActive(false);
+                _exitPanel.SetActive(true);
+                _buttons?.SetActive(false);
+                _rules.SetActive(false);
             }
         }
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ExitPanel.SetActive(true);
-            Buttons?.SetActive(false);
+            _exitPanel.SetActive(true);
+            _buttons?.SetActive(false);
+            _rules.SetActive(false);
         }
 #endif
-    }
-
-    public void Cube_OnCompressedCube()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Cube_OnHitCube()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Cube_OnJumped()
-    {
-        //if (_lives >= 1)
-        //{
-        //    LivesText.gameObject.SetActive(true);
-        //}
-
-        //_lives--;
-        throw new System.NotImplementedException();
-    }
-
-    public void Cube_OnFellGround()
-    {
-        if (_lives == 0)
-        {
-            DisplayEndGameButtons();
-            _collision.OnFellGround -= Cube_OnFellGround;
-        }
-    }
-
-    public void SubscribeOnEvent()
-    {
-        _collision.OnFellGround += Cube_OnFellGround;
-    }
-
-    public void IntroduceCube(GameObject cube)
-    {
-        _collision = cube.GetComponent<CollisionHandler>();
-        var uiEvent = _canvas.GetComponent<UIEvent>();
-        uiEvent.IntroduceCube(_collision);
-        SubscribeOnEvent();
     }
 }

@@ -15,7 +15,7 @@ public class AudioPlayer : MonoBehaviour, ICubeEventComponent
         _game = FindObjectOfType<Game>();
         _audioSource = _game.GetComponent<AudioSource>(); // звук идёт после уничтожения кубов;
 
-        SubscribeOnEvent();
+        SubscribeOnEvents();
     }
 
     public void Cube_OnCompressedCube()
@@ -42,7 +42,7 @@ public class AudioPlayer : MonoBehaviour, ICubeEventComponent
         _collision.OnJumped -= Cube_OnJumped;
     }
 
-    public void SubscribeOnEvent()
+    public void SubscribeOnEvents()
     {
         _collision.OnFellGround += Cube_OnFellGround;
         _collision.OnJumped += Cube_OnJumped;

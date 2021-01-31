@@ -2,15 +2,17 @@
 
 public class SpawnCubes : MonoBehaviour
 {
+    [SerializeField] private GameObject _canvas;
+    private UIEvent _uIEvent;
     private JumpClickController _jumpClickController;
-    private Game _game;
+    private CollisionHandler _collision;
 
     private static int _countCubes;
 
     private void Start()
     {
         _jumpClickController = gameObject.GetComponentInChildren<JumpClickController>();
-        _game = GetComponent<Game>();
+        _uIEvent = _canvas.GetComponentInChildren<UIEvent>();
     }
 
     public void GetCube(GameObject cubePrefab, GameObject mainCube)
@@ -20,15 +22,24 @@ public class SpawnCubes : MonoBehaviour
             mainCube.transform.parent);
         gameCube.layer = (int)Layer.Cube;
         gameCube.GetComponent<MeshRenderer>().material = mainCube.GetComponent<MeshRenderer>().material;
-        if (Game.IsMode == Mode.Reduction)
+
+        _collision = gameCube.GetComponent<CollisionHandler>();
+        _uIEvent.SubcribeCube(_collision);
+        var reducer = gameCube.GetComponent<Reducer>();
+
+        if (Game.IsMode == Mode.Classic)
         {
-            var cube = gameCube.GetComponent<CubeSqueezer>();
-            cube.SetCompressionScale(_countCubes);
-            gameCube.transform.localScale -= new Vector3(cube.ReducedScale, cube.ReducedScale, cube.ReducedScale) * _countCubes;
-            _countCubes++;
+            if (reducer != null)
+            {
+                reducer.enabled = false;
+            }
         }
 
+        //var cube = gameCube.GetComponent<CubeSqueezer>();
+        //cube.SetCompressionScale(_countCubes);
+        //gameCube.transform.localScale -= new Vector3(cube.ReducedScale, cube.ReducedScale, cube.ReducedScale) * _countCubes;
+        //_countCubes++;
+
         _jumpClickController.GetControl(gameCube);
-        _game.IntroduceCube(gameCube);
     }
 }

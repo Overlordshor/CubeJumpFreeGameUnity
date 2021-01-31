@@ -17,7 +17,7 @@ public class Cube : MonoBehaviour, ICubeEventComponent
         _collision = GetComponent<CollisionHandler>();
         _rigidbodyCube = gameObject.GetComponent<Rigidbody>();
 
-        SubscribeOnEvent();
+        SubscribeOnEvents();
     }
 
     public void Jump(float pushtime)
@@ -68,7 +68,7 @@ public class Cube : MonoBehaviour, ICubeEventComponent
     {
     }
 
-    public void SubscribeOnEvent()
+    public void SubscribeOnEvents()
     {
         _collision.OnJumped += Cube_OnJumped;
     }

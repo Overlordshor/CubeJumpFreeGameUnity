@@ -115,7 +115,7 @@ public class SceneArrengement : MonoBehaviour
 
         _spawnCubes.GetCube(_cubePrefab, _mainCube);
 
-        Destroy(this);
+        enabled = false;
     }
 
     public void StartGame(Mode mode)

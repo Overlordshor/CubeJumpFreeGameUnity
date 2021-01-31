@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class Coin : MonoBehaviour
+public class Coin : MonoBehaviour, ICubeEventComponent
 {
     private int _countCoin;
     private Text _textCoin;
+    private CollisionHandler _collision;
 
     private void Start()
     {
@@ -18,13 +20,13 @@ public class Coin : MonoBehaviour
         _textCoin.text = _countCoin.ToString();
     }
 
-    public void Add()
+    private void Add()
     {
         _countCoin++;
         SetCountCoin();
     }
 
-    public void Reward()
+    public void AddReward()
     {
         _countCoin += 50;
         SetCountCoin();
@@ -34,5 +36,37 @@ public class Coin : MonoBehaviour
     {
         _countCoin = PlayerPrefs.GetInt("Coin");
         _textCoin.text = _countCoin.ToString();
+    }
+
+    public void Subcribe(CollisionHandler collision)
+    {
+        _collision = collision;
+        SubscribeOnEvents();
+    }
+
+    public void Cube_OnCompressedCube()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Cube_OnHitCube()
+    {
+        Add();
+        _collision.OnHitCube -= Cube_OnHitCube;
+    }
+
+    public void Cube_OnJumped()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Cube_OnFellGround()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SubscribeOnEvents()
+    {
+        _collision.OnHitCube += Cube_OnHitCube;
     }
 }

@@ -13,6 +13,8 @@ public class PrecisionHandler : MonoBehaviour, ICubeEventComponent
         _collision = GetComponent<CollisionHandler>();
         _rigidbodyCube = GetComponent<Rigidbody>();
         _meshRenderer = GetComponent<MeshRenderer>();
+
+        SubscribeOnEvents();
     }
 
     private void ResetMaterial()
@@ -32,7 +34,7 @@ public class PrecisionHandler : MonoBehaviour, ICubeEventComponent
 
     public void Cube_OnHitCube()
     {
-        var cubeTarget = _collision.CollisionCube;
+        var cubeTarget = _collision.CubeTarget;
         _colorDefault = _meshRenderer.material.color;
 
         if (transform.position.x >= cubeTarget.transform.position.x - cubeTarget.transform.position.x * 20 / 100 &&
@@ -47,7 +49,7 @@ public class PrecisionHandler : MonoBehaviour, ICubeEventComponent
             _meshRenderer.material.color = new Color(1f, _colorDefault.g / 2, _colorDefault.b / 2, 0.1f); // red
         }
 
-        Invoke(nameof(ResetMaterial), 1f);
+        Invoke(nameof(ResetMaterial), 0.1f);
 
         _collision.OnHitCube -= Cube_OnHitCube;
     }
@@ -57,7 +59,7 @@ public class PrecisionHandler : MonoBehaviour, ICubeEventComponent
         throw new NotImplementedException();
     }
 
-    public void SubscribeOnEvent()
+    public void SubscribeOnEvents()
     {
         _collision.OnHitCube += Cube_OnHitCube;
     }

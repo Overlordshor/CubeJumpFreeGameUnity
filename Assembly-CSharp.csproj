@@ -158,6 +158,8 @@
     <Compile Include="Assets\Scripts\CubeComponents\Spawner.cs" />
     <Compile Include="Assets\Scripts\MainScene\UI\UIEvent.cs" />
     <Compile Include="Assets\Scripts\Game\Lives.cs" />
+    <Compile Include="Assets\Scripts\CubeComponents\Reducer.cs" />
+    <Compile Include="Assets\Scripts\MainScene\UI\PanelFade.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />

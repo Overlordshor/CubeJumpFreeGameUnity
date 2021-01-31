@@ -4,18 +4,20 @@ public class Spawner : MonoBehaviour, ICubeEventComponent
 {
     private SpawnCubes _spawnCubes;
     private CollisionHandler _collision;
+    private bool isPossible = false;
 
     private void Start()
     {
         _spawnCubes = FindObjectOfType<SpawnCubes>();
         _collision = GetComponent<CollisionHandler>();
-        SubscribeOnEvent();
+        SubscribeOnEvents();
     }
 
-    public void SubscribeOnEvent()
+    public void SubscribeOnEvents()
     {
         _collision.OnHitCube += Cube_OnHitCube;
         _collision.OnHitCube += Cube_OnFellGround;
+        _collision.OnJumped += Cube_OnJumped;
     }
 
     public void Cube_OnCompressedCube()
@@ -30,12 +32,16 @@ public class Spawner : MonoBehaviour, ICubeEventComponent
 
     public void Cube_OnHitCube()
     {
-        _spawnCubes.GetCube(gameObject, gameObject);
-        _collision.OnHitCube -= Cube_OnHitCube;
+        if (isPossible)
+        {
+            _spawnCubes.GetCube(gameObject, gameObject);
+            _collision.OnHitCube -= Cube_OnHitCube;
+        }
     }
 
     public void Cube_OnJumped()
     {
-        throw new System.NotImplementedException();
+        isPossible = true;
+        _collision.OnJumped -= Cube_OnJumped;
     }
 }

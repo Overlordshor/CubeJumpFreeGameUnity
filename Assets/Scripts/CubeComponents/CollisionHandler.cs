@@ -9,7 +9,7 @@ public delegate void OnHitCubeDelegate();
 public class CollisionHandler : MonoBehaviour
 {
     private Cube _cube;
-    [HideInInspector] public Collision CollisionCube;
+    [HideInInspector] public Collision CubeTarget;
 
     public event OnFellGroundDelegate OnFellGround;
 
@@ -41,7 +41,7 @@ public class CollisionHandler : MonoBehaviour
         }
         else if (collision.gameObject.layer == (int)Layer.Cube)
         {
-            CollisionCube = collision;
+            CubeTarget = collision;
             OnHitCube();
         }
     }

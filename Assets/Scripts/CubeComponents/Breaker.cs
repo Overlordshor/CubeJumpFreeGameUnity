@@ -12,7 +12,7 @@ public class Breaker : MonoBehaviour, ICubeEventComponent
         _game = FindObjectOfType<Game>();
         _collision = GetComponent<CollisionHandler>();
         _deactivatedCubes = _game.DeactivatedCubes.transform;
-        SubscribeOnEvent();
+        SubscribeOnEvents();
     }
 
     public void Cube_OnCompressedCube()
@@ -53,7 +53,7 @@ public class Breaker : MonoBehaviour, ICubeEventComponent
         _collision.OnFellGround -= Cube_OnFellGround;
     }
 
-    public void SubscribeOnEvent()
+    public void SubscribeOnEvents()
     {
         _collision.OnFellGround += Cube_OnFellGround;
     }
