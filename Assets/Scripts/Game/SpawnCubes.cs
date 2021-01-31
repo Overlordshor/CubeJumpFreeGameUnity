@@ -20,7 +20,7 @@ public class SpawnCubes : MonoBehaviour
             mainCube.transform.parent);
         gameCube.layer = (int)Layer.Cube;
         gameCube.GetComponent<MeshRenderer>().material = mainCube.GetComponent<MeshRenderer>().material;
-        if (_game.IsMode == Mode.Reduction)
+        if (Game.IsMode == Mode.Reduction)
         {
             var cube = gameCube.GetComponent<CubeSqueezer>();
             cube.SetCompressionScale(_countCubes);

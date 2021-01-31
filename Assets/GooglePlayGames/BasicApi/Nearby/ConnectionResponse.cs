@@ -20,7 +20,7 @@ namespace GooglePlayGames.BasicApi.Nearby
 
     public struct ConnectionResponse
     {
-        private static readonly byte[] EmptyPayload = new byte[0];
+        private static byte[] EmptyPayload = new byte[0];
 
         public enum Status
         {

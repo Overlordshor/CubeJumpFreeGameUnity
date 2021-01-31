@@ -18,7 +18,7 @@ namespace GooglePlayGames.Android
         // This regex is guarded by \A and \Z which guarantee that the entire string matches this
         // regex. If these were omitted, then illegal strings containing legal subsequences would be
         // allowed (since the regex would match those subsequences).
-        private static readonly Regex ValidFilenameRegex = new Regex(@"\A[a-zA-Z0-9-._~]{1,100}\Z");
+        private static Regex ValidFilenameRegex = new Regex(@"\A[a-zA-Z0-9-._~]{1,100}\Z");
 
         private volatile AndroidJavaObject mSnapshotsClient;
         private volatile AndroidClient mAndroidClient;
@@ -52,9 +52,11 @@ namespace GooglePlayGames.Android
                         case ConflictResolutionStrategy.UseOriginal:
                             resolver.ChooseMetadata(original);
                             return;
+
                         case ConflictResolutionStrategy.UseUnmerged:
                             resolver.ChooseMetadata(unmerged);
                             return;
+
                         case ConflictResolutionStrategy.UseLongestPlaytime:
                             if (original.TotalTimePlayed >= unmerged.TotalTimePlayed)
                             {
@@ -66,6 +68,7 @@ namespace GooglePlayGames.Android
                             }
 
                             return;
+
                         default:
                             OurUtils.Logger.e("Unhandled strategy " + resolutionStrategy);
                             completedCallback(SavedGameRequestStatus.InternalError, null);
@@ -118,15 +121,19 @@ namespace GooglePlayGames.Android
                 case ConflictResolutionStrategy.UseLastKnownGood:
                     conflictPolicy = 2 /* RESOLUTION_POLICY_LAST_KNOWN_GOOD */;
                     break;
+
                 case ConflictResolutionStrategy.UseMostRecentlySaved:
                     conflictPolicy = 3 /* RESOLUTION_POLICY_MOST_RECENTLY_MODIFIED */;
                     break;
+
                 case ConflictResolutionStrategy.UseLongestPlaytime:
                     conflictPolicy = 1 /* RESOLUTION_POLICY_LONGEST_PLAYTIME*/;
                     break;
+
                 case ConflictResolutionStrategy.UseManual:
                     conflictPolicy = -1 /* RESOLUTION_POLICY_MANUAL */;
                     break;
+
                 default:
                     conflictPolicy = 3 /* RESOLUTION_POLICY_MOST_RECENTLY_MODIFIED */;
                     break;
@@ -183,7 +190,8 @@ namespace GooglePlayGames.Android
 
                 AddOnFailureListenerWithSignOut(
                     task,
-                    exception => {
+                    exception =>
+                    {
                         OurUtils.Logger.d("InternalOpen has failed: " + exception.Call<string>("toString"));
                         var status = mAndroidClient.IsAuthenticated() ?
                             SavedGameRequestStatus.InternalError :
@@ -244,7 +252,7 @@ namespace GooglePlayGames.Android
             }
 
             AndroidHelperFragment.ShowSelectSnapshotUI(
-                showCreateSaveUI, showDeleteSaveUI, (int) maxDisplayedSavedGames, uiTitle, callback);
+                showCreateSaveUI, showDeleteSaveUI, (int)maxDisplayedSavedGames, uiTitle, callback);
         }
 
         public void CommitUpdate(ISavedGameMetadata metadata, SavedGameMetadataUpdate updateForMetadata,
@@ -340,7 +348,8 @@ namespace GooglePlayGames.Android
 
                 AddOnFailureListenerWithSignOut(
                     task,
-                    exception => {
+                    exception =>
+                    {
                         OurUtils.Logger.d("FetchAllSavedGames failed: " + exception.Call<string>("toString"));
                         var status = mAndroidClient.IsAuthenticated() ?
                             SavedGameRequestStatus.InternalError :
@@ -355,7 +364,8 @@ namespace GooglePlayGames.Android
         {
             AndroidSnapshotMetadata androidMetadata = metadata as AndroidSnapshotMetadata;
             Misc.CheckNotNull(androidMetadata);
-            using (mSnapshotsClient.Call<AndroidJavaObject>("delete", androidMetadata.JavaMetadata)) ;
+            using (mSnapshotsClient.Call<AndroidJavaObject>("delete", androidMetadata.JavaMetadata))
+                ;
         }
 
         private void AddOnFailureListenerWithSignOut(AndroidJavaObject task, Action<AndroidJavaObject> callback)
@@ -448,7 +458,8 @@ namespace GooglePlayGames.Android
 
                         mAndroidSavedGameClient.AddOnFailureListenerWithSignOut(
                             task,
-                            exception => {
+                            exception =>
+                            {
                                 OurUtils.Logger.d("ResolveConflict failed: " + exception.Call<string>("toString"));
                                 var status = mAndroidSavedGameClient.mAndroidClient.IsAuthenticated() ?
                                     SavedGameRequestStatus.InternalError :
@@ -481,7 +492,8 @@ namespace GooglePlayGames.Android
 
                     mAndroidSavedGameClient.AddOnFailureListenerWithSignOut(
                         task,
-                        exception => {
+                        exception =>
+                        {
                             OurUtils.Logger.d("ChooseMetadata failed: " + exception.Call<string>("toString"));
                             var status = mAndroidSavedGameClient.mAndroidClient.IsAuthenticated() ?
                                 SavedGameRequestStatus.InternalError :
@@ -520,13 +532,15 @@ namespace GooglePlayGames.Android
 
                 if (update.IsDescriptionUpdated)
                 {
-                    using (builder.Call<AndroidJavaObject>("setDescription", update.UpdatedDescription)) ;
+                    using (builder.Call<AndroidJavaObject>("setDescription", update.UpdatedDescription))
+                        ;
                 }
 
                 if (update.IsPlayedTimeUpdated)
                 {
                     using (builder.Call<AndroidJavaObject>("setPlayedTimeMillis",
-                        Convert.ToInt64(update.UpdatedPlayedTime.Value.TotalMilliseconds))) ;
+                        Convert.ToInt64(update.UpdatedPlayedTime.Value.TotalMilliseconds)))
+                        ;
                 }
 
                 return builder.Call<AndroidJavaObject>("build");
@@ -539,4 +553,5 @@ namespace GooglePlayGames.Android
         }
     }
 }
+
 #endif

@@ -37,7 +37,7 @@ namespace GooglePlayGames.BasicApi
     /// </remarks>
     public class Achievement
     {
-        static readonly DateTime UnixEpoch =
+        public static DateTime UnixEpoch =
             new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
         private string mId = string.Empty;
@@ -163,7 +163,7 @@ namespace GooglePlayGames.BasicApi
             set
             {
                 TimeSpan ts = value - UnixEpoch;
-                mLastModifiedTime = (long) ts.TotalMilliseconds;
+                mLastModifiedTime = (long)ts.TotalMilliseconds;
             }
         }
 
@@ -198,4 +198,5 @@ namespace GooglePlayGames.BasicApi
         }
     }
 }
+
 #endif

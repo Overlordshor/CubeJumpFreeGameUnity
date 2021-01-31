@@ -52,7 +52,7 @@ public class CubeSqueezer : MonoBehaviour, ICubeEventComponent
 
     public void SetCompressionScale(int index)
     {
-        if (_game.IsMode == Mode.Reduction)
+        if (Game.IsMode == Mode.Reduction)
         {
             if (_originalScaleCube > ReducedScale)
             {

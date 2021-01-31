@@ -4,13 +4,12 @@ using UnityEngine.UI;
 
 public partial class Game : MonoBehaviour, ICubeEventComponent
 {
-    private int _jumpAttempt = 1;
+    private int _lives = 1;
 
-    private Score _score;
-
-    private Coin _coin;
     private AdsManager _adsManager;
     private CollisionHandler _collision;
+
+    [SerializeField] private GameObject _canvas;
 
     public GameObject DeactivatedCubes;
     public GameObject EndGameButtons, ExitPanel, Buttons;
@@ -19,13 +18,10 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
 
     public Transform DeathStars;
 
-    public Mode IsMode { get; set; }
+    public static Mode IsMode { get; set; }
 
     private void Start()
     {
-        _score = GetComponent<Score>();
-        _coin = GetComponent<Coin>();
-
         _adsManager = FindObjectOfType<AdsManager>();
         _adsManager.InitializeAdvertisements();
     }
@@ -33,7 +29,6 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
     private void Update()
     {
         ShowExitPanel();
-        Language.PrintAnyLanguage(LivesText, "Lives: " + _jumpAttempt.ToString(), "Жизней: " + _jumpAttempt.ToString());
     }
 
     private void DisplayEndGameButtons()
@@ -67,12 +62,6 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
         SceneManager.LoadScene(0); // Main;
     }
 
-    private void GetReward()
-    {
-        _score.Add();
-        _coin.Add();
-    }
-
     private void ShowExitPanel()
     {
         if (Application.platform == RuntimePlatform.Android)
@@ -99,24 +88,23 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
 
     public void Cube_OnHitCube()
     {
-        GetReward();
-        _collision.OnFellGround -= Cube_OnHitCube;
+        throw new System.NotImplementedException();
     }
 
     public void Cube_OnJumped()
     {
-        if (_jumpAttempt >= 1)
-        {
-            LivesText.gameObject.SetActive(true);
-        }
+        //if (_lives >= 1)
+        //{
+        //    LivesText.gameObject.SetActive(true);
+        //}
 
-        _jumpAttempt--;
-        _collision.OnFellGround -= Cube_OnJumped;
+        //_lives--;
+        throw new System.NotImplementedException();
     }
 
     public void Cube_OnFellGround()
     {
-        if (/*_cube.IsJumped && !_cube.IsPlayerControl && */_jumpAttempt == 0)
+        if (_lives == 0)
         {
             DisplayEndGameButtons();
             _collision.OnFellGround -= Cube_OnFellGround;
@@ -126,13 +114,13 @@ public partial class Game : MonoBehaviour, ICubeEventComponent
     public void SubscribeOnEvent()
     {
         _collision.OnFellGround += Cube_OnFellGround;
-        _collision.OnFellGround += Cube_OnJumped;
-        _collision.OnFellGround += Cube_OnHitCube;
     }
 
     public void IntroduceCube(GameObject cube)
     {
         _collision = cube.GetComponent<CollisionHandler>();
+        var uiEvent = _canvas.GetComponent<UIEvent>();
+        uiEvent.IntroduceCube(_collision);
         SubscribeOnEvent();
     }
 }

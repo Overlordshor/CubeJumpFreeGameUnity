@@ -14,7 +14,6 @@ public class JumpClickController : MonoBehaviour
 
     public GameObject Cube;
     public Text RulesText;
-    public GameObject DeactivatedCubes;
 
     public Slider PowerJumpBar;
     public GameObject PowerJumpBarFill;
@@ -22,11 +21,6 @@ public class JumpClickController : MonoBehaviour
     public event OnCompressedCubeDelegate OnCompressedCube;
 
     public bool IsClickDetected { get; private set; } = false;
-
-    public void GetControl(GameObject cube)
-    {
-        _gameCube = cube.GetComponentInChildren<Cube>();
-    }
 
     private void Start()
     {
@@ -43,10 +37,9 @@ public class JumpClickController : MonoBehaviour
         }
     }
 
-#if UNITY_IOS || UNITY_ANDROID
-
     private void Update()
     {
+#if UNITY_IOS || UNITY_ANDROID
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -71,13 +64,13 @@ public class JumpClickController : MonoBehaviour
                 PowerJumpBar.value = 0f;
             }
         }
-    }
-
 #endif
+        SetHealthBar();
+    }
 
 #if UNITY_EDITOR
 
-    public void OnMouseDown()
+    private void OnMouseDown()
     {
         OnCompressedCube();
         IsClickDetected = true;
@@ -100,11 +93,6 @@ public class JumpClickController : MonoBehaviour
     }
 
 #endif
-
-    private void LateUpdate()
-    {
-        SetHealthBar();
-    }
 
     private void SetHealthBar()
     {
@@ -131,5 +119,10 @@ public class JumpClickController : MonoBehaviour
                 _powerJumpFillImage.color = new Color(1f, 1f, 0); // yellow;
             }
         }
+    }
+
+    public void GetControl(GameObject cube)
+    {
+        _gameCube = cube.GetComponent<Cube>();
     }
 }

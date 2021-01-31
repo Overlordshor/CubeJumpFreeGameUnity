@@ -33,7 +33,7 @@ namespace GooglePlayGames.BasicApi
         /// <summary>
         /// The default configuration.
         /// </summary>
-        public static readonly PlayGamesClientConfiguration DefaultConfiguration =
+        public static PlayGamesClientConfiguration DefaultConfiguration =
             new Builder()
                 .Build();
 
@@ -269,7 +269,8 @@ namespace GooglePlayGames.BasicApi
             /// <returns>The builder.</returns>
             public Builder AddOauthScope(string scope)
             {
-                if (mScopes == null) mScopes = new List<string>();
+                if (mScopes == null)
+                    mScopes = new List<string>();
                 mScopes.Add(scope);
                 return this;
             }
@@ -350,8 +351,9 @@ namespace GooglePlayGames.BasicApi
 
         public override bool Equals(object obj)
         {
-            return this == (PlayGamesClientConfiguration) obj;
+            return this == (PlayGamesClientConfiguration)obj;
         }
     }
 }
+
 #endif

@@ -5,14 +5,12 @@ using UnityEngine.UI;
 
 public class SceneArrengement : MonoBehaviour
 {
-    private Game _game;
     private SpawnCubes _spawnCubes;
 
     [SerializeField] private GameObject _cubePrefab, _mainCube;
 
-    public Text GameNameText, PlayGameText, PriceText, ExitText;
-    public Buttons Buttons;
-    public GameObject ShopListCubes;
+    [SerializeField] private Text _gameNameText, _playGameText, _exitText, _livesText;
+    [SerializeField] private Buttons _buttons;
 
     [SerializeField]
     private List<CubeData> cubesData;
@@ -23,7 +21,6 @@ public class SceneArrengement : MonoBehaviour
     private void Start()
     {
         _spawnCubes = GetComponent<SpawnCubes>();
-        _game = GetComponent<Game>();
 
         SetLanguage();
         SetSound();
@@ -80,12 +77,14 @@ public class SceneArrengement : MonoBehaviour
         }
         if (PlayerPrefs.HasKey(Keys.Language))
         {
-            Language.PrintAnyLanguage(PlayGameText,
+            Language.PrintAnyLanguage(_playGameText,
                "TAP TO PLAY",
                "НАЖМИ ДЛЯ ИГРЫ");
-            Language.PrintAnyLanguage(ExitText,
+            Language.PrintAnyLanguage(_exitText,
                 "Quit the game?",
                 "Выйти из игры?");
+            var countLives = _livesText.GetComponent<Lives>();
+            countLives.Print();
         }
     }
 
@@ -100,13 +99,13 @@ public class SceneArrengement : MonoBehaviour
 
     private void SwtichTextsScene()
     {
-        GameNameText.text = "0";
-        PlayGameText.gameObject.SetActive(false);
+        _gameNameText.text = "0";
+        _playGameText.gameObject.SetActive(false);
     }
 
     private void AnimateStartGameUI()
     {
-        Buttons.GoAway();
+        _buttons.GoAway();
         _mainCube.GetComponent<Animation>().Play("StartGameCube");
     }
 
@@ -121,7 +120,7 @@ public class SceneArrengement : MonoBehaviour
 
     public void StartGame(Mode mode)
     {
-        _game.IsMode = mode;
+        Game.IsMode = mode;
         SwtichTextsScene();
         AnimateStartGameUI();
     }

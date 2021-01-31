@@ -4,20 +4,13 @@ using UnityEngine;
 public class Cube : MonoBehaviour, ICubeEventComponent
 {
     private Rigidbody _rigidbodyCube;
-    public Game Game;
 
     private CollisionHandler _collision;
 
     public float ForceJump { get; private set; }
 
     [HideInInspector] public bool IsJumped { get; private set; } = false;
-    [HideInInspector] public bool IsPlayerControl { get; private set; } = true;
     [HideInInspector] public bool IsGround { get; private set; } = true;
-
-    private void Awake()
-    {
-        Game = FindObjectOfType<Game>();
-    }
 
     private void Start()
     {
@@ -35,9 +28,6 @@ public class Cube : MonoBehaviour, ICubeEventComponent
 
             _rigidbodyCube.AddRelativeForce(transform.right * -ForceJump);
             _rigidbodyCube.AddRelativeForce(transform.up * ForceJump * 2.5f);
-
-            IsGround = false;
-            IsJumped = true;
         }
     }
 
@@ -64,8 +54,7 @@ public class Cube : MonoBehaviour, ICubeEventComponent
 
     public void Cube_OnHitCube()
     {
-        IsPlayerControl = false;
-        _collision.OnJumped -= Cube_OnHitCube;
+        throw new NotImplementedException();
     }
 
     public void Cube_OnJumped()
@@ -77,15 +66,10 @@ public class Cube : MonoBehaviour, ICubeEventComponent
 
     public void Cube_OnFellGround()
     {
-        IsPlayerControl = false;
-        IsGround = true;
-        _collision.OnJumped -= Cube_OnFellGround;
     }
 
     public void SubscribeOnEvent()
     {
         _collision.OnJumped += Cube_OnJumped;
-        _collision.OnJumped += Cube_OnFellGround;
-        _collision.OnJumped += Cube_OnHitCube;
     }
 }

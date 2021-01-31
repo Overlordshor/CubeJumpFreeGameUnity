@@ -2,16 +2,16 @@
 
 public class Breaker : MonoBehaviour, ICubeEventComponent
 {
-    private Cube _cube;
+    private Game _game;
     private CollisionHandler _collision;
     [SerializeField] private GameObject _brokenCube, _deathStar, _expolosion;
     private Transform _deactivatedCubes;
 
     private void Start()
     {
-        _cube = GetComponent<Cube>();
+        _game = FindObjectOfType<Game>();
         _collision = GetComponent<CollisionHandler>();
-        _deactivatedCubes = _cube.Game.DeactivatedCubes.transform;
+        _deactivatedCubes = _game.DeactivatedCubes.transform;
         SubscribeOnEvent();
     }
 
